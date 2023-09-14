@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class category extends StatefulWidget {
   const category({
@@ -10,7 +11,7 @@ class category extends StatefulWidget {
 }
 
 class _categoryState extends State<category> {
-  var category = ['Residental', 'Commercial', 'Plots', 'Construction'];
+  var category = ['Residential', 'Commercial', 'Plots', 'Construction'];
   var iconcolor = [
     Color(0xffF5CD7A),
     Color(0xff8DCDF5),
@@ -34,7 +35,8 @@ class _categoryState extends State<category> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 50.0, top: 20, right: 50.0,bottom: 30),
+      padding:
+          const EdgeInsets.only(left: 50.0, top: 20, right: 50.0, bottom: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -63,7 +65,9 @@ class _categoryState extends State<category> {
                           width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
-                      child: Icon(Icons.home, color: iconcolor[0], size: 35)),
+                    child: SvgPicture.asset('assets/images/residential.svg',
+                        width: 40.0, color: iconcolor[0]),
+                  ),
                 ),
                 const SizedBox(
                   width: 15.0,
@@ -117,7 +121,8 @@ class _categoryState extends State<category> {
                           width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
-                      child: Icon(Icons.home, color: iconcolor[1], size: 35)),
+                      child: SvgPicture.asset('assets/images/commercial.svg',
+                          width: 40.0, color: iconcolor[1])),
                 ),
                 const SizedBox(
                   width: 15.0,
@@ -171,7 +176,8 @@ class _categoryState extends State<category> {
                           width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
-                      child: Icon(Icons.home, color: iconcolor[2], size: 35)),
+                      child: SvgPicture.asset('assets/images/plots.svg',
+                          width: 40.0, color: iconcolor[2])),
                 ),
                 const SizedBox(
                   width: 15.0,
@@ -225,7 +231,8 @@ class _categoryState extends State<category> {
                           width: 2.0),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
-                      child: Icon(Icons.home, color: iconcolor[3], size: 35)),
+                      child: SvgPicture.asset('assets/images/construction.svg',
+                          width: 40.0, color: iconcolor[3])),
                 ),
                 const SizedBox(
                   width: 15.0,

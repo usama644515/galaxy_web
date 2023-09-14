@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CategoryMobile extends StatefulWidget {
   const CategoryMobile({super.key});
@@ -8,7 +9,7 @@ class CategoryMobile extends StatefulWidget {
 }
 
 class _CategoryMobileState extends State<CategoryMobile> {
-  var category = ['Residental', 'Commercial', 'Plots', 'Construction'];
+  var category = ['Residential', 'Commercial', 'Plots', 'Construction'];
   var iconcolor = [
     Color(0xffF5CD7A),
     Color(0xff8DCDF5),
@@ -63,8 +64,10 @@ class _CategoryMobileState extends State<CategoryMobile> {
                               width: 2.0),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child:
-                              Icon(Icons.home, color: iconcolor[0], size: 30)),
+                          child: SvgPicture.asset(
+                              'assets/images/residential.svg',
+                              width: 30.0,
+                              color: iconcolor[0])),
                     ),
                     const SizedBox(
                       width: 13.0,
@@ -111,8 +114,10 @@ class _CategoryMobileState extends State<CategoryMobile> {
                               width: 2.0),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child:
-                              Icon(Icons.home, color: iconcolor[1], size: 30)),
+                          child: SvgPicture.asset(
+                              'assets/images/commercial.svg',
+                              width: 30.0,
+                              color: iconcolor[1])),
                     ),
                     const SizedBox(
                       width: 13.0,
@@ -167,8 +172,8 @@ class _CategoryMobileState extends State<CategoryMobile> {
                               width: 2.0),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child:
-                              Icon(Icons.home, color: iconcolor[2], size: 30)),
+                          child: SvgPicture.asset('assets/images/plots.svg',
+                              width: 30.0, color: iconcolor[2])),
                     ),
                     const SizedBox(
                       width: 13.0,
@@ -215,8 +220,10 @@ class _CategoryMobileState extends State<CategoryMobile> {
                               width: 2.0),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child:
-                              Icon(Icons.home, color: iconcolor[3], size: 30)),
+                          child: SvgPicture.asset(
+                              'assets/images/construction.svg',
+                              width: 30.0,
+                              color: iconcolor[3])),
                     ),
                     const SizedBox(
                       width: 13.0,

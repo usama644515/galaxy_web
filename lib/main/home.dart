@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:galaxy_web/components/category.dart';
 import 'package:galaxy_web/components/categorymobile.dart';
 import 'package:galaxy_web/components/mobile_navbar.dart';
@@ -8,6 +9,8 @@ import 'package:galaxy_web/components/search_block.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/responsive.dart';
 
+import '../components/productlist.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -16,12 +19,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-      key: _scaffoldKey,
+      backgroundColor: const Color(0xffFFFFFF),
+      key: scaffoldKey,
       drawer: const SideDrawer(),
       body: ListView(
         children: [
@@ -36,21 +39,51 @@ class _HomeState extends State<Home> {
                     : MediaQuery.of(context).size.height * 0.9,
               ),
               Responsive.isMobile(context)
-                  ? MobileNavBar(_scaffoldKey)
+                  ? MobileNavBar(scaffoldKey)
                   : const NavBar(),
               Responsive.isMobile(context)
                   ? MobileSearchBlock(context)
                   : SearchBlock(context),
             ],
           ),
-           Padding(
-            padding: const EdgeInsets.only(left: 25.0, top: 40.0),
+          Padding(
+            padding:  EdgeInsets.only(left: Responsive.isMobile(context)? 20: 50.0, top: 40.0),
             child: Text(
               "Explore more on Galaxy",
-              style: TextStyle(fontSize:Responsive.isMobile(context)? 20.0: 25.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                  fontWeight: FontWeight.bold),
             ),
           ),
-         Responsive.isMobile(context)? CategoryMobile() : category(),
+          Responsive.isMobile(context)
+              ? const CategoryMobile()
+              : const category(),
+          Padding(
+            padding:  EdgeInsets.only(left: Responsive.isMobile(context)? 20:50.0, top: 40.0,right: Responsive.isMobile(context)? 20:50.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Galaxy Projects",
+                  style: TextStyle(
+                      fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Text(
+                    "View All",
+                    style: TextStyle(
+                        fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                        decoration: TextDecoration.underline,
+                        color: const Color(0xff4DB9F4),
+                        fontWeight: FontWeight.w600,),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const ProductList()
         ],
       ),
     );
