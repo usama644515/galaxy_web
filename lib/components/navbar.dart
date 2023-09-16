@@ -267,18 +267,93 @@ class _NavBarState extends State<NavBar> {
               ],
             ),
           ),
-          const Positioned(
-              top: 10,
-              right: 10.0,
-              child: MouseRegion(
+           Positioned(
+            top: 10,
+            right: 10.0,
+            child: 
+            // MouseRegion(
+            //   cursor: SystemMouseCursors.click,
+            //   child: Icon(
+            //     Icons.account_circle,
+            //     color: Colors.white,
+            //     size: 35.0,
+            //   ),
+            // ),
+            Row(
+              children: [
+                MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 35.0,
-                  )))
+                  onEnter: (_) {
+                    setState(() {
+                      loginbtn = true;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      loginbtn = false;
+                    });
+                  },
+                  child: Container(
+                      height: 35,
+                      width: 80,
+                      decoration: BoxDecoration(
+                          // color: signupbtn
+                          //     ? const Color.fromARGB(255, 199, 24, 24)
+                          //     : const Color(0xffFD1A1A),
+                          border: Border.all(
+                              color: loginbtn
+                                  ? const Color(0xffF9A51F)
+                                  : Colors.transparent),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                          child: Text(
+                        'Login',
+                        style: TextStyle(
+                            decoration: loginbtn
+                                ? TextDecoration.underline
+                                : TextDecoration.none,
+                            fontSize: 15.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700),
+                      ))),
+                ),
+                const SizedBox(width: 6.0),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  onEnter: (_) {
+                    setState(() {
+                      signupbtn = true;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      signupbtn = false;
+                    });
+                  },
+                  child: Container(
+                      height: 35,
+                      width: 80,
+                      decoration: BoxDecoration(
+                          color: signupbtn
+                              ? Color.fromARGB(255, 206, 139, 30)
+                              : const Color(0xffF9A51F),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: const Center(
+                          child: Text(
+                        'Signup',
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      ))),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
+  var signupbtn = false;
+  var loginbtn = false;
 }

@@ -18,7 +18,7 @@ class _ProductListState extends State<ProductList> {
         Padding(
           padding:  EdgeInsets.only(left:Responsive.isMobile(context)? 20: 50.0, right:Responsive.isMobile(context)? 20: 50.0, top: 5.0),
           child: SizedBox(
-            height: 350,
+            height: Responsive.isMobile(context)? 260: 350,
             child:
                 //  StreamBuilder<QuerySnapshot>(
                 //   stream:
@@ -60,97 +60,100 @@ class _ProductListState extends State<ProductList> {
               ) {
                 // DocumentSnapshot data =
                 //     snapshot.data!.docs[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 15.0, top: 20.0, bottom: 10),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            'https://pretorianrealtorbuilder.pk/wp-content/uploads/2023/08/WhatsApp-Image-2023-08-26-at-12.29.13-PM-1170x785.jpeg', // Replace with your image URL
-                        imageBuilder: (context, imageProvider) => ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Set the radius here
-                          child: Image(
-                            image: imageProvider,
-                            width: Responsive.isMobile(context)? 200: 310, // Set the desired width
-                            height: Responsive.isMobile(context)? 100: 170, // Set the desired height
-                            fit: BoxFit.cover,
+                return MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 15.0, top: 20.0, bottom: 10),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://pretorianrealtorbuilder.pk/wp-content/uploads/2023/08/WhatsApp-Image-2023-08-26-at-12.29.13-PM-1170x785.jpeg', // Replace with your image URL
+                          imageBuilder: (context, imageProvider) => ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                10.0), // Set the radius here
+                            child: Image(
+                              image: imageProvider,
+                              width: Responsive.isMobile(context)? 200: 310, // Set the desired width
+                              height: Responsive.isMobile(context)? 100: 170, // Set the desired height
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
                       ),
-                    ),
-                     SizedBox(
-                      width:Responsive.isMobile(context)? 200: 310,
-                      child: const Text(
-                        "Exquisite 1 Kanal Corner House For Sale In DHA Multan – A Blend Of Elegance And Location",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w700),
+                       SizedBox(
+                        width:Responsive.isMobile(context)? 200: 310,
+                        child: const Text(
+                          "Exquisite 1 Kanal Corner House For Sale In DHA Multan – A Blend Of Elegance And Location",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.w700),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                     SizedBox(
-                      width: Responsive.isMobile(context)? 200:310,
-                      child: const Text(
-                        "Buch Executive Villas Multan",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                       SizedBox(
+                        width: Responsive.isMobile(context)? 200:310,
+                        child: const Text(
+                          "Buch Executive Villas Multan",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.home_work_outlined,
                             color: Colors.grey,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600),
+                            size: 15.0,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text(
+                            "House",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            width: 25.0,
+                          ),
+                          Icon(
+                            Icons.height,
+                            color: Colors.grey,
+                            size: 15.0,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text(
+                            "5 Marla",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.home_work_outlined,
-                          color: Colors.grey,
-                          size: 15.0,
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          "House",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 14.0, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 25.0,
-                        ),
-                        Icon(
-                          Icons.height,
-                          color: Colors.grey,
-                          size: 15.0,
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          "5 Marla",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 14.0, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             ),
