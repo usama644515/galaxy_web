@@ -9,6 +9,8 @@ import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/responsive.dart';
 
 import '../components/blogitem.dart';
+import '../components/footer.dart';
+import '../components/logosection.dart';
 import '../components/productlist.dart';
 import '../components/whychoose.dart';
 
@@ -112,6 +114,8 @@ class _HomeState extends State<Home> {
             ),
           ),
           const BlogItems(),
+          const LogoSection(),
+          const Footer(),
         ],
       ),
     );
