@@ -7,9 +7,9 @@ import 'package:galaxy_web/components/navbar.dart';
 import 'package:galaxy_web/components/search_block.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/responsive.dart';
-
 import '../components/blogitem.dart';
 import '../components/footer.dart';
+import '../components/footer_mobile.dart';
 import '../components/logosection.dart';
 import '../components/productlist.dart';
 import '../components/whychoose.dart';
@@ -50,7 +50,8 @@ class _HomeState extends State<Home> {
             ],
           ),
           Padding(
-            padding:  EdgeInsets.only(left: Responsive.isMobile(context)? 20: 50.0, top: 40.0),
+            padding: EdgeInsets.only(
+                left: Responsive.isMobile(context) ? 20 : 50.0, top: 40.0),
             child: Text(
               "Explore more on Galaxy",
               style: TextStyle(
@@ -62,7 +63,10 @@ class _HomeState extends State<Home> {
               ? const CategoryMobile()
               : const category(),
           Padding(
-            padding:  EdgeInsets.only(left: Responsive.isMobile(context)? 20:50.0, top: 40.0,right: Responsive.isMobile(context)? 20:50.0),
+            padding: EdgeInsets.only(
+                left: Responsive.isMobile(context) ? 20 : 50.0,
+                top: 40.0,
+                right: Responsive.isMobile(context) ? 20 : 50.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -77,10 +81,11 @@ class _HomeState extends State<Home> {
                   child: Text(
                     "View All",
                     style: TextStyle(
-                        fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
-                        decoration: TextDecoration.underline,
-                        color: const Color(0xff4DB9F4),
-                        fontWeight: FontWeight.w600,),
+                      fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                      decoration: TextDecoration.underline,
+                      color: const Color(0xff4DB9F4),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -89,7 +94,10 @@ class _HomeState extends State<Home> {
           const ProductList(),
           const WhyChooseSection(),
           Padding(
-            padding:  EdgeInsets.only(left: Responsive.isMobile(context)? 20:50.0, top: 40.0,right: Responsive.isMobile(context)? 20:50.0),
+            padding: EdgeInsets.only(
+                left: Responsive.isMobile(context) ? 20 : 50.0,
+                top: 40.0,
+                right: Responsive.isMobile(context) ? 20 : 50.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -104,10 +112,11 @@ class _HomeState extends State<Home> {
                   child: Text(
                     "View All",
                     style: TextStyle(
-                        fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
-                        decoration: TextDecoration.underline,
-                        color: const Color(0xff4DB9F4),
-                        fontWeight: FontWeight.w600,),
+                      fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                      decoration: TextDecoration.underline,
+                      color: const Color(0xff4DB9F4),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -115,7 +124,7 @@ class _HomeState extends State<Home> {
           ),
           const BlogItems(),
           const LogoSection(),
-          const Footer(),
+          Responsive.isMobile(context) ? const FooterMobile() : const Footer(),
         ],
       ),
     );
