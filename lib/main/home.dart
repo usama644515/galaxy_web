@@ -7,12 +7,15 @@ import 'package:galaxy_web/components/navbar.dart';
 import 'package:galaxy_web/components/search_block.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:provider/provider.dart';
 import '../components/blogitem.dart';
 import '../components/footer.dart';
 import '../components/footer_mobile.dart';
 import '../components/logosection.dart';
 import '../components/productlist.dart';
 import '../components/whychoose.dart';
+import '../controllers/MenuController.dart';
+import 'shop.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -76,15 +79,23 @@ class _HomeState extends State<Home> {
                       fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
                       fontWeight: FontWeight.bold),
                 ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "View All",
-                    style: TextStyle(
-                      fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
-                      decoration: TextDecoration.underline,
-                      color: const Color(0xff4DB9F4),
-                      fontWeight: FontWeight.w600,
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Shop');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Shop()));
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Text(
+                      "View All",
+                      style: TextStyle(
+                        fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                        decoration: TextDecoration.underline,
+                        color: const Color(0xff4DB9F4),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

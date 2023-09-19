@@ -1,68 +1,80 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:galaxy_web/responsive.dart';
 
-class ProductList extends StatefulWidget {
-  const ProductList({super.key});
+import '../components/mobile_navbar.dart';
+import '../components/navbar.dart';
+import '../components/side_drawer.dart';
+import '../responsive.dart';
+
+class Shop extends StatefulWidget {
+  const Shop({super.key});
 
   @override
-  State<ProductList> createState() => _ProductListState();
+  State<Shop> createState() => _ShopState();
 }
 
-class _ProductListState extends State<ProductList> {
-  final ScrollController _scrollController = ScrollController();
+class _ShopState extends State<Shop> {
+  var filter = ['Buch Executive Villas', 'DHA Multan', 'Citi Housing'];
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-              left: Responsive.isMobile(context) ? 20 : 50.0,
-              right: Responsive.isMobile(context) ? 20 : 50.0,
-              top: 5.0),
-          child: SizedBox(
-            height: Responsive.isMobile(context) ? 260 : 350,
-            child:
-                //  StreamBuilder<QuerySnapshot>(
-                //   stream:
-                //       firestore //------for select the item in the firestore----
-                //           .collection('Products')
-                //           .where('status', isEqualTo: 'Live')
-                //           .orderBy('rating', descending: true)
-                //           .snapshots(),
-                //   builder: (BuildContext context,
-                //       AsyncSnapshot<QuerySnapshot> snapshot) {
-                //     if (!snapshot.hasData) {
-                //       return Container(
-                //           alignment: Alignment.topCenter,
-                //           margin: const EdgeInsets.only(top: 20),
-                //           child: const CircularProgressIndicator(
-                //             backgroundColor: Colors.grey,
-                //             color: Color(0xffd2b48c),
-                //           ));
-                //     } else if (snapshot.data!.docs.length == 0) {
-                //       return Container(
-                //           alignment: Alignment.topCenter,
-                //           margin: const EdgeInsets.only(top: 20),
-                //           child: Text(translate(Keys.no_store_found)));
-                //     } else {
-                //       return
-                //     }
-                //   },
-                // ),
-                ListView.builder(
-              itemCount: 10,
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    return Scaffold(
+      backgroundColor: const Color(0xffFFFFFF),
+      key: scaffoldKey,
+      drawer: const SideDrawer(),
+      body: ListView(children: [
+        Stack(
+          children: [
+            Container(
+              height: 60,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(color: Colors.black),
+            ),
+            Responsive.isMobile(context)
+                ? MobileNavBar(scaffoldKey)
+                : const NavBar(),
+          ],
+        ),
+        const SizedBox(
+          height: 25.0,
+        ),
+        SizedBox(
+          height: 60,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 20),
+            child: ListView.builder(
+              itemCount: filter.length,
               // snapshot.data!.docs.length > 10
               //     ? 10
               //     : snapshot.data!.docs.length,
               scrollDirection: Axis.horizontal,
-              controller: _scrollController, // Attach ScrollController
+              // controller: _scrollController, // Attach ScrollController
               itemBuilder: (
                 context,
                 index,
               ) {
                 // DocumentSnapshot data =
                 //     snapshot.data!.docs[index];
+                return Filter(data: filter[index]);
+              },
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, // Number of columns
+                mainAxisSpacing: 10.0, // Spacing between rows
+                crossAxisSpacing: 10.0, // Spacing between columns
+                childAspectRatio:
+                    1.0, // Width to height ratio of each grid item
+              ),
+              itemCount: 15,
+              itemBuilder: (BuildContext context, int index) {
+                // Build each grid item
                 return MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Column(
@@ -167,81 +179,58 @@ class _ProductListState extends State<ProductList> {
             ),
           ),
         ),
-        Responsive.isMobile(context)
-            ? const SizedBox()
-            : Positioned(
-                top: 110,
-                right: 30.0,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollToPosition();
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          weight: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-        Responsive.isMobile(context)
-            ? const SizedBox()
-            : Positioned(
-                top: 110,
-                left: 30.0,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollreverse();
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          weight: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-      ],
+      ]),
     );
   }
+}
 
-  var toIndex = 1;
-  var toIndexreverse = 1;
-  // Method to scroll to the next item in the ListView
-  void scrollToPosition() {
-    toIndex++;
-    _scrollController.animateTo(
-      toIndex * 100.0, // Replace 50.0 with the height of your list items
-      duration: Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
+class Filter extends StatefulWidget {
+  const Filter({super.key, this.data});
+  final data;
+  @override
+  State<Filter> createState() => _FilterState();
+}
 
-  void scrollreverse() {
-    toIndex++;
-    _scrollController.animateTo(
-      toIndexreverse *
-          -100.0, // Replace 50.0 with the height of your list items
-      duration: Duration(seconds: 1),
-      curve: Curves.easeInOut,
+class _FilterState extends State<Filter> {
+  var hover = false;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) {
+          setState(() {
+            hover = true;
+          });
+        },
+        onExit: (_) {
+          setState(() {
+            hover = false;
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: hover ? const Color(0xffF9A51F) : Colors.grey),
+              borderRadius: BorderRadius.circular(10.0)),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 12.0,
+              right: 12.0,
+              top: 5.0,
+              bottom: 5.0,
+            ),
+            child: Center(
+              child: Text(widget.data,
+                  style: TextStyle(
+                    color: hover ? const Color(0xffF9A51F) : Colors.black,
+                    fontSize: 17.0,
+                  )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

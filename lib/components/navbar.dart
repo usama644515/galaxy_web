@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
+import '../main/shop.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -41,6 +43,12 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Home');
+                    // Remove all routes and push a new route
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const Home()),
+                      (route) =>
+                          false, // Always return false to remove all routes
+                    );
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -87,6 +95,8 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Shop');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Shop()));
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -267,19 +277,19 @@ class _NavBarState extends State<NavBar> {
               ],
             ),
           ),
-           Positioned(
+          Positioned(
             top: 10,
             right: 10.0,
-            child: 
-            // MouseRegion(
-            //   cursor: SystemMouseCursors.click,
-            //   child: Icon(
-            //     Icons.account_circle,
-            //     color: Colors.white,
-            //     size: 35.0,
-            //   ),
-            // ),
-            Row(
+            child:
+                // MouseRegion(
+                //   cursor: SystemMouseCursors.click,
+                //   child: Icon(
+                //     Icons.account_circle,
+                //     color: Colors.white,
+                //     size: 35.0,
+                //   ),
+                // ),
+                Row(
               children: [
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -354,6 +364,7 @@ class _NavBarState extends State<NavBar> {
       ),
     );
   }
+
   var signupbtn = false;
   var loginbtn = false;
 }

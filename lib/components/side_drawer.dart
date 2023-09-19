@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:provider/provider.dart';
 
+import '../main/home.dart';
+import '../main/shop.dart';
+
 class SideDrawer extends StatefulWidget {
   const SideDrawer({super.key});
 
@@ -56,6 +59,12 @@ class _SideDrawerState extends State<SideDrawer> {
               setState(() {
                 Provider.of<menuController>(context, listen: false)
                   .navmenueSelect('Home');
+                  // Remove all routes and push a new route
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const Home()),
+                      (route) =>
+                          false, // Always return false to remove all routes
+                    );
               });
             },
           ),
@@ -79,6 +88,8 @@ class _SideDrawerState extends State<SideDrawer> {
               setState(() {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('Shop');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Shop()));
               });
             },
           ),
