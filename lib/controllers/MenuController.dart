@@ -18,4 +18,9 @@ class menuController extends ChangeNotifier {
     menue = value;
     notifyListeners();
   }
+  var propertieslist;
+  PropertiesList(value) {
+    propertieslist = value;
+    notifyListeners();
+  }
 }

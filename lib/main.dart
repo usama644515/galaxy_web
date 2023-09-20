@@ -1,23 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
-
+// ignore: depend_on_referenced_packages
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
-    // await Firebase.initializeApp(
-    //   options: const FirebaseOptions(
-    //     apiKey: "AIzaSyAzKh07hDKkOWsPaLWCOAiY83XkhG9Zc_4",
-    //     projectId: "pretorian-realtors-builders",
-    //     storageBucket: "pretorian-realtors-builders.appspot.com",
-    //     messagingSenderId: "562421234036",
-    //     appId: "1:562421234036:web:45f5267765742649565421",
-    //   ),
-    // );
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyC7cbB1HJEYhR80yWnDJUDEJWxXkQnnepM",
+        projectId: "galaxy-realtors-builders",
+        storageBucket: "galaxy-realtors-builders.appspot.com",
+        messagingSenderId: "216059000449",
+        appId: "1:216059000449:web:3c909ced665996854abf80",
+      ),
+    );
   } else {
     // await Firebase.initializeApp();
   }
@@ -31,6 +33,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -39,12 +43,11 @@ class _MyAppState extends State<MyApp> {
           create: (context) => menuController(),
         ),
       ],
-      child: const MaterialApp(
+      child:  const MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Website',
+        title: 'Galaxy Realtors Builders',
         home: Home(),
       ),
     );
   }
 }
-
