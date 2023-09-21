@@ -2,6 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:provider/provider.dart';
+
+import '../controllers/MenuController.dart';
+import 'product_details.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({
@@ -66,106 +70,117 @@ class _ProductListState extends State<ProductList> {
                       DocumentSnapshot data = snapshot.data!.docs[index];
                       return MouseRegion(
                         cursor: SystemMouseCursors.click,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 15.0, top: 20.0, bottom: 10),
-                              child: CachedNetworkImage(
-                                imageUrl: data
-                                    .get('img'), // Replace with your image URL
-                                imageBuilder: (context, imageProvider) =>
-                                    ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      10.0), // Set the radius here
-                                  child: Image(
-                                    image: imageProvider,
-                                    width: Responsive.isMobile(context)
-                                        ? 200
-                                        : 310, // Set the desired width
-                                    height: Responsive.isMobile(context)
-                                        ? 100
-                                        : 170, // Set the desired height
-                                    fit: BoxFit.cover,
+                        child: GestureDetector(
+                          onTap: () {
+                            Provider.of<menuController>(context, listen: false)
+                                .navmenueSelect('Shop');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                         ProductDetails(data: data)));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 15.0, top: 20.0, bottom: 10),
+                                child: CachedNetworkImage(
+                                  imageUrl: data.get(
+                                      'img')[0], // Replace with your image URL
+                                  imageBuilder: (context, imageProvider) =>
+                                      ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Set the radius here
+                                    child: Image(
+                                      image: imageProvider,
+                                      width: Responsive.isMobile(context)
+                                          ? 200
+                                          : 310, // Set the desired width
+                                      height: Responsive.isMobile(context)
+                                          ? 100
+                                          : 170, // Set the desired height
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(
+                                          color: Color(0xffF9A51F))),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
-                                placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(
-                                        color: Color(0xffF9A51F))),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
                               ),
-                            ),
-                            SizedBox(
-                              width: Responsive.isMobile(context) ? 200 : 310,
-                              child: Text(
-                                data.get('title'),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            SizedBox(
-                              width: Responsive.isMobile(context) ? 200 : 310,
-                              child: Text(
-                                data.get('location'),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.home_work_outlined,
-                                  color: Colors.grey,
-                                  size: 15.0,
-                                ),
-                                const SizedBox(
-                                  width: 5.0,
-                                ),
-                                const Text(
-                                  "House",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  width: 25.0,
-                                ),
-                                const Icon(
-                                  Icons.height,
-                                  color: Colors.grey,
-                                  size: 15.0,
-                                ),
-                                const SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  data.get('size'),
+                              SizedBox(
+                                width: Responsive.isMobile(context) ? 200 : 310,
+                                child: Text(
+                                  data.get('title'),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                      fontSize: 14.0,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              SizedBox(
+                                width: Responsive.isMobile(context) ? 200 : 310,
+                                child: Text(
+                                  data.get('location'),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.w600),
                                 ),
-                              ],
-                            ),
-                          ],
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.home_work_outlined,
+                                    color: Colors.grey,
+                                    size: 15.0,
+                                  ),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  const Text(
+                                    "House",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    width: 25.0,
+                                  ),
+                                  const Icon(
+                                    Icons.height,
+                                    color: Colors.grey,
+                                    size: 15.0,
+                                  ),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    data.get('size'),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

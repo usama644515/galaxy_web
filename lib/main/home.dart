@@ -16,6 +16,7 @@ import '../components/productlist.dart';
 import '../components/whychoose.dart';
 import '../controllers/MenuController.dart';
 import 'shop.dart';
+import 'dart:html' as html;
 
 class Home extends StatefulWidget {
   const Home({
@@ -84,6 +85,7 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Shop');
+                        navigateToPage('/Shop');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Shop()));
                   },
@@ -141,4 +143,11 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+  void navigateToPage(String pagePath) {
+  // Change the URL without reloading the page (client-side routing)
+  html.window.history.pushState(null, '', pagePath);
+
+  // Perform any additional navigation logic if needed
+  // For example, you can use the Navigator class to push routes.
+}
 }
