@@ -13,8 +13,8 @@ import '../controllers/MenuController.dart';
 import '../responsive.dart';
 
 class Shop extends StatefulWidget {
-  const Shop({super.key});
-
+  const Shop({super.key, this.categ});
+  final categ;
   @override
   State<Shop> createState() => _ShopState();
 }
@@ -24,19 +24,36 @@ class _ShopState extends State<Shop> {
   var loader = true;
   List<Map<String, dynamic>> data = [];
   getData() {
-    FirebaseFirestore.instance
-        .collection('Properties List')
-        .get()
-        .then((value) {
-      setState(() {
-        data = value.docs.map((DocumentSnapshot doc) {
-          return doc.data() as Map<String, dynamic>;
-        }).toList();
-        loader = false;
+    if (widget.categ == null) {
+      FirebaseFirestore.instance
+          .collection('Properties List')
+          .get()
+          .then((value) {
+        setState(() {
+          data = value.docs.map((DocumentSnapshot doc) {
+            return doc.data() as Map<String, dynamic>;
+          }).toList();
+          loader = false;
+        });
+        // Provider.of<menuController>(context, listen: true).PropertiesList(data);
+        // print(data);
       });
-      // Provider.of<menuController>(context, listen: true).PropertiesList(data);
-      // print(data);
-    });
+    } else {
+      FirebaseFirestore.instance
+          .collection('Properties List')
+          .where('category', isEqualTo: widget.categ)
+          .get()
+          .then((value) {
+        setState(() {
+          data = value.docs.map((DocumentSnapshot doc) {
+            return doc.data() as Map<String, dynamic>;
+          }).toList();
+          loader = false;
+        });
+        // Provider.of<menuController>(context, listen: true).PropertiesList(data);
+        // print(data);
+      });
+    }
   }
 
   @override
@@ -134,7 +151,7 @@ class _ShopState extends State<Shop> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                       ProductDetails(data: data[index])));
+                                      ProductDetails(data: data[index])));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,8 +160,8 @@ class _ShopState extends State<Shop> {
                               padding: const EdgeInsets.only(
                                   right: 15.0, top: 20.0, bottom: 10),
                               child: CachedNetworkImage(
-                                imageUrl: data[index]
-                                    ['img'][0], // Replace with your image URL
+                                imageUrl: data[index]['img']
+                                    [0], // Replace with your image URL
                                 imageBuilder: (context, imageProvider) =>
                                     ClipRRect(
                                   borderRadius: BorderRadius.circular(

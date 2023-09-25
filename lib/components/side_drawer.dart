@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:provider/provider.dart';
 
@@ -159,6 +160,11 @@ class _SideDrawerState extends State<SideDrawer> {
               setState(() {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('Contact');
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const ContactUs()),
+                      (route) =>
+                          false, // Always return false to remove all routes
+                    );
               });
             },
           ),

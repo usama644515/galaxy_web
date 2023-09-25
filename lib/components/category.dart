@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:provider/provider.dart';
+
+import '../main/shop.dart';
 
 class category extends StatefulWidget {
   const category({
@@ -54,19 +58,31 @@ class _categoryState extends State<category> {
             },
             child: Row(
               children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      color: backcolor[0],
-                      border: Border.all(
-                          color:
-                              itemhover[0] ? iconcolor[0] : Colors.transparent,
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: SvgPicture.asset('assets/images/residential.svg',
-                        width: 40.0, color: iconcolor[0]),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Shop');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const Shop(categ: 'residential')));
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: backcolor[0],
+                        border: Border.all(
+                            color: itemhover[0]
+                                ? iconcolor[0]
+                                : Colors.transparent,
+                            width: 2.0),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: SvgPicture.asset('assets/images/residential.svg',
+                          width: 40.0, color: iconcolor[0]),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -110,19 +126,31 @@ class _categoryState extends State<category> {
             },
             child: Row(
               children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      color: backcolor[1],
-                      border: Border.all(
-                          color:
-                              itemhover[1] ? iconcolor[1] : Colors.transparent,
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: SvgPicture.asset('assets/images/commercial.svg',
-                          width: 40.0, color: iconcolor[1])),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Shop');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const Shop(categ: 'commercial')));
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: backcolor[1],
+                        border: Border.all(
+                            color: itemhover[1]
+                                ? iconcolor[1]
+                                : Colors.transparent,
+                            width: 2.0),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                        child: SvgPicture.asset('assets/images/commercial.svg',
+                            width: 40.0, color: iconcolor[1])),
+                  ),
                 ),
                 const SizedBox(
                   width: 15.0,
@@ -165,19 +193,30 @@ class _categoryState extends State<category> {
             },
             child: Row(
               children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      color: backcolor[2],
-                      border: Border.all(
-                          color:
-                              itemhover[2] ? iconcolor[2] : Colors.transparent,
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: SvgPicture.asset('assets/images/plots.svg',
-                          width: 40.0, color: iconcolor[2])),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Shop');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Shop(categ: 'plots')));
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: backcolor[2],
+                        border: Border.all(
+                            color: itemhover[2]
+                                ? iconcolor[2]
+                                : Colors.transparent,
+                            width: 2.0),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                        child: SvgPicture.asset('assets/images/plots.svg',
+                            width: 40.0, color: iconcolor[2])),
+                  ),
                 ),
                 const SizedBox(
                   width: 15.0,
@@ -220,19 +259,33 @@ class _categoryState extends State<category> {
             },
             child: Row(
               children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      color: backcolor[3],
-                      border: Border.all(
-                          color:
-                              itemhover[3] ? iconcolor[3] : Colors.transparent,
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: SvgPicture.asset('assets/images/construction.svg',
-                          width: 40.0, color: iconcolor[3])),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Shop');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const Shop(categ: 'construction')));
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: backcolor[3],
+                        border: Border.all(
+                            color: itemhover[3]
+                                ? iconcolor[3]
+                                : Colors.transparent,
+                            width: 2.0),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                        child: SvgPicture.asset(
+                            'assets/images/construction.svg',
+                            width: 40.0,
+                            color: iconcolor[3])),
+                  ),
                 ),
                 const SizedBox(
                   width: 15.0,
