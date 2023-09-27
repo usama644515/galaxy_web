@@ -20,7 +20,7 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
-  var filter = ['Buch Executive Villas', 'DHA Multan', 'Citi Housing'];
+  var filter = ['Residential', 'Commercial', 'Plots', 'Construction'];
   var loader = true;
   List<Map<String, dynamic>> data = [];
   getData() {
@@ -54,6 +54,28 @@ class _ShopState extends State<Shop> {
         // print(data);
       });
     }
+  }
+
+  filtersearch(var val) {
+    print(data);
+    setState(() {
+      loader = true;
+    });
+    FirebaseFirestore.instance
+        .collection('Properties List')
+        .where('category', isEqualTo: val)
+        .get()
+        .then((value) {
+      setState(() {
+        data = value.docs.map((DocumentSnapshot doc) {
+          return doc.data() as Map<String, dynamic>;
+        }).toList();
+        // print(data);
+        loader = false;
+      });
+      // Provider.of<menuController>(context, listen: true).PropertiesList(data);
+      // print(data);
+    });
   }
 
   @override
@@ -114,7 +136,23 @@ class _ShopState extends State<Shop> {
               ) {
                 // DocumentSnapshot data =
                 //     snapshot.data!.docs[index];
-                return Filter(data: filter[index]);
+                return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (index == 0) {
+                          filtersearch('residential');
+                        }else if(index == 1){
+                          filtersearch('commercial');
+                        }
+                        else if(index == 2){
+                          filtersearch('plots');
+                        }
+                        else if(index == 3){
+                          filtersearch('construction');
+                        }
+                      });
+                    },
+                    child: Filter(data: filter[index]));
               },
             ),
           ),
