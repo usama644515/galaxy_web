@@ -47,6 +47,10 @@ dependencies:
   url_launcher: ^6.1.14
   carousel_slider: ^4.2.1
   expandable_text: ^2.3.0
+  fluttertoast: ^8.2.2
+  image_picker: ^1.0.4
+  flutter_draggable_gridview: ^0.0.8
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

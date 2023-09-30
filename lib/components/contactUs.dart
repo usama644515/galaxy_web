@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/components/footer.dart';
+import 'package:galaxy_web/components/footer_mobile.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/responsive.dart';
 
@@ -143,17 +145,24 @@ class _ContactUsState extends State<ContactUs> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.only(
-                                    left:Responsive.isMobile(context)? 20: MediaQuery.of(context).size.width *
-                                        0.25,
-                                    right:Responsive.isMobile(context)? 20: MediaQuery.of(context).size.width *
-                                        0.25),
+                                    left: Responsive.isMobile(context)
+                                        ? 20
+                                        : MediaQuery.of(context).size.width *
+                                            0.25,
+                                    right: Responsive.isMobile(context)
+                                        ? 20
+                                        : MediaQuery.of(context).size.width *
+                                            0.25),
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 200),
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 30),
                                   decoration: BoxDecoration(
-                                    color: _isHovered? const Color.fromARGB(255, 180, 138, 70):  const Color(
-                                        0xffF9A51F), // Change color on hover
+                                    color: _isHovered
+                                        ? const Color.fromARGB(
+                                            255, 180, 138, 70)
+                                        : const Color(
+                                            0xffF9A51F), // Change color on hover
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Center(
@@ -177,6 +186,7 @@ class _ContactUsState extends State<ContactUs> {
               ),
             ),
           ),
+          Responsive.isMobile(context) ? const FooterMobile() : const Footer(),
         ],
       ),
     );

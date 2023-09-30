@@ -4,6 +4,7 @@ import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import '../main/shop.dart';
+import 'add_product_store.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -236,8 +237,9 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Contact');
-                        Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const ContactUs()),
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const ContactUs()),
                       (route) =>
                           false, // Always return false to remove all routes
                     );
@@ -346,22 +348,30 @@ class _NavBarState extends State<NavBar> {
                       signupbtn = false;
                     });
                   },
-                  child: Container(
-                      height: 35,
-                      width: 80,
-                      decoration: BoxDecoration(
-                          color: signupbtn
-                              ? Color.fromARGB(255, 206, 139, 30)
-                              : const Color(0xffF9A51F),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: const Center(
-                          child: Text(
-                        'Signup',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ))),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddProductStore()));
+                    },
+                    child: Container(
+                        height: 35,
+                        width: 80,
+                        decoration: BoxDecoration(
+                            color: signupbtn
+                                ? const Color.fromARGB(255, 206, 139, 30)
+                                : const Color(0xffF9A51F),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Center(
+                            child: Text(
+                          'Signup',
+                          style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ))),
+                  ),
                 ),
               ],
             ),

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
+import 'package:galaxy_web/components/productlist.dart';
 import '../responsive.dart';
 import 'mobile_navbar.dart';
 import 'navbar.dart';
@@ -59,6 +60,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               const SizedBox(
                 height: 25,
               ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: Responsive.isMobile(context) ? 20 : 50.0,
+                    top: 10.0,
+                    right: Responsive.isMobile(context) ? 20 : 50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Recent Projects",
+                      style: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              const ProductList(),
               Responsive.isMobile(context)
                   ? const FooterMobile()
                   : const Footer(),
