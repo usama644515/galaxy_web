@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/home.dart';
@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+
+import 'router/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +25,8 @@ Future<void> main() async {
   } else {
     // await Firebase.initializeApp();
   }
+  final router = FluroRouter();
+  Routes.configureRoutes(router); // Configure your routes
   runApp(MyApp());
 }
 
@@ -33,7 +37,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => menuController(),
         ),
       ],
-      child:  const MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Galaxy Realtors Builders',
         home: Home(),

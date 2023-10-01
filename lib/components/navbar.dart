@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
@@ -18,7 +19,7 @@ var shophover = false;
 var bloghover = false;
 var abouthover = false;
 var contacthover = false;
-
+final router = FluroRouter();
 class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
@@ -99,6 +100,7 @@ class _NavBarState extends State<NavBar> {
                         .navmenueSelect('Shop');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Shop()));
+                    // router.navigateTo(context, '/shop');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,

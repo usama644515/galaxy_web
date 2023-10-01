@@ -56,7 +56,7 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                       alignment: Alignment.topCenter,
                       margin: const EdgeInsets.only(top: 40.0),
                       child: const CircularProgressIndicator(
-                        backgroundColor: Colors.grey,
+                        color:  Color(0xffF9A51F),
                         // color: AppColor.primary,
                       ),
                     ),
@@ -391,6 +391,45 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                                         0.34,
                                     child: Text(
                                       "${widget.data['bath']}",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 15.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            decoration: const BoxDecoration(
+                              color: Color(0xffF8F8F8),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15.0,
+                                  right: 15.0,
+                                  top: 11.0,
+                                  bottom: 11.0),
+                              child: Stack(
+                                children: [
+                                  const Text(
+                                    'Car Porch:',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Positioned(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.34,
+                                    child: Text(
+                                      "${widget.data['garage']}",
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontSize: 17.0,

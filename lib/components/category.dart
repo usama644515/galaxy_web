@@ -66,7 +66,7 @@ class _categoryState extends State<category> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const Shop(categ: 'residential')));
+                                const Shop(categ: 'Residential')));
                   },
                   child: Container(
                     height: 80,
@@ -134,7 +134,7 @@ class _categoryState extends State<category> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const Shop(categ: 'commercial')));
+                                const Shop(categ: 'Commercial')));
                   },
                   child: Container(
                     height: 80,
@@ -200,7 +200,7 @@ class _categoryState extends State<category> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Shop(categ: 'plots')));
+                            builder: (context) => const Shop(categ: 'Plots')));
                   },
                   child: Container(
                     height: 80,
@@ -267,7 +267,7 @@ class _categoryState extends State<category> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const Shop(categ: 'construction')));
+                                const Shop(categ: 'Construction')));
                   },
                   child: Container(
                     height: 80,

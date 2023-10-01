@@ -190,8 +190,9 @@ class _AddProductStoreState extends State<AddProductStore> {
   Future uploadFile() async {
     progressDialogue(context);
     for (var img in _imgObjs) {
-      ref = firebase_storage.FirebaseStorage.instance.ref().child(
-          'SellersData/${_auth.currentUser!.email}/${_id.text}/${img.path}');
+      ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('houses/${_id.text}/${img.path}');
       kIsWeb
           ? await ref!
               .putData(await img.readAsBytes(),
@@ -535,15 +536,15 @@ class _AddProductStoreState extends State<AddProductStore> {
           onTap: () {
             changeCategories();
           },
-          child: Text(
-            "Add Product",
+          child: const Text(
+            "Add Property",
           ),
         ),
         centerTitle: true,
         // automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            color: Colors.blue,
+            color: Color(0xffF9A51F),
           ),
         ),
       ),
@@ -846,7 +847,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       style:
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
@@ -1145,18 +1146,27 @@ class _AddProductStoreState extends State<AddProductStore> {
                         child: GestureDetector(
                           onTap: () {
                             if (_formKey.currentState!.validate() &&
-                                _imgObjs.isNotEmpty &&
-                                mainCateg != '') {
+                                _imgObjs.isNotEmpty) {
                               uploadFile().then((value) {
-                                firestore.collection('Products').doc().set({
-                                  'storeId': _auth.currentUser!.uid,
-                                  'subCategory': _saveSubCateg,
-                                  'category': mainCateg,
+                                firestore
+                                    .collection('Properties List')
+                                    .doc()
+                                    .set({
+                                  'img': imageUrl,
                                   'title': _titleController.text,
-                                  'DateTime': DateTime.now(),
-                                  'like': {},
-                                  'Rating': 0,
-                                  'sold': Random().nextInt(50)
+                                  'price': _price.text,
+                                  'description': _description.text,
+                                  'size': _landsize.text,
+                                  'rooms': _rooms.text,
+                                  'bath': _bathroom.text,
+                                  'garage': _garage.text,
+                                  'city': _city.text,
+                                  'id': _id.text,
+                                  'videoUrl': _youtubeurl.text,
+                                  'category': range,
+                                  'location': condition,
+                                  'select': warn,
+                                  'datetime': DateTime.now(),
                                 }, SetOptions(merge: true)).then((value) {
                                   print('upload successful');
                                   Fluttertoast.showToast(
@@ -1187,7 +1197,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                                 : MediaQuery.of(context).size.width * 0.2,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue),
+                                color: const Color(0xffF9A51F)),
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             child: const Text(
                               "Submit",
@@ -1208,32 +1218,6 @@ class _AddProductStoreState extends State<AddProductStore> {
       ),
     );
   }
-
-  var _mainCategory = [
-    'Fruits and vegetables',
-    'Grocery and Foods',
-    'Clothing and Shoes',
-    'Beauty and Personal Care',
-    'Jewelry',
-    'Electronics',
-    'Services',
-    'Sell all categories',
-    'Home and kitchen',
-    'Baby',
-    'Toys',
-    'Sports and Outdoor',
-    'Cell phone and Accessories',
-    'Tools and Home improvement',
-    'Office products',
-    'Animals',
-    'Pharmacy',
-    'Handmade Products',
-    'Appliance',
-    'Computers and Laptop',
-    'Vehicles And parts',
-    'Machine and Machine Accessories',
-    'Luggage and Travel',
-  ];
 
   var expiry;
   String? range;

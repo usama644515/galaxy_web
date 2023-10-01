@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
 import 'package:galaxy_web/components/productlist.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../responsive.dart';
 import 'mobile_navbar.dart';
 import 'navbar.dart';
@@ -26,6 +27,15 @@ class _ProductDetailsState extends State<ProductDetails> {
   String _phoneNumber = '';
   String _message = '';
   bool _isHovered = false;
+// Function to open a URL
+  _openURL(var link) async {
+    final url = link; // Replace with your desired URL
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +67,56 @@ class _ProductDetailsState extends State<ProductDetails> {
               Responsive.isMobile(context)
                   ? ProductDetailsMobile(data: widget.data)
                   : DesktopProductDetails(data: widget.data),
+              widget.data['videoUrl'] == ''
+                  ? const SizedBox()
+                  : const SizedBox(
+                      height: 25,
+                    ),
+              widget.data['videoUrl'] == ''
+                  ? const SizedBox()
+                  : Padding(
+                      padding: EdgeInsets.only(
+                          left: Responsive.isMobile(context) ? 20 : 50.0,
+                          right: Responsive.isMobile(context)
+                              ? 20
+                              : MediaQuery.of(context).size.width * 0.65,
+                          top: 5.0),
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            _openURL(widget.data['videoUrl']);
+                          },
+                          child: Container(
+                            height: Responsive.isMobile(context)
+                              ? 200: 230,
+                            width: 350,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey, // Shadow color
+                                  offset: Offset(0, 3), // Offset of the shadow
+                                  blurRadius: 6, // Spread of the shadow
+                                ),
+                              ],
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    '${widget.data['img'][0]}'), // Replace with your image asset path
+                                fit: BoxFit
+                                    .cover, // You can choose how the image is displayed (cover, contain, etc.)
+                              ),
+                            ),
+                            child: Center(
+                              child: Image.network(
+                                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/youtube%20(1).png?alt=media&token=6866c794-63ef-493a-86cc-a14af27e143e&_gl=1*11bm5bg*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NjE0MzA5MS42LjEuMTY5NjE0MzIwNi40Ny4wLjA.',
+                                height: 50.0,
+                                width: 50.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )),
               const SizedBox(
                 height: 25,
               ),
@@ -111,15 +171,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                             color: _isHovered
                                 ? const Color.fromARGB(255, 202, 136, 29)
                                 : const Color(0xffF9A51F),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey
-                                    .withOpacity(0.5), // Shadow color
-                                spreadRadius: 3,
-                                blurRadius: 3,
-                                offset: const Offset(0, 3), // Shadow offset
-                              ),
-                            ],
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.grey
+                            //         .withOpacity(0.5), // Shadow color
+                            //     spreadRadius: 3,
+                            //     blurRadius: 3,
+                            //     offset: const Offset(0, 3), // Shadow offset
+                            //   ),
+                            // ],
                           ),
                           child: const Icon(Icons.email,
                               color: Colors.white, size: 27)),
@@ -363,7 +423,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                             alignment: Alignment.topCenter,
                             margin: const EdgeInsets.only(top: 40.0),
                             child: const CircularProgressIndicator(
-                              backgroundColor: Colors.grey,
+                              color:  Color(0xffF9A51F),
                               // color: AppColor.primary,
                             ),
                           ),
@@ -861,38 +921,38 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width * 0.43,
-                        //   decoration: const BoxDecoration(
-                        //     color: Color(0xffF8F8F8),
-                        //   ),
-                        //   child:  Padding(
-                        //     padding: const EdgeInsets.only(
-                        //         left: 15.0,
-                        //         right: 15.0,
-                        //         top: 11.0,
-                        //         bottom: 11.0),
-                        //     child: Row(
-                        //       children: [
-                        //         const Text(
-                        //           'Baths',
-                        //           overflow: TextOverflow.ellipsis,
-                        //           style: TextStyle(
-                        //               fontSize: 17.0,
-                        //               fontWeight: FontWeight.w500),
-                        //         ),
-                        //         SizedBox(width: MediaQuery.of(context).size.width*0.2),
-                        //         const Text(
-                        //           '3',
-                        //           overflow: TextOverflow.ellipsis,
-                        //           style: TextStyle(
-                        //               fontSize: 17.0,
-                        //               fontWeight: FontWeight.w500),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.43,
+                          decoration: const BoxDecoration(
+                            color: Color(0xffF8F8F8),
+                          ),
+                          child:  Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0,
+                                right: 15.0,
+                                top: 11.0,
+                                bottom: 11.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  'Car Porch',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(width: MediaQuery.of(context).size.width*0.2),
+                                 Text(
+                                  widget.data['garage'],
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

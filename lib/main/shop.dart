@@ -140,15 +140,13 @@ class _ShopState extends State<Shop> {
                     onTap: () {
                       setState(() {
                         if (index == 0) {
-                          filtersearch('residential');
-                        }else if(index == 1){
-                          filtersearch('commercial');
-                        }
-                        else if(index == 2){
-                          filtersearch('plots');
-                        }
-                        else if(index == 3){
-                          filtersearch('construction');
+                          filtersearch('Residential');
+                        } else if (index == 1) {
+                          filtersearch('Commercial');
+                        } else if (index == 2) {
+                          filtersearch('Plots');
+                        } else if (index == 3) {
+                          filtersearch('Construction');
                         }
                       });
                     },
