@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
 import 'package:galaxy_web/components/productlist.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/main/home.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../responsive.dart';
 import 'mobile_navbar.dart';
@@ -27,6 +31,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   String _phoneNumber = '';
   String _message = '';
   bool _isHovered = false;
+  final TextEditingController name = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController message = TextEditingController();
 // Function to open a URL
   _openURL(var link) async {
     final url = link; // Replace with your desired URL
@@ -37,157 +45,190 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
   }
 
+  var loader = false;
+
+  formdataupload(data) {
+    FirebaseFirestore.instance.collection('Properties Query').doc().set({
+      'propertyId': data['id'],
+      'name': _name,
+      'email': _email,
+      'phone': _phoneNumber,
+      'message': _message,
+    }, SetOptions(merge: true)).then((value) {
+      setState(() {
+        loader = false;
+        name.clear();
+        email.clear();
+        phone.clear();
+        message.clear();
+      });
+    });
+  }
+  Future<bool> onBackPress() async {
+    setState(() {
+      Provider.of<menuController>(context, listen: false)
+          .navmenueSelect('Home');
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const Home()),
+      (route) => false, // Always return false to remove all routes
+    );
+    return Future.value(false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffF7F7F7),
-      key: scaffoldKey,
-      drawer: const SideDrawer(),
-      body: Stack(
-        children: [
-          ListView(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(color: Colors.black),
-                  ),
-                  Responsive.isMobile(context)
-                      ? MobileNavBar(scaffoldKey)
-                      : const NavBar(),
-                ],
-              ),
-              Responsive.isMobile(context)
-                  ? const SizedBox()
-                  : const SizedBox(
-                      height: 30,
-                    ),
-              Responsive.isMobile(context)
-                  ? ProductDetailsMobile(data: widget.data)
-                  : DesktopProductDetails(data: widget.data),
-              widget.data['videoUrl'] == ''
-                  ? const SizedBox()
-                  : const SizedBox(
-                      height: 25,
-                    ),
-              widget.data['videoUrl'] == ''
-                  ? const SizedBox()
-                  : Padding(
-                      padding: EdgeInsets.only(
-                          left: Responsive.isMobile(context) ? 20 : 50.0,
-                          right: Responsive.isMobile(context)
-                              ? 20
-                              : MediaQuery.of(context).size.width * 0.65,
-                          top: 5.0),
-                      child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            _openURL(widget.data['videoUrl']);
-                          },
-                          child: Container(
-                            height: Responsive.isMobile(context)
-                              ? 200: 230,
-                            width: 350,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey, // Shadow color
-                                  offset: Offset(0, 3), // Offset of the shadow
-                                  blurRadius: 6, // Spread of the shadow
-                                ),
-                              ],
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    '${widget.data['img'][0]}'), // Replace with your image asset path
-                                fit: BoxFit
-                                    .cover, // You can choose how the image is displayed (cover, contain, etc.)
-                              ),
-                            ),
-                            child: Center(
-                              child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/youtube%20(1).png?alt=media&token=6866c794-63ef-493a-86cc-a14af27e143e&_gl=1*11bm5bg*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NjE0MzA5MS42LjEuMTY5NjE0MzIwNi40Ny4wLjA.',
-                                height: 50.0,
-                                width: 50.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )),
-              const SizedBox(
-                height: 25,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: Responsive.isMobile(context) ? 20 : 50.0,
-                    top: 10.0,
-                    right: Responsive.isMobile(context) ? 20 : 50.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        backgroundColor: const Color(0xffF7F7F7),
+        key: scaffoldKey,
+        drawer: const SideDrawer(),
+        body: Stack(
+          children: [
+            ListView(
+              children: [
+                Stack(
                   children: [
-                    Text(
-                      "Recent Projects",
-                      style: TextStyle(
-                          fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      height: 60,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(color: Colors.black),
                     ),
+                    Responsive.isMobile(context)
+                        ? MobileNavBar(scaffoldKey)
+                        : const NavBar(),
                   ],
                 ),
-              ),
-              const ProductList(),
-              Responsive.isMobile(context)
-                  ? const FooterMobile()
-                  : const Footer(),
-            ],
-          ),
-          Responsive.isMobile(context)
-              ? Positioned(
-                  bottom: 15.0,
-                  right: 15.0,
-                  child: GestureDetector(
-                    onTap: () {
-                      _showBottomSheet(context);
-                    },
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      onEnter: (_) {
-                        setState(() {
-                          _isHovered = true;
-                        });
-                      },
-                      onExit: (_) {
-                        setState(() {
-                          _isHovered = false;
-                        });
-                      },
-                      child: Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _isHovered
-                                ? const Color.fromARGB(255, 202, 136, 29)
-                                : const Color(0xffF9A51F),
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey
-                            //         .withOpacity(0.5), // Shadow color
-                            //     spreadRadius: 3,
-                            //     blurRadius: 3,
-                            //     offset: const Offset(0, 3), // Shadow offset
-                            //   ),
-                            // ],
+                Responsive.isMobile(context)
+                    ? const SizedBox()
+                    : const SizedBox(
+                        height: 30,
+                      ),
+                Responsive.isMobile(context)
+                    ? ProductDetailsMobile(data: widget.data)
+                    : DesktopProductDetails(data: widget.data),
+                widget.data['videoUrl'] == ''
+                    ? const SizedBox()
+                    : const SizedBox(
+                        height: 25,
+                      ),
+                widget.data['videoUrl'] == ''
+                    ? const SizedBox()
+                    : Padding(
+                        padding: EdgeInsets.only(
+                            left: Responsive.isMobile(context) ? 20 : 50.0,
+                            right: Responsive.isMobile(context)
+                                ? 20
+                                : MediaQuery.of(context).size.width * 0.65,
+                            top: 5.0),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              _openURL(widget.data['videoUrl']);
+                            },
+                            child: Container(
+                              height: Responsive.isMobile(context) ? 200 : 230,
+                              width: 350,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.grey, // Shadow color
+                                    offset: Offset(0, 3), // Offset of the shadow
+                                    blurRadius: 6, // Spread of the shadow
+                                  ),
+                                ],
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      '${widget.data['img'][0]}'), // Replace with your image asset path
+                                  fit: BoxFit
+                                      .cover, // You can choose how the image is displayed (cover, contain, etc.)
+                                ),
+                              ),
+                              child: Center(
+                                child: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/youtube%20(1).png?alt=media&token=6866c794-63ef-493a-86cc-a14af27e143e&_gl=1*11bm5bg*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NjE0MzA5MS42LjEuMTY5NjE0MzIwNi40Ny4wLjA.',
+                                  height: 50.0,
+                                  width: 50.0,
+                                ),
+                              ),
+                            ),
                           ),
-                          child: const Icon(Icons.email,
-                              color: Colors.white, size: 27)),
-                    ),
+                        )),
+                const SizedBox(
+                  height: 25,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Responsive.isMobile(context) ? 20 : 50.0,
+                      top: 10.0,
+                      right: Responsive.isMobile(context) ? 20 : 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Recent Projects",
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                )
-              : const SizedBox(),
-        ],
+                ),
+                const ProductList(),
+                Responsive.isMobile(context)
+                    ? const FooterMobile()
+                    : const Footer(),
+              ],
+            ),
+            Responsive.isMobile(context)
+                ? Positioned(
+                    bottom: 15.0,
+                    right: 15.0,
+                    child: GestureDetector(
+                      onTap: () {
+                        _showBottomSheet(context);
+                      },
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        onEnter: (_) {
+                          setState(() {
+                            _isHovered = true;
+                          });
+                        },
+                        onExit: (_) {
+                          setState(() {
+                            _isHovered = false;
+                          });
+                        },
+                        child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _isHovered
+                                  ? const Color.fromARGB(255, 202, 136, 29)
+                                  : const Color(0xffF9A51F),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: Colors.grey
+                              //         .withOpacity(0.5), // Shadow color
+                              //     spreadRadius: 3,
+                              //     blurRadius: 3,
+                              //     offset: const Offset(0, 3), // Shadow offset
+                              //   ),
+                              // ],
+                            ),
+                            child: const Icon(Icons.email,
+                                color: Colors.white, size: 27)),
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -233,6 +274,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     shrinkWrap: true,
                     children: [
                       TextFormField(
+                        controller: name,
                         decoration: const InputDecoration(labelText: 'Name'),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -246,6 +288,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       const SizedBox(height: 20.0),
                       TextFormField(
+                        controller: email,
                         decoration: const InputDecoration(labelText: 'Email'),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -260,6 +303,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       const SizedBox(height: 20.0),
                       TextFormField(
+                        controller: phone,
                         decoration:
                             const InputDecoration(labelText: 'Phone Number'),
                         validator: (value) {
@@ -274,6 +318,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       const SizedBox(height: 20.0),
                       TextFormField(
+                        controller: message,
                         decoration: const InputDecoration(labelText: 'Message'),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -316,7 +361,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             // Handle button click here
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-
+                              setState(() {
+                                loader = true;
+                              });
+                              formdataupload(widget.data);
                               // Form data is valid, you can handle the submission here.
                               print('Name: $_name');
                               print('Email: $_email');
@@ -338,15 +386,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     0xffF9A51F), // Change color on hover
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Center(
-                                child: Text(
-                                  'SUBMIT',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                              child: loader
+                                  ? const Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white))
+                                  : const Center(
+                                      child: Text(
+                                        'SUBMIT',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -378,6 +430,29 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
   String _phoneNumber = '';
   String _message = '';
   bool _isHovered = false;
+  var loader = false;
+  final TextEditingController name = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController message = TextEditingController();
+  formdataupload(data) {
+    FirebaseFirestore.instance.collection('Properties Query').doc().set({
+      'propertyId': data['id'],
+      'name': _name,
+      'email': _email,
+      'phone': _phoneNumber,
+      'message': _message,
+    }, SetOptions(merge: true)).then((value) {
+      setState(() {
+        loader = false;
+        name.clear();
+        email.clear();
+        phone.clear();
+        message.clear();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -423,7 +498,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                             alignment: Alignment.topCenter,
                             margin: const EdgeInsets.only(top: 40.0),
                             child: const CircularProgressIndicator(
-                              color:  Color(0xffF9A51F),
+                              color: Color(0xffF9A51F),
                               // color: AppColor.primary,
                             ),
                           ),
@@ -490,6 +565,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                           height: 7.0,
                         ),
                         TextFormField(
+                          controller: name,
                           decoration: const InputDecoration(labelText: 'Name'),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -503,6 +579,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                         ),
                         const SizedBox(height: 20.0),
                         TextFormField(
+                          controller: email,
                           decoration: const InputDecoration(labelText: 'Email'),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -517,6 +594,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                         ),
                         const SizedBox(height: 20.0),
                         TextFormField(
+                          controller: phone,
                           decoration:
                               const InputDecoration(labelText: 'Phone Number'),
                           validator: (value) {
@@ -531,6 +609,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                         ),
                         const SizedBox(height: 20.0),
                         TextFormField(
+                          controller: message,
                           decoration:
                               const InputDecoration(labelText: 'Message'),
                           validator: (value) {
@@ -574,7 +653,10 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                               // Handle button click here
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-
+                                setState(() {
+                                  loader = true;
+                                });
+                                formdataupload(widget.data);
                                 // Form data is valid, you can handle the submission here.
                                 print('Name: $_name');
                                 print('Email: $_email');
@@ -593,13 +675,18 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                                         0xffF9A51F), // Change color on hover
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Text(
-                                'SUBMIT',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              child: loader
+                                  ? const Center(
+                                      child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ))
+                                  : const Text(
+                                      'SUBMIT',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -926,7 +1013,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                           decoration: const BoxDecoration(
                             color: Color(0xffF8F8F8),
                           ),
-                          child:  Padding(
+                          child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 15.0,
                                 right: 15.0,
@@ -941,8 +1028,10 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                                       fontSize: 17.0,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                SizedBox(width: MediaQuery.of(context).size.width*0.2),
-                                 Text(
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.2),
+                                Text(
                                   widget.data['garage'],
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(

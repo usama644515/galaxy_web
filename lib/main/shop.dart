@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 
 import '../components/footer.dart';
@@ -83,223 +84,237 @@ class _ShopState extends State<Shop> {
     super.initState();
     getData();
   }
+  Future<bool> onBackPress() async {
+    setState(() {
+      Provider.of<menuController>(context, listen: false)
+          .navmenueSelect('Home');
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const Home()),
+      (route) => false, // Always return false to remove all routes
+    );
+    return Future.value(false);
+  }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffFFFFFF),
-      key: scaffoldKey,
-      drawer: const SideDrawer(),
-      body: ListView(children: [
-        Stack(
-          children: [
-            Container(
-              height: 60,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(color: Colors.black),
-            ),
-            Responsive.isMobile(context)
-                ? MobileNavBar(scaffoldKey)
-                : const NavBar(),
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: 30,
-              left: Responsive.isMobile(context) ? 20 : 50.0,
-              right: Responsive.isMobile(context) ? 20 : 50.0),
-          child: Text(
-            "Shop",
-            style: TextStyle(
-                fontSize: Responsive.isMobile(context) ? 25.0 : 30.0,
-                fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        backgroundColor: const Color(0xffFFFFFF),
+        key: scaffoldKey,
+        drawer: const SideDrawer(),
+        body: ListView(children: [
+          Stack(
+            children: [
+              Container(
+                height: 60,
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(color: Colors.black),
+              ),
+              Responsive.isMobile(context)
+                  ? MobileNavBar(scaffoldKey)
+                  : const NavBar(),
+            ],
           ),
-        ),
-        const SizedBox(
-          height: 25.0,
-        ),
-        SizedBox(
-          height: 60,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 20),
-            child: ListView.builder(
-              itemCount: filter.length,
-              // snapshot.data!.docs.length > 10
-              //     ? 10
-              //     : snapshot.data!.docs.length,
-              scrollDirection: Axis.horizontal,
-              // controller: _scrollController, // Attach ScrollController
-              itemBuilder: (
-                context,
-                index,
-              ) {
-                // DocumentSnapshot data =
-                //     snapshot.data!.docs[index];
-                return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (index == 0) {
-                          filtersearch('Residential');
-                        } else if (index == 1) {
-                          filtersearch('Commercial');
-                        } else if (index == 2) {
-                          filtersearch('Plots');
-                        } else if (index == 3) {
-                          filtersearch('Construction');
-                        }
-                      });
-                    },
-                    child: Filter(data: filter[index]));
-              },
+          Padding(
+            padding: EdgeInsets.only(
+                top: 30,
+                left: Responsive.isMobile(context) ? 20 : 50.0,
+                right: Responsive.isMobile(context) ? 20 : 50.0),
+            child: Text(
+              "Shop",
+              style: TextStyle(
+                  fontSize: Responsive.isMobile(context) ? 25.0 : 30.0,
+                  fontWeight: FontWeight.bold),
             ),
           ),
-        ),
-        loader
-            ? const Center(
-                child: CircularProgressIndicator(color: Color(0xffF9A51F)))
-            : Padding(
-                padding: EdgeInsets.only(
-                    left: Responsive.isMobile(context) ? 20 : 40.0,
-                    right: Responsive.isMobile(context) ? 20 : 40.0),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: Responsive.isMobile(context)
-                        ? 2
-                        : 4, // Number of columns
-                    mainAxisSpacing: 10.0, // Spacing between rows
-                    crossAxisSpacing: 10.0, // Spacing between columns
-                    childAspectRatio: Responsive.isMobile(context)
-                        ? 0.68
-                        : 1.0, // Width to height ratio of each grid item
-                  ),
-                  itemCount: data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    // Build each grid item
-                    return MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        onTap: () {
-                          Provider.of<menuController>(context, listen: false)
-                              .navmenueSelect('Shop');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductDetails(data: data[index])));
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 15.0, top: 20.0, bottom: 10),
-                              child: CachedNetworkImage(
-                                imageUrl: data[index]['img']
-                                    [0], // Replace with your image URL
-                                imageBuilder: (context, imageProvider) =>
-                                    ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      10.0), // Set the radius here
-                                  child: Image(
-                                    image: imageProvider,
-                                    width: Responsive.isMobile(context)
-                                        ? 200
-                                        : 310, // Set the desired width
-                                    height: Responsive.isMobile(context)
-                                        ? 100
-                                        : 170, // Set the desired height
-                                    fit: BoxFit.cover,
+          const SizedBox(
+            height: 25.0,
+          ),
+          SizedBox(
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 20),
+              child: ListView.builder(
+                itemCount: filter.length,
+                // snapshot.data!.docs.length > 10
+                //     ? 10
+                //     : snapshot.data!.docs.length,
+                scrollDirection: Axis.horizontal,
+                // controller: _scrollController, // Attach ScrollController
+                itemBuilder: (
+                  context,
+                  index,
+                ) {
+                  // DocumentSnapshot data =
+                  //     snapshot.data!.docs[index];
+                  return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (index == 0) {
+                            filtersearch('Residential');
+                          } else if (index == 1) {
+                            filtersearch('Commercial');
+                          } else if (index == 2) {
+                            filtersearch('Plots');
+                          } else if (index == 3) {
+                            filtersearch('Construction');
+                          }
+                        });
+                      },
+                      child: Filter(data: filter[index]));
+                },
+              ),
+            ),
+          ),
+          loader
+              ? const Center(
+                  child: CircularProgressIndicator(color: Color(0xffF9A51F)))
+              : Padding(
+                  padding: EdgeInsets.only(
+                      left: Responsive.isMobile(context) ? 20 : 40.0,
+                      right: Responsive.isMobile(context) ? 20 : 40.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: Responsive.isMobile(context)
+                          ? 2
+                          : 4, // Number of columns
+                      mainAxisSpacing: 10.0, // Spacing between rows
+                      crossAxisSpacing: 10.0, // Spacing between columns
+                      childAspectRatio: Responsive.isMobile(context)
+                          ? 0.68
+                          : 1.0, // Width to height ratio of each grid item
+                    ),
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      // Build each grid item
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            Provider.of<menuController>(context, listen: false)
+                                .navmenueSelect('Shop');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetails(data: data[index])));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 15.0, top: 20.0, bottom: 10),
+                                child: CachedNetworkImage(
+                                  imageUrl: data[index]['img']
+                                      [0], // Replace with your image URL
+                                  imageBuilder: (context, imageProvider) =>
+                                      ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Set the radius here
+                                    child: Image(
+                                      image: imageProvider,
+                                      width: Responsive.isMobile(context)
+                                          ? 200
+                                          : 310, // Set the desired width
+                                      height: Responsive.isMobile(context)
+                                          ? 100
+                                          : 170, // Set the desired height
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(
+                                          color: Color(0xffF9A51F))),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
-                                placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(
-                                        color: Color(0xffF9A51F))),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
                               ),
-                            ),
-                            SizedBox(
-                              width: Responsive.isMobile(context) ? 200 : 310,
-                              child: Text(
-                                data[index]['title'],
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            SizedBox(
-                              width: Responsive.isMobile(context) ? 200 : 310,
-                              child: Text(
-                                data[index]['location'],
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.home_work_outlined,
-                                  color: Colors.grey,
-                                  size: 15.0,
-                                ),
-                                const SizedBox(
-                                  width: 5.0,
-                                ),
-                                const Text(
-                                  "House",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  width: 25.0,
-                                ),
-                                const Icon(
-                                  Icons.height,
-                                  color: Colors.grey,
-                                  size: 15.0,
-                                ),
-                                const SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  data[index]['size'],
+                              SizedBox(
+                                width: Responsive.isMobile(context) ? 200 : 310,
+                                child: Text(
+                                  data[index]['title'],
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                      fontSize: 14.0,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              SizedBox(
+                                width: Responsive.isMobile(context) ? 200 : 310,
+                                child: Text(
+                                  data[index]['location'],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.w600),
                                 ),
-                              ],
-                            ),
-                          ],
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.home_work_outlined,
+                                    color: Colors.grey,
+                                    size: 15.0,
+                                  ),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  const Text(
+                                    "House",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    width: 25.0,
+                                  ),
+                                  const Icon(
+                                    Icons.height,
+                                    color: Colors.grey,
+                                    size: 15.0,
+                                  ),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    data[index]['size'],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
-        const SizedBox(
-          height: 25,
-        ),
-        Responsive.isMobile(context) ? const FooterMobile() : const Footer(),
-      ]),
+          const SizedBox(
+            height: 25,
+          ),
+          Responsive.isMobile(context) ? const FooterMobile() : const Footer(),
+        ]),
+      ),
     );
   }
 }
