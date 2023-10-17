@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/category.dart';
 import 'package:galaxy_web/components/categorymobile.dart';
@@ -27,6 +28,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    // stringslicing();
+    super.initState();
+  }
+
+  // var search =
+  //     '11 Marla Brand New Double Story House Avialable For Sale In Buch Executive Villas Multan';
+  // var arr = [];
+  // stringslicing() {
+    
+  //   for (var i = 0; i < search.length; i++) {
+  //     arr.add(search.substring(0, i + 1).toLowerCase());
+  //     if (i + 1 == search.length) {
+  //       updatedata();
+  //     }
+  //   }
+  // }
+
+  // updatedata() {
+  //   FirebaseFirestore.instance
+  //       .collection('Properties List')
+  //       .doc('1e7Ho8dO8S18OybCM361')
+  //       .set({'searchquery': arr}, SetOptions(merge: true));
+  // }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -85,7 +112,7 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Shop');
-                        navigateToPage('/Shop');
+                    // navigateToPage('/Shop');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Shop()));
                   },
@@ -143,11 +170,12 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-  void navigateToPage(String pagePath) {
-  // Change the URL without reloading the page (client-side routing)
-  html.window.history.pushState(null, '', pagePath);
 
-  // Perform any additional navigation logic if needed
-  // For example, you can use the Navigator class to push routes.
-}
+  void navigateToPage(String pagePath) {
+    // Change the URL without reloading the page (client-side routing)
+    html.window.history.pushState(null, '', pagePath);
+
+    // Perform any additional navigation logic if needed
+    // For example, you can use the Navigator class to push routes.
+  }
 }

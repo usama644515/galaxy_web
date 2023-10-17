@@ -209,6 +209,17 @@ class _AddProductStoreState extends State<AddProductStore> {
               });
             });
     }
+    stringslicing();
+  }
+
+  var searchfilter = [];
+  stringslicing() {
+    for (var i = 0; i < _titleController.text.length; i++) {
+      searchfilter.add(_titleController.text.substring(0, i + 1).toLowerCase());
+      // if (i + 1 == search.length) {
+      //   updatedata();
+      // }
+    }
   }
 
   progressDialogue(BuildContext context) {
@@ -219,10 +230,10 @@ class _AddProductStoreState extends State<AddProductStore> {
       content: Container(
         color: Colors.white,
         height: 100,
-        child: Center(
+        child: const Center(
           child: IntrinsicHeight(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
                   CircularProgressIndicator(),
@@ -258,18 +269,6 @@ class _AddProductStoreState extends State<AddProductStore> {
 
   final _formKey = GlobalKey<FormState>();
   final _popUpFormKey = GlobalKey<FormState>();
-
-  List categories = [];
-
-  getCategories() {
-    firestore.collection('Category').get().then((value) {
-      value.docs.forEach((element) {
-        categories.add(element.get('name'));
-      });
-    }).then((value) {
-      setState(() {});
-    });
-  }
 
   @override
   void initState() {
@@ -626,6 +625,12 @@ class _AddProductStoreState extends State<AddProductStore> {
                                       height: 140,
                                       width: 140,
                                       key: ValueKey(productName),
+                                      margin: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image:
+                                                  NetworkImage(imageUrl[index]),
+                                              fit: BoxFit.cover)),
                                       child: GestureDetector(
                                         onTap: () {
                                           imageUrl.removeAt(index);
@@ -643,12 +648,6 @@ class _AddProductStoreState extends State<AddProductStore> {
                                               )),
                                         ),
                                       ),
-                                      margin: const EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image:
-                                                  NetworkImage(imageUrl[index]),
-                                              fit: BoxFit.cover)),
                                     );
                                   },
                                   itemCount: imageUrl.length,
@@ -742,8 +741,8 @@ class _AddProductStoreState extends State<AddProductStore> {
                       keyboardType: TextInputType.emailAddress,
                       style:
                           const TextStyle(fontSize: 15.0, color: Colors.black),
-                      decoration: InputDecoration(
-                          enabledBorder: new UnderlineInputBorder(
+                      decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.grey,
                               width: 1.0,
@@ -756,12 +755,12 @@ class _AddProductStoreState extends State<AddProductStore> {
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
-                          hintText: "  Homemade clothes",
-                          hintStyle: const TextStyle(
+                          hintText: "  Product title",
+                          hintStyle: TextStyle(
                               fontFamily: "Lora",
                               color: Colors.grey,
                               fontSize: 16),
-                          errorStyle: const TextStyle(
+                          errorStyle: TextStyle(
                               color: Colors.red,
                               decorationColor: Colors.white)),
                       validator: (String? value) {
@@ -1167,6 +1166,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                                   'location': condition,
                                   'select': warn,
                                   'datetime': DateTime.now(),
+                                  'searchquery': searchfilter,
                                 }, SetOptions(merge: true)).then((value) {
                                   print('upload successful');
                                   Fluttertoast.showToast(

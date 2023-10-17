@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:galaxy_web/controllers/image_viewer.dart';
 
 class ProductDetailsMobile extends StatefulWidget {
   const ProductDetailsMobile({super.key, this.data});
@@ -18,6 +19,7 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
   String _phoneNumber = '';
   String _message = '';
   bool _isHovered = false;
+  PageController controller = PageController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,28 +42,39 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                 ),
                 itemCount: widget.data['img'].length,
                 itemBuilder: (context, itemIndex, realIndex) {
-                  return CachedNetworkImage(
-                    imageUrl: widget.data['img'][itemIndex],
-                    imageBuilder: (context, imageProvider) => Container(
-                      height: 500.0,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0),
-                        // shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImageViewer(
+                                    images: widget.data['img'][itemIndex],
+                                    controller: controller,
+                                  )));
+                    },
+                    child: CachedNetworkImage(
+                      imageUrl: widget.data['img'][itemIndex],
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 500.0,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          // shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
                       ),
-                    ),
-                    placeholder: (context, url) => Container(
-                      alignment: Alignment.topCenter,
-                      margin: const EdgeInsets.only(top: 40.0),
-                      child: const CircularProgressIndicator(
-                        color:  Color(0xffF9A51F),
-                        // color: AppColor.primary,
+                      placeholder: (context, url) => Container(
+                        alignment: Alignment.topCenter,
+                        margin: const EdgeInsets.only(top: 40.0),
+                        child: const CircularProgressIndicator(
+                          color: Color(0xffF9A51F),
+                          // color: AppColor.primary,
+                        ),
                       ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   );
                 },
               ),

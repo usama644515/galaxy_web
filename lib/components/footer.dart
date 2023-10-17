@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatefulWidget {
   const Footer({super.key});
@@ -123,27 +124,29 @@ class _FooterState extends State<Footer> {
                     ),
                   ],
                 ),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Head Office',
                       style: TextStyle(
                           fontSize: 18.0,
                           color: Color(0xffBDBDBD),
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: Row(
                         children: [
-                          Icon(Icons.location_on,
-                              color: Color(0xffBDBDBD), size: 20.0),
-                          SizedBox(width: 10.0),
-                          Text(
+                          Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Flocation.png?alt=media&token=a24c6ae4-7899-4431-aa88-79dc0b4980d3&_gl=1*1qgyu3l*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzQ2MDEuMS4wLjA.',
+                            width: 20,
+                          ),
+                          const SizedBox(width: 10.0),
+                          const Text(
                             'Buch Executive Villas, Multan, Pakistan',
                             style: TextStyle(
                                 fontSize: 16.0,
@@ -153,17 +156,19 @@ class _FooterState extends State<Footer> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8.0,
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: Row(
                         children: [
-                          Icon(Icons.phone,
-                              color: Color(0xffBDBDBD), size: 20.0),
-                          SizedBox(width: 10.0),
-                          Text(
+                          Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone.png?alt=media&token=327a739a-ae0f-4980-8506-298582ffaf8d&_gl=1*l2ey4*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzQ3MTkuOS4wLjA.',
+                            width: 20,
+                          ),
+                          const SizedBox(width: 10.0),
+                          const Text(
                             '0300-0335875 \n0301-1285988',
                             style: TextStyle(
                                 fontSize: 16.0,
@@ -173,17 +178,19 @@ class _FooterState extends State<Footer> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8.0,
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: Row(
                         children: [
-                          Icon(Icons.email,
-                              color: Color(0xffBDBDBD), size: 20.0),
-                          SizedBox(width: 10.0),
-                          Text(
+                          Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Femail%20icon.png?alt=media&token=240c5b3c-7b95-4937-adb7-5cd10e496a4d&_gl=1*13gnddf*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzQ2NjUuMi4wLjA.',
+                            width: 20,
+                          ),
+                          const SizedBox(width: 10.0),
+                          const Text(
                             'galaxyrealtorsbuilders.com',
                             style: TextStyle(
                                 fontSize: 16.0,
@@ -212,9 +219,15 @@ class _FooterState extends State<Footer> {
                       children: [
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fpngwing.com%20(1).png?alt=media&token=c3a47eda-c909-4424-9150-400cdf2b7db0',
-                            width: 33.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              _openUrlInNewTab(
+                                  'https://www.facebook.com/galaxyrealtorsandbuilders');
+                            },
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fpngwing.com%20(1).png?alt=media&token=c3a47eda-c909-4424-9150-400cdf2b7db0',
+                              width: 33.0,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -222,9 +235,15 @@ class _FooterState extends State<Footer> {
                         ),
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',
-                            width: 33.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              _openUrlInNewTab(
+                                  'https://www.instagram.com/galaxyrealtorbuilders/');
+                            },
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',
+                              width: 33.0,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -232,9 +251,15 @@ class _FooterState extends State<Footer> {
                         ),
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fyoutube.png?alt=media&token=d6efd871-aa3e-4c96-8f6b-3c6229da8be6',
-                            width: 33.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              _openUrlInNewTab(
+                                  'https://youtube.com/@galaxyrealtorsbuilders3129?si=YTrm5RzKtMvvtU7f');
+                            },
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fyoutube.png?alt=media&token=d6efd871-aa3e-4c96-8f6b-3c6229da8be6',
+                              width: 33.0,
+                            ),
                           ),
                         ),
                       ],
@@ -246,9 +271,15 @@ class _FooterState extends State<Footer> {
                       children: [
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Ftwitter.png?alt=media&token=c94b8483-a090-40e4-a862-8497c9e1b905',
-                            width: 33.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              _openUrlInNewTab(
+                                  'https://www.tiktok.com/@galaxyrealtorsbuilders75?is_from_webapp=1&sender_device=pc');
+                            },
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Ftwitter.png?alt=media&token=c94b8483-a090-40e4-a862-8497c9e1b905',
+                              width: 33.0,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -285,5 +316,13 @@ class _FooterState extends State<Footer> {
         ),
       ),
     );
+  }
+
+  void _openUrlInNewTab(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false, forceWebView: false);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

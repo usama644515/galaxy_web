@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FooterMobile extends StatefulWidget {
   const FooterMobile({super.key});
@@ -33,9 +34,15 @@ class _FooterMobileState extends State<FooterMobile> {
               children: [
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fpngwing.com%20(1).png?alt=media&token=c3a47eda-c909-4424-9150-400cdf2b7db0',
-                    width: 33.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      _openUrlInNewTab(
+                          'https://www.facebook.com/galaxyrealtorsandbuilders');
+                    },
+                    child: Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fpngwing.com%20(1).png?alt=media&token=c3a47eda-c909-4424-9150-400cdf2b7db0',
+                      width: 33.0,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -43,9 +50,15 @@ class _FooterMobileState extends State<FooterMobile> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',
-                    width: 33.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      _openUrlInNewTab(
+                          'https://www.instagram.com/galaxyrealtorbuilders/');
+                    },
+                    child: Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',
+                      width: 33.0,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -53,9 +66,15 @@ class _FooterMobileState extends State<FooterMobile> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fyoutube.png?alt=media&token=d6efd871-aa3e-4c96-8f6b-3c6229da8be6',
-                    width: 33.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      _openUrlInNewTab(
+                          'https://youtube.com/@galaxyrealtorsbuilders3129?si=YTrm5RzKtMvvtU7f');
+                    },
+                    child: Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fyoutube.png?alt=media&token=d6efd871-aa3e-4c96-8f6b-3c6229da8be6',
+                      width: 33.0,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -63,9 +82,15 @@ class _FooterMobileState extends State<FooterMobile> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Ftwitter.png?alt=media&token=c94b8483-a090-40e4-a862-8497c9e1b905',
-                    width: 33.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      _openUrlInNewTab(
+                          'https://www.tiktok.com/@galaxyrealtorsbuilders75?is_from_webapp=1&sender_device=pc');
+                    },
+                    child: Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Ftwitter.png?alt=media&token=c94b8483-a090-40e4-a862-8497c9e1b905',
+                      width: 33.0,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -93,5 +118,13 @@ class _FooterMobileState extends State<FooterMobile> {
         ),
       ),
     );
+  }
+
+  void _openUrlInNewTab(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false, forceWebView: false);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

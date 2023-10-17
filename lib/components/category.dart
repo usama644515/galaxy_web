@@ -80,8 +80,10 @@ class _categoryState extends State<category> {
                             width: 2.0),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                      child: SvgPicture.asset('assets/images/residential.svg',
-                          width: 40.0, color: iconcolor[0]),
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fresidental.png?alt=media&token=1e871def-8d3d-418f-980f-b27fbf8bd5be&_gl=1*bcpi6p*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzI0OTYuMTguMC4w',
+                        width: 40,
+                      ),
                     ),
                   ),
                 ),
@@ -148,8 +150,11 @@ class _categoryState extends State<category> {
                             width: 2.0),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                        child: SvgPicture.asset('assets/images/commercial.svg',
-                            width: 40.0, color: iconcolor[1])),
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fcommercial.png?alt=media&token=9f62f21a-0052-492a-b3ba-3ca5f1e0782d&_gl=1*xjlhsn*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzI5MDguNjAuMC4w',
+                        width: 40,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -214,8 +219,11 @@ class _categoryState extends State<category> {
                             width: 2.0),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                        child: SvgPicture.asset('assets/images/plots.svg',
-                            width: 40.0, color: iconcolor[2])),
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fplots.png?alt=media&token=76f52bdd-9340-4ec3-8047-e7e9dd634bba&_gl=1*j4am2k*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzI5NTAuMTguMC4w',
+                        width: 40,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -281,10 +289,11 @@ class _categoryState extends State<category> {
                             width: 2.0),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                        child: SvgPicture.asset(
-                            'assets/images/construction.svg',
-                            width: 40.0,
-                            color: iconcolor[3])),
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fconstruction.png?alt=media&token=725d5135-4281-494d-b42c-5fe49f955e7b&_gl=1*fozzc6*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzI5ODguNjAuMC4w',
+                        width: 40,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(

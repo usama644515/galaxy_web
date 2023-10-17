@@ -1,71 +1,94 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/components/product_details.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
-import '../controllers/MenuController.dart';
-import 'product_details.dart';
 
-class ProductList extends StatefulWidget {
-  const ProductList({
-    super.key,
-  });
+class SearchScreen extends StatefulWidget {
+  SearchScreen({Key? key, this.data}) : super(key: key);
 
+  final data;
   @override
-  State<ProductList> createState() => _ProductListState();
+  _SearchScreenState createState() => new _SearchScreenState();
 }
 
-class _ProductListState extends State<ProductList> {
-  final ScrollController _scrollController = ScrollController();
+class _SearchScreenState extends State<SearchScreen> {
+  TextEditingController editingController = TextEditingController();
+
   @override
   void initState() {
+    // items = duplicateItems;
     super.initState();
   }
 
+  var query = '';
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-              left: Responsive.isMobile(context) ? 20 : 50.0,
-              right: Responsive.isMobile(context) ? 20 : 50.0,
-              top: 5.0),
-          child: SizedBox(
-            height: Responsive.isMobile(context) ? 260 : 350,
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore
-                  .instance //------for select the item in the firestore----
-                  .collection('Properties List')
-                  // .where('status', isEqualTo: 'Live')
-                  .orderBy('datetime', descending: true)
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Container(
-                      alignment: Alignment.topCenter,
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const CircularProgressIndicator(
-                          backgroundColor: Colors.grey,
-                          color: Color(0xffF9A51F)));
-                } else if (snapshot.data!.docs.length == 0) {
-                  return Container(
-                      alignment: Alignment.topCenter,
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const Text('No Data Foulnd'));
-                } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length > 10
-                        ? 10
-                        : snapshot.data!.docs.length,
-                    scrollDirection: Axis.horizontal,
-                    controller: _scrollController, // Attach ScrollController
-                    itemBuilder: (
-                      context,
-                      index,
-                    ) {
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              // cursorColor: const Color(0xffF9A51F),
+              onChanged: (value) {
+                setState(() {
+                  query = value;
+                });
+              },
+              controller: editingController,
+              decoration: const InputDecoration(
+                  // iconColor: Color(0xffF9A51F),
+                  labelText: "Enter Keyword",
+                  hintText: "Enter Keyword",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+            ),
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore
+                .instance //------for select the item in the firestore----
+                .collection('Properties List')
+                .where('searchquery', arrayContains: query.toLowerCase())
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return Container(
+                    alignment: Alignment.topCenter,
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const CircularProgressIndicator(
+                        backgroundColor: Colors.grey,
+                        color: Color(0xffF9A51F)));
+              } else if (snapshot.data!.docs.length == 0) {
+                return Container(
+                    alignment: Alignment.topCenter,
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const Text('No Data Found'));
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      left: Responsive.isMobile(context) ? 20 : 40.0,
+                      right: Responsive.isMobile(context) ? 20 : 40.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: Responsive.isMobile(context)
+                          ? 2
+                          : 4, // Number of columns
+                      mainAxisSpacing: 10.0, // Spacing between rows
+                      crossAxisSpacing: 10.0, // Spacing between columns
+                      childAspectRatio: Responsive.isMobile(context)
+                          ? 0.68
+                          : 1.0, // Width to height ratio of each grid item
+                    ),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
                       DocumentSnapshot data = snapshot.data!.docs[index];
+                      // Build each grid item
                       return MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
@@ -76,7 +99,7 @@ class _ProductListState extends State<ProductList> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ProductDetails(data: data)));
+                                        ProductDetails(data: data[index])));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,85 +205,13 @@ class _ProductListState extends State<ProductList> {
                         ),
                       );
                     },
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+            },
           ),
-        ),
-        Responsive.isMobile(context)
-            ? const SizedBox()
-            : Positioned(
-                top: 110,
-                right: 30.0,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollToPosition();
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20right.png?alt=media&token=872830ea-971e-41c7-bb4d-a6cb6241a691&_gl=1*1yv5bxu*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzM3NzkuMjguMC4w',
-                          width: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-        Responsive.isMobile(context)
-            ? const SizedBox()
-            : Positioned(
-                top: 110,
-                left: 30.0,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      scrollreverse();
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20left.png?alt=media&token=4f23b9ce-7c61-4223-940c-ea3f5bd14c24&_gl=1*1k048es*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzM3NDcuNjAuMC4w',
-                          width: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-      ],
-    );
-  }
-
-  var toIndex = 1;
-  var toIndexreverse = 1;
-  // Method to scroll to the next item in the ListView
-  void scrollToPosition() {
-    toIndex++;
-    _scrollController.animateTo(
-      toIndex * 100.0, // Replace 50.0 with the height of your list items
-      duration: Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void scrollreverse() {
-    toIndex++;
-    _scrollController.animateTo(
-      toIndexreverse *
-          -100.0, // Replace 50.0 with the height of your list items
-      duration: Duration(seconds: 1),
-      curve: Curves.easeInOut,
+        ],
+      ),
     );
   }
 }

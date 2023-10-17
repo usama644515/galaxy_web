@@ -6,6 +6,7 @@ import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
 import 'package:galaxy_web/components/productlist.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/controllers/image_viewer.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -64,6 +65,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       });
     });
   }
+
   Future<bool> onBackPress() async {
     setState(() {
       Provider.of<menuController>(context, listen: false)
@@ -136,7 +138,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 boxShadow: const [
                                   BoxShadow(
                                     color: Colors.grey, // Shadow color
-                                    offset: Offset(0, 3), // Offset of the shadow
+                                    offset:
+                                        Offset(0, 3), // Offset of the shadow
                                     blurRadius: 6, // Spread of the shadow
                                   ),
                                 ],
@@ -171,7 +174,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       Text(
                         "Recent Projects",
                         style: TextStyle(
-                            fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                            fontSize:
+                                Responsive.isMobile(context) ? 20.0 : 25.0,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -453,6 +457,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
     });
   }
 
+  PageController controller = PageController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -482,28 +487,38 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                       ),
                       itemCount: widget.data['img'].length,
                       itemBuilder: (context, itemIndex, realIndex) {
-                        return CachedNetworkImage(
-                          imageUrl: widget.data['img'][itemIndex],
-                          imageBuilder: (context, imageProvider) => Container(
-                            height: 500.0,
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              // shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ImageViewer(
+                                  images: widget.data['img'][itemIndex],
+                                  controller: controller,
+                                )));
+          
+                      },
+                          child: CachedNetworkImage(
+                            imageUrl: widget.data['img'][itemIndex],
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: 500.0,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                // shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
                             ),
-                          ),
-                          placeholder: (context, url) => Container(
-                            alignment: Alignment.topCenter,
-                            margin: const EdgeInsets.only(top: 40.0),
-                            child: const CircularProgressIndicator(
-                              color: Color(0xffF9A51F),
-                              // color: AppColor.primary,
+                            placeholder: (context, url) => Container(
+                              alignment: Alignment.topCenter,
+                              margin: const EdgeInsets.only(top: 40.0),
+                              child: const CircularProgressIndicator(
+                                color: Color(0xffF9A51F),
+                                // color: AppColor.primary,
+                              ),
                             ),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
                         );
                       },
                     ),
