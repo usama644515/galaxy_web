@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -74,6 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       left: Responsive.isMobile(context) ? 20 : 40.0,
                       right: Responsive.isMobile(context) ? 20 : 40.0),
                   child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: Responsive.isMobile(context)
@@ -82,7 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       mainAxisSpacing: 10.0, // Spacing between rows
                       crossAxisSpacing: 10.0, // Spacing between columns
                       childAspectRatio: Responsive.isMobile(context)
-                          ? 0.68
+                          ? 0.8
                           : 1.0, // Width to height ratio of each grid item
                     ),
                     itemCount: snapshot.data!.docs.length,
@@ -99,7 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ProductDetails(data: data[index])));
+                                        ProductDetails(data: data)));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,45 +162,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               const SizedBox(
                                 height: 8.0,
                               ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.home_work_outlined,
-                                    color: Colors.grey,
-                                    size: 15.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  const Text(
-                                    "House",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  const SizedBox(
-                                    width: 25.0,
-                                  ),
-                                  const Icon(
-                                    Icons.height,
-                                    color: Colors.grey,
-                                    size: 15.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text(
-                                    data.get('size'),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
+                              
                             ],
                           ),
                         ),

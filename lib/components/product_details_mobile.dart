@@ -48,7 +48,7 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ImageViewer(
-                                    images: widget.data['img'][itemIndex],
+                                    images: widget.data['img'],
                                     controller: controller,
                                   )));
                     },

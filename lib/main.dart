@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Galaxy Realtors Builders',
-        home: SplashScreen(),
+        home: Home(),
       ),
     );
   }

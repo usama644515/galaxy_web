@@ -138,45 +138,7 @@ class _ProductListState extends State<ProductList> {
                               const SizedBox(
                                 height: 8.0,
                               ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.home_work_outlined,
-                                    color: Colors.grey,
-                                    size: 15.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  const Text(
-                                    "House",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  const SizedBox(
-                                    width: 25.0,
-                                  ),
-                                  const Icon(
-                                    Icons.height,
-                                    color: Colors.grey,
-                                    size: 15.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text(
-                                    data.get('size'),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
+                              
                             ],
                           ),
                         ),

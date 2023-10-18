@@ -208,25 +208,30 @@ class _ProductDetailsState extends State<ProductDetails> {
                           });
                         },
                         child: Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _isHovered
-                                  ? const Color.fromARGB(255, 202, 136, 29)
-                                  : const Color(0xffF9A51F),
-                              // boxShadow: [
-                              //   BoxShadow(
-                              //     color: Colors.grey
-                              //         .withOpacity(0.5), // Shadow color
-                              //     spreadRadius: 3,
-                              //     blurRadius: 3,
-                              //     offset: const Offset(0, 3), // Shadow offset
-                              //   ),
-                              // ],
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _isHovered
+                                ? const Color.fromARGB(255, 202, 136, 29)
+                                : const Color(0xffF9A51F),
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.grey
+                            //         .withOpacity(0.5), // Shadow color
+                            //     spreadRadius: 3,
+                            //     blurRadius: 3,
+                            //     offset: const Offset(0, 3), // Shadow offset
+                            //   ),
+                            // ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Femail%20white.png?alt=media&token=5b08c56e-9852-4b55-84f8-ec9b511aa7cd&_gl=1*138684v*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzYwOTA1Ni4zNC4xLjE2OTc2MDkxNDIuNjAuMC4w',
                             ),
-                            child: const Icon(Icons.email,
-                                color: Colors.white, size: 27)),
+                          ),
+                        ),
                       ),
                     ),
                   )
@@ -489,13 +494,14 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                       itemBuilder: (context, itemIndex, realIndex) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ImageViewer(
-                                  images: widget.data['img'][itemIndex],
-                                  controller: controller,
-                                )));
-          
-                      },
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ImageViewer(
+                                          images: widget.data['img'],
+                                          controller: controller,
+                                        )));
+                          },
                           child: CachedNetworkImage(
                             imageUrl: widget.data['img'][itemIndex],
                             imageBuilder: (context, imageProvider) => Container(
