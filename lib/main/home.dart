@@ -35,10 +35,10 @@ class _HomeState extends State<Home> {
   }
 
   // var search =
-  //     '11 Marla Brand New Double Story House Avialable For Sale In Buch Executive Villas Multan';
+  //     'Buch Villas Multan';
   // var arr = [];
   // stringslicing() {
-    
+
   //   for (var i = 0; i < search.length; i++) {
   //     arr.add(search.substring(0, i + 1).toLowerCase());
   //     if (i + 1 == search.length) {
@@ -53,6 +53,17 @@ class _HomeState extends State<Home> {
   //       .doc('1e7Ho8dO8S18OybCM361')
   //       .set({'searchquery': arr}, SetOptions(merge: true));
   // }
+//  void updatedata() async {
+//   CollectionReference collectionRef = FirebaseFirestore.instance.collection('Properties List');
+
+//   QuerySnapshot querySnapshot = await collectionRef.get();
+
+//   querySnapshot.docs.forEach((document) async {
+
+//     // Update the data in each document
+//     await collectionRef.doc(document.id).set({'searchquery': arr}, SetOptions(merge: true));
+//   });
+// }
 
   @override
   Widget build(BuildContext context) {

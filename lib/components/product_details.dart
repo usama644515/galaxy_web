@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,6 +41,20 @@ class _ProductDetailsState extends State<ProductDetails> {
 // Function to open a URL
   _openURL(var link) async {
     final url = link; // Replace with your desired URL
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  // Function to open WhatsApp
+  _openWhatsApp() async {
+    final phoneNumber =
+        '923000335875'; // Replace with the recipient's phone number
+    final message = 'Hello from Flutter!'; // Replace with your message
+    final url = 'https://wa.me/$phoneNumber?text=${Uri.encodeFull(message)}';
+
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -105,7 +121,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Responsive.isMobile(context)
                     ? const SizedBox()
                     : const SizedBox(
-                        height: 30,
+                        height: 0,
                       ),
                 Responsive.isMobile(context)
                     ? ProductDetailsMobile(data: widget.data)
@@ -193,7 +209,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     right: 15.0,
                     child: GestureDetector(
                       onTap: () {
-                        _showBottomSheet(context);
+                        _openWhatsApp();
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -207,31 +223,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             _isHovered = false;
                           });
                         },
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _isHovered
-                                ? const Color.fromARGB(255, 202, 136, 29)
-                                : const Color(0xffF9A51F),
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey
-                            //         .withOpacity(0.5), // Shadow color
-                            //     spreadRadius: 3,
-                            //     blurRadius: 3,
-                            //     offset: const Offset(0, 3), // Shadow offset
-                            //   ),
-                            // ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Image.network(
-                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Femail%20white.png?alt=media&token=5b08c56e-9852-4b55-84f8-ec9b511aa7cd&_gl=1*138684v*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzYwOTA1Ni4zNC4xLjE2OTc2MDkxNDIuNjAuMC4w',
-                            ),
-                          ),
-                        ),
+                        child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp.png?alt=media&token=89a781dc-cdc9-424c-96dc-d996eaabd8ae&_gl=1*tgw0tl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzcwOTk0Ni40MC4xLjE2OTc3MDk5ODMuMjMuMC4w',
+                            height: 60,
+                            width: 60),
                       ),
                     ),
                   )
@@ -467,6 +462,17 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbanner.jpg?alt=media&token=ef817b41-1399-4972-993d-63324cc646d0&_gl=1*1n1923a*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1OTcxNS40Ni4xLjE2OTc5NjA5MTIuNTEuMC4w',
+                  width: Responsive.isMobile(context)
+                      ? MediaQuery.of(context).size.width * 0.9
+                      : MediaQuery.of(context).size.width * 0.5),
+          ],
+        ),
+        const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.only(left: 50.0, right: 50),
           child: Row(

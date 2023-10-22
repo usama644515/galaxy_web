@@ -3,6 +3,7 @@ import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:provider/provider.dart';
 
+import '../main/about_us.dart';
 import '../main/home.dart';
 import '../main/shop.dart';
 
@@ -137,6 +138,11 @@ class _SideDrawerState extends State<SideDrawer> {
               setState(() {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('About');
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const AboutUs()),
+                      (route) =>
+                          false, // Always return false to remove all routes
+                    );
               });
             },
           ),

@@ -5,7 +5,6 @@ import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
-
 import '../controllers/MenuController.dart';
 import 'mobile_navbar.dart';
 import 'navbar.dart';
@@ -34,6 +33,7 @@ class _ContactUsState extends State<ContactUs> {
     );
     return Future.value(false);
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -56,7 +56,17 @@ class _ContactUsState extends State<ContactUs> {
                     : const NavBar(),
               ],
             ),
-            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbanner.jpg?alt=media&token=ef817b41-1399-4972-993d-63324cc646d0&_gl=1*1n1923a*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1OTcxNS40Ni4xLjE2OTc5NjA5MTIuNTEuMC4w',
+                    width: Responsive.isMobile(context)
+                        ? MediaQuery.of(context).size.width * 0.9
+                        : MediaQuery.of(context).size.width * 0.5),
+              ],
+            ),
+            const SizedBox(height: 20),
             Center(
               child: Container(
                 width: Responsive.isMobile(context)
@@ -143,14 +153,14 @@ class _ContactUsState extends State<ContactUs> {
                                     String name = _nameController.text;
                                     String email = _emailController.text;
                                     String message = _messageController.text;
-    
+
                                     // Process the data, e.g., send it to a server
-    
+
                                     // Reset the form
                                     _nameController.clear();
                                     _emailController.clear();
                                     _messageController.clear();
-    
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content:
@@ -202,7 +212,9 @@ class _ContactUsState extends State<ContactUs> {
                 ),
               ),
             ),
-            Responsive.isMobile(context) ? const FooterMobile() : const Footer(),
+            Responsive.isMobile(context)
+                ? const FooterMobile()
+                : const Footer(),
           ],
         ),
       ),

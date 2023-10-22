@@ -220,6 +220,14 @@ class _AddProductStoreState extends State<AddProductStore> {
       //   updatedata();
       // }
     }
+    // locatiion
+    for (var i = 0; i < condition!.length; i++) {
+      searchfilter.add(condition!.substring(0, i + 1).toLowerCase());
+    }
+    // id
+    for (var i = 0; i < _id.text.length; i++) {
+      searchfilter.add(_id.text.substring(0, i + 1).toLowerCase());
+    }
   }
 
   progressDialogue(BuildContext context) {

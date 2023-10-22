@@ -4,6 +4,7 @@ import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
+import '../main/about_us.dart';
 import '../main/shop.dart';
 import 'add_product_store.dart';
 
@@ -193,6 +194,12 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('About');
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const AboutUs()),
+                      (route) =>
+                          false, // Always return false to remove all routes
+                    );
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,

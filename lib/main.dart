@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-
-import 'components/splash.dart';
 import 'router/routes.dart';
 
 Future<void> main() async {
