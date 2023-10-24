@@ -143,8 +143,8 @@ class _ShopState extends State<Shop> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-           SizedBox(
-            height:Responsive.isMobile(context) ? 15 : 25.0,
+          SizedBox(
+            height: Responsive.isMobile(context) ? 15 : 25.0,
           ),
           SizedBox(
             height: 60,
@@ -193,7 +193,8 @@ class _ShopState extends State<Shop> {
                   child: Stack(
                     children: [
                       Padding(
-                        padding:  EdgeInsets.only(right: Responsive.isMobile(context)? 0: 400.0),
+                        padding: EdgeInsets.only(
+                            right: Responsive.isMobile(context) ? 0 : 400.0),
                         child: Container(
                           decoration: BoxDecoration(
                               color: Responsive.isMobile(context)
@@ -208,7 +209,7 @@ class _ShopState extends State<Shop> {
                                 Responsive.isMobile(context) ? 0 : 30.0),
                             child: ListView.builder(
                               shrinkWrap: true,
-                              // physics: const NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: data.length,
                               // scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
@@ -435,8 +436,10 @@ class _ShopState extends State<Shop> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         _openWhatsApp(
+                                                            
                                                             data[index]
-                                                                ['title']);
+                                                                ['title'],data[index]
+                                                                ['phone'],);
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(
@@ -500,8 +503,8 @@ class _ShopState extends State<Shop> {
                                                                 : 10.0),
                                                     GestureDetector(
                                                       onTap: () {
-                                                        _launchPhone(
-                                                            '+923000335875');
+                                                        _launchPhone(data[index]
+                                                            ['phone']);
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(
@@ -613,9 +616,10 @@ class _ShopState extends State<Shop> {
   }
 
   // Function to open WhatsApp
-  _openWhatsApp(var msg) async {
-    final phoneNumber =
-        '923000335875'; // Replace with the recipient's phone number
+  _openWhatsApp(var msg, var phoneNumber) async {
+    print(phoneNumber);
+    // final phoneNumber =
+    //     '923000335875'; // Replace with the recipient's phone number
     final message = msg; // Replace with your message
     final url = 'https://wa.me/$phoneNumber?text=${Uri.encodeFull(message)}';
 

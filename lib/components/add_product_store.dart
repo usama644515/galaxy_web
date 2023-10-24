@@ -27,6 +27,25 @@ class AddProductStore extends StatefulWidget {
 }
 
 class _AddProductStoreState extends State<AddProductStore> {
+  void initState() {
+    print(_auth.currentUser?.email);
+    getphonenumber();
+    super.initState();
+  }
+
+  var phone;
+  getphonenumber() {
+    FirebaseFirestore.instance
+        .collection('AllUsers')
+        .doc(_auth.currentUser?.uid)
+        .get()
+        .then((value) {
+      phone = value.get('phone');
+      // employeeList = employeeList + ['usama'];
+      // print('----------------${employeeList}---------------');
+    });
+  }
+
   bool isChecked = false,
       small = false,
       medium = false,
@@ -277,11 +296,6 @@ class _AddProductStoreState extends State<AddProductStore> {
 
   final _formKey = GlobalKey<FormState>();
   final _popUpFormKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void vAlert() {
     showDialog(
@@ -1175,6 +1189,8 @@ class _AddProductStoreState extends State<AddProductStore> {
                                   'select': warn,
                                   'datetime': DateTime.now(),
                                   'searchquery': searchfilter,
+                                  'user': _auth.currentUser?.uid,
+                                  'phone': phone,
                                 }, SetOptions(merge: true)).then((value) {
                                   print('upload successful');
                                   Fluttertoast.showToast(

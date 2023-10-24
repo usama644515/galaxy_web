@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/contactUs.dart';
@@ -6,6 +7,8 @@ import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import '../main/about_us.dart';
 import '../main/shop.dart';
+import '../welcome/signin.dart';
+import '../welcome/signup.dart';
 import 'add_product_store.dart';
 
 class NavBar extends StatefulWidget {
@@ -21,6 +24,8 @@ var bloghover = false;
 var abouthover = false;
 var contacthover = false;
 final router = FluroRouter();
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
 class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
@@ -195,8 +200,7 @@ class _NavBarState extends State<NavBar> {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('About');
                     Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const AboutUs()),
+                      MaterialPageRoute(builder: (context) => const AboutUs()),
                       (route) =>
                           false, // Always return false to remove all routes
                     );
@@ -306,84 +310,154 @@ class _NavBarState extends State<NavBar> {
                 //     size: 35.0,
                 //   ),
                 // ),
-                Row(
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) {
-                    setState(() {
-                      loginbtn = true;
-                    });
-                  },
-                  onExit: (_) {
-                    setState(() {
-                      loginbtn = false;
-                    });
-                  },
-                  child: Container(
-                      height: 35,
-                      width: 80,
-                      decoration: BoxDecoration(
-                          // color: signupbtn
-                          //     ? const Color.fromARGB(255, 199, 24, 24)
-                          //     : const Color(0xffFD1A1A),
-                          border: Border.all(
-                              color: loginbtn
-                                  ? const Color(0xffF9A51F)
-                                  : Colors.transparent),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                          child: Text(
-                        'Login',
-                        style: TextStyle(
-                            decoration: loginbtn
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            fontSize: 15.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ))),
-                ),
-                const SizedBox(width: 6.0),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) {
-                    setState(() {
-                      signupbtn = true;
-                    });
-                  },
-                  onExit: (_) {
-                    setState(() {
-                      signupbtn = false;
-                    });
-                  },
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AddProductStore()));
-                    },
-                    child: Container(
-                        height: 35,
-                        width: 80,
-                        decoration: BoxDecoration(
-                            color: signupbtn
-                                ? const Color.fromARGB(255, 206, 139, 30)
-                                : const Color(0xffF9A51F),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: const Center(
-                            child: Text(
-                          'Signup',
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600),
-                        ))),
-                  ),
-                ),
-              ],
-            ),
+                _auth.currentUser == null
+                    ? Row(
+                        children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                loginbtn = true;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                loginbtn = false;
+                              });
+                            },
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const SignIn()));
+                              },
+                              child: Container(
+                                  height: 35,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      // color: signupbtn
+                                      //     ? const Color.fromARGB(255, 199, 24, 24)
+                                      //     : const Color(0xffFD1A1A),
+                                      border: Border.all(
+                                          color: loginbtn
+                                              ? const Color(0xffF9A51F)
+                                              : Colors.transparent),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Center(
+                                      child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        decoration: loginbtn
+                                            ? TextDecoration.underline
+                                            : TextDecoration.none,
+                                        fontSize: 15.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ))),
+                            ),
+                          ),
+                          const SizedBox(width: 6.0),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                signupbtn = true;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                signupbtn = false;
+                              });
+                            },
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const SignUp()));
+                              },
+                              child: Container(
+                                  height: 35,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      color: signupbtn
+                                          ? const Color.fromARGB(
+                                              255, 206, 139, 30)
+                                          : const Color(0xffF9A51F),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: const Center(
+                                      child: Text(
+                                    'Signup',
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  ))),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                signupbtn = true;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                signupbtn = false;
+                              });
+                            },
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AddProductStore()));
+                              },
+                              child: Container(
+                                  height: 35,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      color: signupbtn
+                                          ? const Color.fromARGB(
+                                              255, 206, 139, 30)
+                                          : const Color(0xffF9A51F),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: const Center(
+                                      child: Text(
+                                    'Create Listing',
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  ))),
+                            ),
+                          ),
+                          const SizedBox(width: 10.0),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      '${_auth.currentUser?.photoURL}'), // Replace with your image path
+                                  fit: BoxFit
+                                      .cover, // You can adjust the fit as needed
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
           ),
         ],
       ),

@@ -30,7 +30,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    // stringslicing();
+    // updatedata();
     super.initState();
   }
 
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
 //   querySnapshot.docs.forEach((document) async {
 
 //     // Update the data in each document
-//     await collectionRef.doc(document.id).set({'searchquery': arr}, SetOptions(merge: true));
+//     await collectionRef.doc(document.id).set({'user': 'admin'}, SetOptions(merge: true));
 //   });
 // }
 

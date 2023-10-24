@@ -49,9 +49,9 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   // Function to open WhatsApp
-  _openWhatsApp() async {
-    final phoneNumber =
-        '923000335875'; // Replace with the recipient's phone number
+  _openWhatsApp(var phoneNumber) async {
+    // final phoneNumber =
+    //     '923000335875'; // Replace with the recipient's phone number
     final message = 'Hello from Flutter!'; // Replace with your message
     final url = 'https://wa.me/$phoneNumber?text=${Uri.encodeFull(message)}';
 
@@ -209,7 +209,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     right: 15.0,
                     child: GestureDetector(
                       onTap: () {
-                        _openWhatsApp();
+                        _openWhatsApp(widget.data['phone']);
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
