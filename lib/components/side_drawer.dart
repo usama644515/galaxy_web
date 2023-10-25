@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/main/dashboard.dart';
 import 'package:provider/provider.dart';
 
 import '../main/about_us.dart';
@@ -57,8 +58,8 @@ class _SideDrawerState extends State<SideDrawer> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap:(){
-                               signOutWithConfirmation(context);
+                            onTap: () {
+                              signOutWithConfirmation(context);
                             },
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
@@ -112,6 +113,41 @@ class _SideDrawerState extends State<SideDrawer> {
           const SizedBox(
             height: 40,
           ),
+          _auth.currentUser == null
+              ? const SizedBox()
+              : ListTile(
+                  title: Text(
+                    'DashBoard',
+                    style: TextStyle(
+                        color:
+                            Provider.of<menuController>(context, listen: false)
+                                        .menue ==
+                                    'dashboard'
+                                ? Colors.white
+                                : const Color(0xff8c8c8c),
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      Provider.of<menuController>(context, listen: false)
+                          .navmenueSelect('dashboard');
+                      // Remove all routes and push a new route
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const DashBoard()),
+                        (route) =>
+                            false, // Always return false to remove all routes
+                      );
+                    });
+                  },
+                ),
+          _auth.currentUser == null
+              ? const SizedBox()
+              : const Divider(
+                  color: Color(0xff8c8c8c),
+                  thickness: 0.1,
+                ),
           ListTile(
             title: Text(
               'HOME',

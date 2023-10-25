@@ -69,20 +69,20 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 30.0,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 15.0),
                           child: Row(
                             children: [
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Icon(Icons.arrow_back_ios,
-                                        color: Color(0xffF9A51F))),
-                              ),
-                              const Text(
+                              // MouseRegion(
+                              //   cursor: SystemMouseCursors.click,
+                              //   child: GestureDetector(
+                              //       onTap: () {
+                              //         Navigator.pop(context);
+                              //       },
+                              //       child: const Icon(Icons.arrow_back_ios,
+                              //           color: Color(0xffF9A51F))),
+                              // ),
+                              Text(
                                 "Create Account",
                                 style: TextStyle(
                                     color: Color(0xffF9A51F),
@@ -139,8 +139,7 @@ class _SignUpState extends State<SignUp> {
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                 ),
                               ),
@@ -181,7 +180,7 @@ class _SignUpState extends State<SignUp> {
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.grey,
-                                  hintText: '923.......',
+                                  hintText: 'Enter Email',
                                   hintStyle: const TextStyle(
                                       color: Colors.white, fontSize: 12.0),
                                   contentPadding: const EdgeInsets.only(
@@ -189,14 +188,12 @@ class _SignUpState extends State<SignUp> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                 ),
                               ),
@@ -238,7 +235,7 @@ class _SignUpState extends State<SignUp> {
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.grey,
-                                  hintText: 'Enter Phone Number',
+                                  hintText: '923.......',
                                   hintStyle: const TextStyle(
                                       color: Colors.white, fontSize: 12.0),
                                   contentPadding: const EdgeInsets.only(
@@ -246,14 +243,12 @@ class _SignUpState extends State<SignUp> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                 ),
                               ),
@@ -313,14 +308,12 @@ class _SignUpState extends State<SignUp> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Color(0xffF7F8FA)),
-                                    borderRadius:
-                                        BorderRadius.circular(10.7),
+                                    borderRadius: BorderRadius.circular(10.7),
                                   ),
                                 ),
                               ),

@@ -9,6 +9,7 @@ import 'package:galaxy_web/components/search_block.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../components/blogitem.dart';
 import '../components/footer.dart';
 import '../components/footer_mobile.dart';
@@ -72,111 +73,137 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color(0xffFFFFFF),
       key: scaffoldKey,
       drawer: const SideDrawer(),
-      body: ListView(
+      body: Stack(
         children: [
-          Stack(
+          ListView(
             children: [
-              Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/multan%20cover.png?alt=media&token=26ea21c1-c846-4ac5-9289-ede20b574778',
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width,
-                height: Responsive.isMobile(context)
-                    ? MediaQuery.of(context).size.height * 0.45
-                    : MediaQuery.of(context).size.height * 0.9,
+              Stack(
+                children: [
+                  Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/multan%20cover.png?alt=media&token=26ea21c1-c846-4ac5-9289-ede20b574778',
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: Responsive.isMobile(context)
+                        ? MediaQuery.of(context).size.height * 0.45
+                        : MediaQuery.of(context).size.height * 0.9,
+                  ),
+                  Responsive.isMobile(context)
+                      ? MobileNavBar(scaffoldKey)
+                      : const NavBar(),
+                  Responsive.isMobile(context)
+                      ? MobileSearchBlock(context)
+                      : SearchBlock(context),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: Responsive.isMobile(context) ? 20 : 50.0, top: 40.0),
+                child: Text(
+                  "Explore more on Galaxy",
+                  style: TextStyle(
+                      fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
               Responsive.isMobile(context)
-                  ? MobileNavBar(scaffoldKey)
-                  : const NavBar(),
-              Responsive.isMobile(context)
-                  ? MobileSearchBlock(context)
-                  : SearchBlock(context),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: Responsive.isMobile(context) ? 20 : 50.0, top: 40.0),
-            child: Text(
-              "Explore more on Galaxy",
-              style: TextStyle(
-                  fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Responsive.isMobile(context)
-              ? const CategoryMobile()
-              : const category(),
-          Padding(
-            padding: EdgeInsets.only(
-                left: Responsive.isMobile(context) ? 20 : 50.0,
-                top: 40.0,
-                right: Responsive.isMobile(context) ? 20 : 50.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Galaxy Projects",
-                  style: TextStyle(
-                      fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Provider.of<menuController>(context, listen: false)
-                        .navmenueSelect('Shop');
-                    // navigateToPage('/Shop');
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Shop()));
-                  },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Text(
-                      "View All",
+                  ? const CategoryMobile()
+                  : const category(),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: Responsive.isMobile(context) ? 20 : 50.0,
+                    top: 40.0,
+                    right: Responsive.isMobile(context) ? 20 : 50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Galaxy Projects",
                       style: TextStyle(
-                        fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
-                        decoration: TextDecoration.underline,
-                        color: const Color(0xff4DB9F4),
-                        fontWeight: FontWeight.w600,
+                          fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Provider.of<menuController>(context, listen: false)
+                            .navmenueSelect('Shop');
+                        // navigateToPage('/Shop');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Shop()));
+                      },
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                            fontSize:
+                                Responsive.isMobile(context) ? 15.0 : 15.0,
+                            decoration: TextDecoration.underline,
+                            color: const Color(0xff4DB9F4),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          const ProductList(),
-          const WhyChooseSection(),
-          Padding(
-            padding: EdgeInsets.only(
-                left: Responsive.isMobile(context) ? 20 : 50.0,
-                top: 40.0,
-                right: Responsive.isMobile(context) ? 20 : 50.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Blogs",
-                  style: TextStyle(
-                      fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "View All",
-                    style: TextStyle(
-                      fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
-                      decoration: TextDecoration.underline,
-                      color: const Color(0xff4DB9F4),
-                      fontWeight: FontWeight.w600,
+              ),
+              const ProductList(),
+              const WhyChooseSection(),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: Responsive.isMobile(context) ? 20 : 50.0,
+                    top: 40.0,
+                    right: Responsive.isMobile(context) ? 20 : 50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Blogs",
+                      style: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Text(
+                        "View All",
+                        style: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                          decoration: TextDecoration.underline,
+                          color: const Color(0xff4DB9F4),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const BlogItems(),
+              const LogoSection(),
+              Responsive.isMobile(context)
+                  ? const FooterMobile()
+                  : const Footer(),
+            ],
           ),
-          const BlogItems(),
-          const LogoSection(),
-          Responsive.isMobile(context) ? const FooterMobile() : const Footer(),
+          Positioned(
+            bottom: 15.0,
+            right: 15.0,
+            child: GestureDetector(
+              onTap: () {
+                _openWhatsApp(923000335875, '');
+              },
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                onEnter: (_) {},
+                child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp.png?alt=media&token=89a781dc-cdc9-424c-96dc-d996eaabd8ae&_gl=1*tgw0tl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzcwOTk0Ni40MC4xLjE2OTc3MDk5ODMuMjMuMC4w',
+                    height: 60,
+                    width: 60),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -188,5 +215,18 @@ class _HomeState extends State<Home> {
 
     // Perform any additional navigation logic if needed
     // For example, you can use the Navigator class to push routes.
+  }
+
+  _openWhatsApp(var phoneNumber, var title) async {
+    // final phoneNumber =
+    //     '923000335875'; // Replace with the recipient's phone number
+    // Replace with your message
+    final url = 'https://wa.me/$phoneNumber?text=${Uri.encodeFull(title)}';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget MobileNavBar(var drawerstate) {
   return Stack(
@@ -28,7 +29,29 @@ Widget MobileNavBar(var drawerstate) {
             ),
           ],
         ),
-      )
+      ),
+      Positioned(
+        right: 25.0,
+        top: 15.0,
+        child: GestureDetector(
+          onTap: () {
+            _launchPhone('923000335875');
+          },
+          child: Image.network(
+            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20icon%20white.png?alt=media&token=a7859ee1-775e-4184-bee3-784022426a16&_gl=1*1jbcv0c*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODIzMTMyNi41Ny4xLjE2OTgyMzEzNTguMjguMC4w',
+            width: 25,
+          ),
+        ),
+      ),
     ],
   );
+  
 }
+void _launchPhone(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }

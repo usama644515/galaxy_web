@@ -88,8 +88,9 @@ class _BlogItemsState extends State<BlogItems> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                          placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                                  color: Color(0xffF9A51F))),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         ),
@@ -107,8 +108,6 @@ class _BlogItemsState extends State<BlogItems> {
                       const SizedBox(
                         height: 8.0,
                       ),
-                      
-                      
                     ],
                   ),
                 );
@@ -130,12 +129,11 @@ class _BlogItemsState extends State<BlogItems> {
                     child: Container(
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xffF9A51F)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          weight: 20.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20right.png?alt=media&token=872830ea-971e-41c7-bb4d-a6cb6241a691&_gl=1*1yv5bxu*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzM3NzkuMjguMC4w',
+                          width: 20,
                         ),
                       ),
                     ),
@@ -156,12 +154,11 @@ class _BlogItemsState extends State<BlogItems> {
                     child: Container(
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xffF9A51F)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          weight: 20.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20left.png?alt=media&token=4f23b9ce-7c61-4223-940c-ea3f5bd14c24&_gl=1*1k048es*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzM3NDcuNjAuMC4w',
+                          width: 20,
                         ),
                       ),
                     ),

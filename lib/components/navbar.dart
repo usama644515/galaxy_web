@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import '../main/about_us.dart';
@@ -440,22 +442,87 @@ class _NavBarState extends State<NavBar> {
                             ),
                           ),
                           const SizedBox(width: 10.0),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      '${_auth.currentUser?.photoURL}'), // Replace with your image path
-                                  fit: BoxFit
-                                      .cover, // You can adjust the fit as needed
+                          Stack(children: [
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        '${_auth.currentUser?.photoURL}'), // Replace with your image path
+                                    fit: BoxFit
+                                        .cover, // You can adjust the fit as needed
+                                  ),
                                 ),
                               ),
                             ),
-                          )
+                            PopupMenuButton<int>(
+                              icon: const Icon(Icons.more_vert,
+                                  color: Colors.transparent),
+                              itemBuilder: (context) => [
+                                // PopupMenuItem 1
+                                const PopupMenuItem(
+                                  value: 1,
+                                  // row with 2 children
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.account_circle,
+                                          color: Colors.red),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("DashBoard",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                const PopupMenuItem(
+                                  value: 2,
+                                  // row with 2 children
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.logout, color: Colors.red),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Log Out",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              offset: const Offset(0, 100),
+                              color: Colors.white,
+                              elevation: 2,
+                              // on selected we show the dialog box
+                              onSelected: (value) {
+                                // if value 1 show dialog
+                                if (value == 2) {
+                                  _logoutDialoge(context);
+                                  // if value 2 show dialog
+                                } else if (value == 1) {
+                                  Provider.of<menuController>(context,
+                                          listen: false)
+                                      .navmenueSelect('dashboard');
+                                  // Remove all routes and push a new route
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DashBoard()),
+                                    (route) =>
+                                        false, // Always return false to remove all routes
+                                  );
+                                }
+                              },
+                            )
+                          ]),
                         ],
                       ),
           ),
@@ -466,4 +533,36 @@ class _NavBarState extends State<NavBar> {
 
   var signupbtn = false;
   var loginbtn = false;
+  _logoutDialoge(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return CupertinoAlertDialog(
+            title: const Text('Are you sure you want to Logout?'),
+            // content: const Text('Are you sure to Delete Message?'),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('Log Out'),
+                onPressed: () async {
+                  // SharedPreferences prefs = await SharedPreferences.getInstance();
+                  // prefs.setBool('isLoggedIn', false);
+                  await FirebaseAuth.instance.signOut().then((value) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const Home()),
+                      (route) =>
+                          false, // Always return false to remove all routes
+                    );
+                  });
+                },
+              ),
+              CupertinoDialogAction(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
 }

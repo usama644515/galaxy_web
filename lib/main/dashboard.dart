@@ -1,26 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/components/footer.dart';
+import 'package:galaxy_web/components/footer_mobile.dart';
+import 'package:galaxy_web/components/mobile_navbar.dart';
+import 'package:galaxy_web/components/product_details.dart';
+import 'package:galaxy_web/components/side_drawer.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../components/footer.dart';
-import '../components/footer_mobile.dart';
-import '../components/mobile_navbar.dart';
-import '../components/navbar.dart';
-import '../components/product_details.dart';
-import '../components/side_drawer.dart';
-import '../controllers/MenuController.dart';
-import '../responsive.dart';
 
-class Shop extends StatefulWidget {
-  const Shop({super.key, this.categ});
+import '../components/navbar.dart';
+
+class DashBoard extends StatefulWidget {
+  const DashBoard({super.key, this.categ});
   final categ;
   @override
-  State<Shop> createState() => _ShopState();
+  State<DashBoard> createState() => _DashBoardState();
 }
 
-class _ShopState extends State<Shop> {
+class _DashBoardState extends State<DashBoard> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   var filter = ['Residential', 'Commercial', 'Plots', 'Construction'];
   var loader = true;
   List<Map<String, dynamic>> data = [];
@@ -28,6 +31,7 @@ class _ShopState extends State<Shop> {
     if (widget.categ == null) {
       FirebaseFirestore.instance
           .collection('Properties List')
+          .where('user', isEqualTo: _auth.currentUser?.uid)
           .get()
           .then((value) {
         setState(() {
@@ -136,7 +140,7 @@ class _ShopState extends State<Shop> {
                 left: Responsive.isMobile(context) ? 20 : 50.0,
                 right: Responsive.isMobile(context) ? 20 : 50.0),
             child: Text(
-              "Shop",
+              "My DashBoard",
               style: TextStyle(
                   fontSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                   fontWeight: FontWeight.bold),
@@ -435,10 +439,9 @@ class _ShopState extends State<Shop> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         _openWhatsApp(
-                                                            
-                                                            data[index]
-                                                                ['title'],data[index]
-                                                                ['phone'],);
+                                                          data[index]['title'],
+                                                          data[index]['phone'],
+                                                        );
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(

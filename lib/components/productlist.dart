@@ -190,7 +190,7 @@ class _ProductListState extends State<ProductList> {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xffF9A51F)),
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Image.network(
                           'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20left.png?alt=media&token=4f23b9ce-7c61-4223-940c-ea3f5bd14c24&_gl=1*1k048es*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzM3NDcuNjAuMC4w',
                           width: 20,

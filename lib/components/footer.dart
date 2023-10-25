@@ -238,7 +238,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.instagram.com/galaxyrealtorbuilders/');
+                                  'https://www.instagram.com/galaxyrealtorsbuilders?igshid=MzRlODBiNWFlZA%3D%3D');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/components/mobile_navbar.dart';
+import 'package:galaxy_web/components/navbar.dart';
 import 'package:galaxy_web/components/product_details.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/responsive.dart';
@@ -24,12 +26,25 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   var query = '';
-
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       body: ListView(
         children: <Widget>[
+          Stack(
+            children: [
+              Container(
+                height: 60,
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(color: Colors.black),
+              ),
+              Responsive.isMobile(context)
+                  ? MobileNavBar(scaffoldKey)
+                  : const NavBar(),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -162,7 +177,6 @@ class _SearchScreenState extends State<SearchScreen> {
                               const SizedBox(
                                 height: 8.0,
                               ),
-                              
                             ],
                           ),
                         ),

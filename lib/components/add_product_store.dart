@@ -18,10 +18,9 @@ import 'package:image_picker/image_picker.dart';
 import '../responsive.dart';
 
 class AddProductStore extends StatefulWidget {
-  final data;
-
-  const AddProductStore({Key? key, this.data}) : super(key: key);
-
+  const AddProductStore({Key? key, this.productdata, this.data})
+      : super(key: key);
+  final productdata, data;
   @override
   _AddProductStoreState createState() => _AddProductStoreState();
 }
@@ -108,7 +107,7 @@ class _AddProductStoreState extends State<AddProductStore> {
               return Container(
                 height: 140,
                 width: 140,
-                margin: EdgeInsets.all(3),
+                margin: const EdgeInsets.all(3),
                 key: ValueKey(productName),
                 child: Stack(
                   children: [
@@ -1082,7 +1081,11 @@ class _AddProductStoreState extends State<AddProductStore> {
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
-                        hintText: "  https://www.youtube.com/",
+                        hintText: widget.productdata != null
+                            ? widget.productdata['videoUrl'] == ''
+                                ? 'Video UnAvailable'
+                                : 'Video Available'
+                            : "  https://www.youtube.com/",
                         hintStyle: const TextStyle(
                             fontFamily: "Lora",
                             color: Colors.grey,
@@ -1137,8 +1140,8 @@ class _AddProductStoreState extends State<AddProductStore> {
                           return Condition(location[index]);
                         }),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 10),
                     child: Row(
                       children: [
                         Text(
@@ -1166,35 +1169,16 @@ class _AddProductStoreState extends State<AddProductStore> {
                         cursor: SystemMouseCursors.click, //hand click cursor
                         child: GestureDetector(
                           onTap: () {
-                            if (_formKey.currentState!.validate() &&
-                                _imgObjs.isNotEmpty) {
-                              uploadFile().then((value) {
+                            if (widget.productdata != null) {
+                              if (_youtubeurl.text != '') {
                                 firestore
                                     .collection('Properties List')
-                                    .doc()
+                                    .doc(widget.productdata.id)
                                     .set({
-                                  'img': imageUrl,
-                                  'title': _titleController.text,
-                                  'price': _price.text,
-                                  'description': _description.text,
-                                  'size': _landsize.text,
-                                  'rooms': _rooms.text,
-                                  'bath': _bathroom.text,
-                                  'garage': _garage.text,
-                                  'city': _city.text,
-                                  'id': _id.text,
                                   'videoUrl': _youtubeurl.text,
-                                  'category': range,
-                                  'location': condition,
-                                  'select': warn,
-                                  'datetime': DateTime.now(),
-                                  'searchquery': searchfilter,
-                                  'user': _auth.currentUser?.uid,
-                                  'phone': phone,
                                 }, SetOptions(merge: true)).then((value) {
-                                  print('upload successful');
                                   Fluttertoast.showToast(
-                                      msg: "Product Uploaded",
+                                      msg: "Product Updated",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
@@ -1202,17 +1186,57 @@ class _AddProductStoreState extends State<AddProductStore> {
                                       fontSize: 16.0);
                                   Navigator.pop(context);
                                   Navigator.pop(context);
-                                  // getProducts(context);
                                 });
-                              });
+                              }
                             } else {
-                              Fluttertoast.showToast(
-                                  msg: 'Please fill all details',
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
+                              if (_formKey.currentState!.validate() &&
+                                  _imgObjs.isNotEmpty) {
+                                uploadFile().then((value) {
+                                  firestore
+                                      .collection('Properties List')
+                                      .doc()
+                                      .set({
+                                    'img': imageUrl,
+                                    'title': _titleController.text,
+                                    'price': _price.text,
+                                    'description': _description.text,
+                                    'size': _landsize.text,
+                                    'rooms': _rooms.text,
+                                    'bath': _bathroom.text,
+                                    'garage': _garage.text,
+                                    'city': _city.text,
+                                    'id': _id.text,
+                                    'videoUrl': _youtubeurl.text,
+                                    'category': range,
+                                    'location': condition,
+                                    'select': warn,
+                                    'datetime': DateTime.now(),
+                                    'searchquery': searchfilter,
+                                    'user': _auth.currentUser?.uid,
+                                    'phone': phone,
+                                  }, SetOptions(merge: true)).then((value) {
+                                    print('upload successful');
+                                    Fluttertoast.showToast(
+                                        msg: "Product Uploaded",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    // getProducts(context);
+                                  });
+                                });
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: 'Please fill all details',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
                             }
                           },
                           child: Container(

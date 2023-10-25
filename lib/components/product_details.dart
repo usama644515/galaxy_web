@@ -3,7 +3,9 @@ import 'dart:html';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
 import 'package:galaxy_web/components/productlist.dart';
@@ -49,11 +51,11 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   // Function to open WhatsApp
-  _openWhatsApp(var phoneNumber) async {
+  _openWhatsApp(var phoneNumber, var title) async {
     // final phoneNumber =
     //     '923000335875'; // Replace with the recipient's phone number
-    final message = 'Hello from Flutter!'; // Replace with your message
-    final url = 'https://wa.me/$phoneNumber?text=${Uri.encodeFull(message)}';
+    // Replace with your message
+    final url = 'https://wa.me/$phoneNumber?text=${Uri.encodeFull(title)}';
 
     if (await canLaunch(url)) {
       await launch(url);
@@ -209,7 +211,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     right: 15.0,
                     child: GestureDetector(
                       onTap: () {
-                        _openWhatsApp(widget.data['phone']);
+                        _openWhatsApp(
+                            widget.data['phone'], widget.data['title']);
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -457,6 +460,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
     });
   }
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   PageController controller = PageController();
   @override
   Widget build(BuildContext context) {
@@ -466,10 +470,10 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbanner.jpg?alt=media&token=ef817b41-1399-4972-993d-63324cc646d0&_gl=1*1n1923a*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1OTcxNS40Ni4xLjE2OTc5NjA5MTIuNTEuMC4w',
-                  width: Responsive.isMobile(context)
-                      ? MediaQuery.of(context).size.width * 0.9
-                      : MediaQuery.of(context).size.width * 0.5),
+                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbanner.jpg?alt=media&token=ef817b41-1399-4972-993d-63324cc646d0&_gl=1*1n1923a*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1OTcxNS40Ni4xLjE2OTc5NjA5MTIuNTEuMC4w',
+                width: Responsive.isMobile(context)
+                    ? MediaQuery.of(context).size.width * 0.9
+                    : MediaQuery.of(context).size.width * 0.5),
           ],
         ),
         const SizedBox(height: 20.0),
@@ -546,12 +550,23 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      widget.data['title'],
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 22.0, fontWeight: FontWeight.w700),
+                    GestureDetector(
+                      onTap: () {
+                        _auth.currentUser?.email == 'admin@gmail.com'
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddProductStore(
+                                        productdata: widget.data)))
+                            : const SizedBox();
+                      },
+                      child: Text(
+                        widget.data['title'],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 22.0, fontWeight: FontWeight.w700),
+                      ),
                     ),
                   ],
                 ),
