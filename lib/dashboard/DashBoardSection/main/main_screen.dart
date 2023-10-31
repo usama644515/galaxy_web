@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/dashboard/constants.dart';
-import 'package:galaxy_web/dashboard/screens/dashboard/dashboard_screen.dart';
+import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/dashboard_screen.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
 

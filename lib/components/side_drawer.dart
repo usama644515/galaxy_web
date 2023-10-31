@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
-import 'package:galaxy_web/dashboard/screens/main/main_screen.dart';
+import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:provider/provider.dart';
 import '../main/about_us.dart';

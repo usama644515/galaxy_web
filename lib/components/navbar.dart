@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
-import 'package:galaxy_web/dashboard/screens/main/main_screen.dart';
+import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
