@@ -88,7 +88,7 @@ class _FooterMobileState extends State<FooterMobile> {
                           'https://www.tiktok.com/@galaxyrealtorsbuilders75?is_from_webapp=1&sender_device=pc');
                     },
                     child: Image.network(
-                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Ftwitter.png?alt=media&token=c94b8483-a090-40e4-a862-8497c9e1b905',
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Ftik-tok.png?alt=media&token=a79765b5-c0b4-416d-9a9d-4930fdd74caf&_gl=1*1cg7ddv*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODQ5MDM0OC42Ni4xLjE2OTg0OTE5MTAuMTIuMC4w',
                       width: 33.0,
                     ),
                   ),

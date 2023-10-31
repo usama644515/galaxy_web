@@ -1,3 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,119 +16,85 @@ class WhyChooseSection extends StatefulWidget {
 class _WhyChooseSectionState extends State<WhyChooseSection> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 250.0,
-      width: MediaQuery.of(context).size.width,
-      decoration:  BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xffF9A51F),
-            const Color(0xffF9A51F).withOpacity(0.9)
-          ], // Define your gradient colors
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15.0,right: 15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-           Text(
-            'Why Galaxy Realtors Builders?',
-            style: TextStyle(
-                fontSize: Responsive.isMobile(context)? 26 :30.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-                textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-           Text(
-            'Choose Galaxy Realtors Builders for their commitment to quality craftsmanship, innovative designs, and a proven track record of delivering exceptional homes.',
-            style: TextStyle(
-                fontSize: Responsive.isMobile(context)? 12.0: 15.0,
-                fontWeight: FontWeight.w500,
-                color: Colors.black),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                onEnter: (_) {
-                  setState(() {
-                    explorebtn = true;
-                  });
-                },
-                onExit: (_) {
-                  setState(() {
-                    explorebtn = false;
-                  });
-                },
-                child: Container(
-                    height: 45,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        color: explorebtn
-                            ?  const Color.fromARGB(255, 36, 34, 34)
-                            : Colors.black,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: const Center(
-                        child: Text(
-                      'Explore Now',
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ))),
-              ),
-              const SizedBox(
-            width: 15.0,
-          ),
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                onEnter: (_) {
-                  setState(() {
-                    contactbtn = true;
-                  });
-                },
-                onExit: (_) {
-                  setState(() {
-                    contactbtn = false;
-                  });
-                },
-                child: GestureDetector(
-                  onTap:(){
-                    _launchPhone('+923000335875');
-                  },
-                  child: Container(
-                      height: 45,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black,width: 2.0),
-                          color: contactbtn
-                              ? Colors.black: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5)),
-                      child:  Center(
-                          child: Text(
-                        'Contact Now',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color:contactbtn? Colors.white :Colors.black,
-                            fontWeight: FontWeight.w600),
-                      ))),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore
+              .instance //------for select the item in the firestore----
+              .collection("Banners")
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Container(
+                  alignment: Alignment.topCenter,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: const CircularProgressIndicator(
+                    backgroundColor: Colors.grey,
+                    color: Color(0xffd2b48c),
+                  ));
+            } else if (snapshot.data!.docs.length == 0) {
+              return Container(
+                  alignment: Alignment.topCenter,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text(''));
+            } else {
+              return CarouselSlider.builder(
+                options: CarouselOptions(
+                  height: Responsive.isMobile(context)? 140.0: 450,
+                  viewportFraction: 0.9,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(seconds: 2),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
                 ),
-              ),
-            ],
-          ),
-        ]),
-      ),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder:
+                    (BuildContext context, int itemIndex, int pageViewIndex) {
+                  DocumentSnapshot data = snapshot.data!.docs[itemIndex];
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ImageViewer(
+                      //               images: widget.data['img'],
+                      //               controller: controller,
+                      //             )));
+                    },
+                    child: CachedNetworkImage(
+                      imageUrl: data['banner'],
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: Responsive.isMobile(context)? 140.0: 450,
+                        // width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          // shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                      placeholder: (context, url) => Container(
+                        alignment: Alignment.topCenter,
+                        margin: const EdgeInsets.only(top: 40.0),
+                        child: const CircularProgressIndicator(
+                          color: Color(0xffF9A51F),
+                          // color: AppColor.primary,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                  );
+                },
+              );
+            }
+          }),
     );
   }
 

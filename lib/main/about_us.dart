@@ -124,7 +124,7 @@ class _AboutUsState extends State<AboutUs> {
                   return Container(
                       alignment: Alignment.topCenter,
                       margin: const EdgeInsets.only(top: 20),
-                      child: const Text('No Data Foulnd'));
+                      child: const Text('No Data Found'));
                 } else {
                   return GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),

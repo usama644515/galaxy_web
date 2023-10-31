@@ -32,7 +32,7 @@ class _ProductListState extends State<ProductList> {
               right: Responsive.isMobile(context) ? 20 : 50.0,
               top: 5.0),
           child: SizedBox(
-            height: Responsive.isMobile(context) ? 260 : 350,
+            height: Responsive.isMobile(context) ? 240 : 350,
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore
                   .instance //------for select the item in the firestore----

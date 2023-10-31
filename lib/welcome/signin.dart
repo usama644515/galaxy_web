@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:galaxy_web/welcome/signup.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../main/home.dart';
 import '../responsive.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -28,118 +32,206 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView(
         children: [
-          Form(
-            key: formGlobalKey,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: Responsive.isMobile(context)
-                  ? MediaQuery.of(context).size.height * 0.7
-                  : MediaQuery.of(context).size.height * 0.8,
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 0.0),
-                child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Text(
-                      "Galaxy Realtors & Builders",
-                      style: TextStyle(
-                          color: const Color(0xffF9A51F),
-                          fontWeight: FontWeight.bold,
-                          fontSize: Responsive.isMobile(context) ? 29 : 40.0),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    const Text(
-                      "Login Form",
-                      style: TextStyle(
-                          color: Color(0xffF9A51F),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0),
-                    ),
-                    const SizedBox(height: 25.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Form(
+                key: formGlobalKey,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  // height: Responsive.isMobile(context)
+                  //     ? MediaQuery.of(context).size.height * 0.7
+                  //     : MediaQuery.of(context).size.height * 0.8,
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.1),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Email',
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const SizedBox(
+                          height: 20.0,
                         ),
-                        const SizedBox(height: 15.0),
-                        SizedBox(
-                          width: Responsive.isMobile(context)
-                              ? MediaQuery.of(context).size.width * 0.9
-                              : MediaQuery.of(context).size.width * 0.4,
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value == "") {
-                                return "Enter Email";
-                              }
-                            },
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) {
-                              // email = value; //get the value entered by user.
-                            },
-                            controller: email,
-                            autofocus: false,
-                            style: const TextStyle(
-                                fontSize: 15.0, color: Colors.white),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey,
-                              hintText: 'Enter Email',
-                              hintStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 12.0),
-                              contentPadding: const EdgeInsets.only(
-                                  left: 14.0, bottom: 15.0, top: 15.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xffF7F8FA)),
-                                borderRadius: BorderRadius.circular(10.7),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xffF7F8FA)),
-                                borderRadius: BorderRadius.circular(10.7),
+                        Text(
+                          "Galaxy Realtors & Builders",
+                          style: TextStyle(
+                              color: const Color(0xffF9A51F),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  Responsive.isMobile(context) ? 29 : 40.0),
+                        ),
+                        const SizedBox(
+                          height: 25.0,
+                        ),
+                        const Text(
+                          "Login Form",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25.0),
+                        ),
+                        const SizedBox(height: 25.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Email',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
+                            const SizedBox(height: 15.0),
+                            Container(
+                              width: Responsive.isMobile(context)
+                                  ? MediaQuery.of(context).size.width * 0.9
+                                  : MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color(0xffF9A51F), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8.0), // Border radius
+                                ),
+                              ),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == "") {
+                                    return "Enter Email";
+                                  }
+                                },
+                                keyboardType: TextInputType.emailAddress,
+                                onChanged: (value) {
+                                  // email = value; //get the value entered by user.
+                                },
+                                controller: email,
+                                autofocus: false,
+                                style: const TextStyle(
+                                    fontSize: 15.0, color: Colors.black),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: true,
+                                  // fillColor: Colors.grey,
+                                  hintText: 'Enter Email',
+                                  hintStyle: const TextStyle(
+                                      color: Colors.black, fontSize: 12.0),
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14.0, bottom: 15.0, top: 15.0),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color(0xffF7F8FA)),
+                                    borderRadius: BorderRadius.circular(10.7),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color(0xffF7F8FA)),
+                                    borderRadius: BorderRadius.circular(10.7),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 25.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Password',
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const SizedBox(height: 20.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Password',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 15.0),
+                            Container(
+                              width: Responsive.isMobile(context)
+                                  ? MediaQuery.of(context).size.width * 0.9
+                                  : MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color(0xffF9A51F), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8.0), // Border radius
+                                ),
+                              ),
+                              child: TextFormField(
+                                onFieldSubmitted: (value) {
+                                  if (formGlobalKey.currentState!.validate()) {
+                                    setState(() {
+                                      loading = true;
+                                      login();
+                                      // sending = true;
+                                      // saveFaq();
+                                    });
+                                  }
+                                },
+                                validator: (value) {
+                                  if (value == "") {
+                                    return "Enter Password";
+                                  }
+                                },
+                                keyboardType: TextInputType.emailAddress,
+                                onChanged: (value) {
+                                  // email = value; //get the value entered by user.
+                                },
+                                obscureText: _isObscure,
+                                controller: password,
+                                autofocus: false,
+                                style: const TextStyle(
+                                    fontSize: 15.0, color: Colors.black),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  suffixIcon: IconButton(
+                                      color: Colors.grey[400],
+                                      icon: Icon(_isObscure
+                                          ? Icons.visibility_off
+                                          : Icons.visibility),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isObscure = !_isObscure;
+                                        });
+                                      }),
+                                  filled: true,
+                                  hintText: 'Enter Pssword',
+                                  hintStyle: const TextStyle(
+                                      color: Colors.black, fontSize: 12.0),
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14.0, bottom: 15.0, top: 15.0),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color(0xffF7F8FA)),
+                                    borderRadius: BorderRadius.circular(10.7),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color(0xffF7F8FA)),
+                                    borderRadius: BorderRadius.circular(10.7),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 15.0),
-                        SizedBox(
-                          width: Responsive.isMobile(context)
-                              ? MediaQuery.of(context).size.width * 0.9
-                              : MediaQuery.of(context).size.width * 0.4,
-                          child: TextFormField(
-                            onFieldSubmitted: (value) {
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: InkWell(
+                            onTap: () {
                               if (formGlobalKey.currentState!.validate()) {
                                 setState(() {
                                   loading = true;
@@ -149,122 +241,97 @@ class _SignInState extends State<SignIn> {
                                 });
                               }
                             },
-                            validator: (value) {
-                              if (value == "") {
-                                return "Enter Password";
-                              }
-                            },
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) {
-                              // email = value; //get the value entered by user.
-                            },
-                            obscureText: _isObscure,
-                            controller: password,
-                            autofocus: false,
-                            style: const TextStyle(
-                                fontSize: 15.0, color: Colors.white),
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  color: Colors.grey[400],
-                                  icon: Icon(_isObscure
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  }),
-                              filled: true,
-                              fillColor: Colors.grey,
-                              hintText: 'Enter Pssword',
-                              hintStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 12.0),
-                              contentPadding: const EdgeInsets.only(
-                                  left: 14.0, bottom: 15.0, top: 15.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xffF7F8FA)),
-                                borderRadius: BorderRadius.circular(10.7),
+                            child: Container(
+                              height: 50.0,
+                              width: 200.0,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffF9A51F),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xffF7F8FA)),
-                                borderRadius: BorderRadius.circular(10.7),
+                              child: Center(
+                                child: loading
+                                    ? const CircularProgressIndicator(
+                                        color: Colors.white)
+                                    : const Text(
+                                        'Login',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17.0),
+                                      ),
                               ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: InkWell(
-                        onTap: () {
-                          if (formGlobalKey.currentState!.validate()) {
-                            setState(() {
-                              loading = true;
-                              login();
-                              // sending = true;
-                              // saveFaq();
-                            });
-                          }
-                        },
-                        child: Container(
-                          height: 50.0,
-                          width: 200.0,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffF9A51F),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Center(
-                            child: loading
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white)
-                                : const Text(
-                                    'Login',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.0),
-                                  ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: 20.0),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SignUp()));
-            },
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Create Account: ',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    )),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text('Sign Up: ',
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          color: Color(0xffF9A51F),
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline)),
+              const SizedBox(height: 40.0),
+              const Text(
+                'Login With',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.underline,
                 ),
-              ],
-            ),
-          )
+              ),
+              const SizedBox(height: 15.0),
+              GestureDetector(
+                onTap: () async {
+                  // setState(() {
+                  //   loading = true;
+                  // });
+                  // try {
+                  //   print('click................');
+                  //   await signInwithGoogle();
+                  // } catch (e) {
+                  //   if (e is FirebaseAuthException) {
+                  //     showMessage(e.message!);
+                  //   }
+                  // }
+                  // setState(() {
+                  //   loading = false;
+                  // });
+                  signInWithGoogle();
+                },
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fgoogle%20icon.png?alt=media&token=553e04c1-3503-433a-925c-33c39177dd73&_gl=1*g7j1nb*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODMxNjY5My42MS4xLjE2OTgzMTY3MzkuMTQuMC4w',
+                    width: 35,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const SignUp()));
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Create Account: ',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        )),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Text('Sign Up: ',
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              color: Color(0xffF9A51F),
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline)),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -421,4 +488,142 @@ class _SignInState extends State<SignIn> {
           );
         });
   }
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  String? name;
+  String? imageUrl;
+  Future<User?> signInWithGoogle() async {
+    // Initialize Firebase
+    await Firebase.initializeApp();
+
+    User? user;
+
+    // The `GoogleAuthProvider` can only be used while running on the web
+    GoogleAuthProvider authProvider = GoogleAuthProvider();
+
+    try {
+      final UserCredential userCredential =
+          await _auth.signInWithPopup(authProvider);
+
+      user = userCredential.user;
+    } catch (e) {
+      print('-----------------error');
+      print(e);
+    }
+
+    if (user != null) {
+      // uid = user.uid;
+      name = user.displayName;
+      // userEmail = user.email;
+      imageUrl = user.photoURL;
+
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // prefs.setBool('auth', true);
+    }
+
+    return user;
+  }
+
+  // google login
+
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // final userRef = FirebaseFirestore.instance.collection('AllUsers');
+
+  // Future<String?> signInwithGoogle() async {
+  //   try {
+  //     print('enter...........');
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await _googleSignIn.signIn();
+  //     final GoogleSignInAuthentication googleSignInAuthentication =
+  //         await googleSignInAccount!.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleSignInAuthentication.accessToken,
+  //       idToken: googleSignInAuthentication.idToken,
+  //     );
+  //     await _auth.signInWithCredential(credential);
+  //     checkUserData(_auth.currentUser!.uid);
+  //   } on FirebaseAuthException catch (e) {
+  //     if (kDebugMode) {
+  //       print(e.message);
+  //     }
+  //     rethrow;
+  //   }
+  //   return null;
+  // }
+
+  // Future<void> saveUserData(name, email, uid, photoUrl) async {
+  //   Map<String, dynamic> userdata = {
+  //     'Name': name,
+  //     'Email': email,
+  //     'UID': uid,
+  //     'img':
+  //         'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
+  //     'phone': ''
+  //   };
+  //   firestore
+  //       .collection('AllUsers')
+  //       .doc(_auth.currentUser!.uid)
+  //       .set(userdata)
+  //       .then((value) {
+  //     setState(() {
+  //       loading = false;
+  //     });
+  //     Navigator.pushAndRemoveUntil(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (BuildContext context) => const Home(),
+  //       ),
+  //       (route) => false,
+  //     );
+  //   });
+  // }
+
+  // Future<void> checkUserData(id) async {
+  //   DocumentSnapshot userRecord = await userRef.doc(id).get();
+  //   if (!userRecord.exists) {
+  //     saveUserData(_auth.currentUser!.displayName, _auth.currentUser!.email,
+  //         _auth.currentUser!.uid, _auth.currentUser!.photoURL);
+  //   } else {
+  //     Fluttertoast.showToast(
+  //         msg: "Welcome Back ${_auth.currentUser?.displayName}",
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         timeInSecForIosWeb: 1,
+  //         backgroundColor: const Color(0xffFB7959),
+  //         textColor: Colors.white,
+  //         fontSize: 16.0);
+  //     // ignore: use_build_context_synchronously
+  //     Navigator.pushAndRemoveUntil(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (BuildContext context) => const Home(),
+  //       ),
+  //       (route) => false,
+  //     );
+  //     // Navigator.pushReplacement(context,
+  //     //     MaterialPageRoute(builder: (context) => const AccessLocaion()));
+  //   }
+  //   return;
+  // }
+
+  // void showMessage(String message) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text("Error"),
+  //           content: Text(message),
+  //           actions: [
+  //             TextButton(
+  //               child: const Text("Ok"),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 }

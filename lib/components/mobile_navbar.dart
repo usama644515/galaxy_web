@@ -31,27 +31,50 @@ Widget MobileNavBar(var drawerstate) {
         ),
       ),
       Positioned(
-        right: 25.0,
+        right: 10.0,
         top: 15.0,
         child: GestureDetector(
           onTap: () {
             _launchPhone('923000335875');
           },
-          child: Image.network(
-            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20icon%20white.png?alt=media&token=a7859ee1-775e-4184-bee3-784022426a16&_gl=1*1jbcv0c*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODIzMTMyNi41Ny4xLjE2OTgyMzEzNTguMjguMC4w',
-            width: 25,
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Container(
+                height: 30,
+                width: 115,
+                decoration: BoxDecoration(
+                    color: const Color(0xffF9A51F),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20icon%20white.png?alt=media&token=a7859ee1-775e-4184-bee3-784022426a16&_gl=1*xlwa8r*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODMwMTE3Ni41OS4xLjE2OTgzMDExOTQuNDIuMC4w',
+                      width: 14,
+                    ),
+                    const SizedBox(width: 4.0),
+                    const Text(
+                      '0300-0335875',
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ))),
           ),
         ),
-      ),
+      )
     ],
   );
-  
 }
+
 void _launchPhone(String phoneNumber) async {
-    final url = 'tel:$phoneNumber';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  final url = 'tel:$phoneNumber';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
+}

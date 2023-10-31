@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/dashboard/screens/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:provider/provider.dart';
-
 import '../main/about_us.dart';
 import '../main/home.dart';
 import '../main/shop.dart';
@@ -23,7 +23,7 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color(0xff222222),
+      backgroundColor: const Color(0xff222222),
       child: ListView(
         children: [
           Row(
@@ -64,8 +64,8 @@ class _SideDrawerState extends State<SideDrawer> {
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
                               child: Container(
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
@@ -78,7 +78,7 @@ class _SideDrawerState extends State<SideDrawer> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10.0),
+                          const SizedBox(height: 20.0),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
@@ -132,13 +132,10 @@ class _SideDrawerState extends State<SideDrawer> {
                     setState(() {
                       Provider.of<menuController>(context, listen: false)
                           .navmenueSelect('dashboard');
-                      // Remove all routes and push a new route
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const DashBoard()),
-                        (route) =>
-                            false, // Always return false to remove all routes
-                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainScreen()));
                     });
                   },
                 ),
@@ -284,21 +281,26 @@ class _SideDrawerState extends State<SideDrawer> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text("Sign Out"),
-          content: Text("Are you sure you want to sign out?"),
+          title: const Text("Sign Out"),
+          content: const Text("Are you sure you want to sign out?"),
           actions: <Widget>[
             TextButton(
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Close the dialog
               },
             ),
             TextButton(
-              child: Text("Sign Out"),
+              child: const Text("Sign Out"),
               onPressed: () async {
                 try {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.of(dialogContext).pop(); // Close the dialog
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const Home()),
+                    (route) =>
+                        false, // Always return false to remove all routes
+                  ); // Close the dialog
                   // You can navigate to the login screen or another screen here.
                 } catch (e) {
                   print("Error signing out: $e");

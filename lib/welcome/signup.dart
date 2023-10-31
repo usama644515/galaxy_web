@@ -69,28 +69,23 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 30.0,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Row(
-                            children: [
-                              // MouseRegion(
-                              //   cursor: SystemMouseCursors.click,
-                              //   child: GestureDetector(
-                              //       onTap: () {
-                              //         Navigator.pop(context);
-                              //       },
-                              //       child: const Icon(Icons.arrow_back_ios,
-                              //           color: Color(0xffF9A51F))),
-                              // ),
-                              Text(
-                                "Create Account",
-                                style: TextStyle(
-                                    color: Color(0xffF9A51F),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25.0),
-                              ),
-                            ],
-                          ),
+                        Text(
+                          "Galaxy Realtors & Builders",
+                          style: TextStyle(
+                              color: const Color(0xffF9A51F),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  Responsive.isMobile(context) ? 29 : 40.0),
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        const Text(
+                          "Sign Up Form",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25.0),
                         ),
                         const SizedBox(height: 25.0),
                         Column(
@@ -104,11 +99,21 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 15.0),
-                            SizedBox(
+                            const SizedBox(height: 10.0),
+                            Container(
                               width: Responsive.isMobile(context)
                                   ? MediaQuery.of(context).size.width * 0.9
                                   : MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color(0xffF9A51F), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8.0), // Border radius
+                                ),
+                              ),
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == "") {
@@ -122,13 +127,12 @@ class _SignUpState extends State<SignUp> {
                                 controller: name,
                                 autofocus: false,
                                 style: const TextStyle(
-                                    fontSize: 15.0, color: Colors.white),
+                                    fontSize: 15.0, color: Colors.black),
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Colors.grey,
                                   hintText: 'Enter Name',
                                   hintStyle: const TextStyle(
-                                      color: Colors.white, fontSize: 12.0),
+                                      color: Colors.black, fontSize: 12.0),
                                   contentPadding: const EdgeInsets.only(
                                       left: 14.0, bottom: 15.0, top: 15.0),
                                   focusedBorder: OutlineInputBorder(
@@ -146,7 +150,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 25.0),
+                        const SizedBox(height: 20.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -158,11 +162,21 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 15.0),
-                            SizedBox(
+                            const SizedBox(height: 10.0),
+                            Container(
                               width: Responsive.isMobile(context)
                                   ? MediaQuery.of(context).size.width * 0.9
                                   : MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color(0xffF9A51F), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8.0), // Border radius
+                                ),
+                              ),
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == "") {
@@ -176,13 +190,12 @@ class _SignUpState extends State<SignUp> {
                                 controller: email,
                                 autofocus: false,
                                 style: const TextStyle(
-                                    fontSize: 15.0, color: Colors.white),
+                                    fontSize: 15.0, color: Colors.black),
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Colors.grey,
                                   hintText: 'Enter Email',
                                   hintStyle: const TextStyle(
-                                      color: Colors.white, fontSize: 12.0),
+                                      color: Colors.black, fontSize: 12.0),
                                   contentPadding: const EdgeInsets.only(
                                       left: 14.0, bottom: 15.0, top: 15.0),
                                   focusedBorder: OutlineInputBorder(
@@ -200,7 +213,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 25.0),
+                        const SizedBox(height: 20.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -212,11 +225,21 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 15.0),
-                            SizedBox(
+                            const SizedBox(height: 10.0),
+                            Container(
                               width: Responsive.isMobile(context)
                                   ? MediaQuery.of(context).size.width * 0.9
                                   : MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color(0xffF9A51F), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8.0), // Border radius
+                                ),
+                              ),
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == "") {
@@ -231,13 +254,12 @@ class _SignUpState extends State<SignUp> {
                                 controller: phonenumber,
                                 autofocus: false,
                                 style: const TextStyle(
-                                    fontSize: 15.0, color: Colors.white),
+                                    fontSize: 15.0, color: Colors.black),
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Colors.grey,
                                   hintText: '923.......',
                                   hintStyle: const TextStyle(
-                                      color: Colors.white, fontSize: 12.0),
+                                      color: Colors.black, fontSize: 12.0),
                                   contentPadding: const EdgeInsets.only(
                                       left: 14.0, bottom: 15.0, top: 15.0),
                                   focusedBorder: OutlineInputBorder(
@@ -255,7 +277,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 25.0),
+                        const SizedBox(height: 20.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -267,11 +289,21 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 15.0),
-                            SizedBox(
+                            const SizedBox(height: 10.0),
+                            Container(
                               width: Responsive.isMobile(context)
                                   ? MediaQuery.of(context).size.width * 0.9
                                   : MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color(0xffF9A51F), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8.0), // Border radius
+                                ),
+                              ),
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == "") {
@@ -286,7 +318,7 @@ class _SignUpState extends State<SignUp> {
                                 controller: password,
                                 autofocus: false,
                                 style: const TextStyle(
-                                    fontSize: 15.0, color: Colors.white),
+                                    fontSize: 15.0, color: Colors.black),
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
                                       color: Colors.grey[400],
@@ -299,10 +331,9 @@ class _SignUpState extends State<SignUp> {
                                         });
                                       }),
                                   filled: true,
-                                  fillColor: Colors.grey,
                                   hintText: 'Enter Pssword',
                                   hintStyle: const TextStyle(
-                                      color: Colors.white, fontSize: 12.0),
+                                      color: Colors.black, fontSize: 12.0),
                                   contentPadding: const EdgeInsets.only(
                                       left: 14.0, bottom: 15.0, top: 15.0),
                                   focusedBorder: OutlineInputBorder(

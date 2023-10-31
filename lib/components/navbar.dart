@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/dashboard/screens/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main/about_us.dart';
 import '../main/shop.dart';
 import '../welcome/signin.dart';
@@ -27,6 +29,14 @@ var abouthover = false;
 var contacthover = false;
 final router = FluroRouter();
 final FirebaseAuth _auth = FirebaseAuth.instance;
+void _launchPhone(String phoneNumber) async {
+  final url = 'tel:$phoneNumber';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 class _NavBarState extends State<NavBar> {
   @override
@@ -315,6 +325,39 @@ class _NavBarState extends State<NavBar> {
                 _auth.currentUser == null
                     ? Row(
                         children: [
+                          GestureDetector(
+                            onTap: () {
+                              _launchPhone('923000335875');
+                            },
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: Container(
+                                  height: 35,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xffF9A51F),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20icon%20white.png?alt=media&token=a7859ee1-775e-4184-bee3-784022426a16&_gl=1*xlwa8r*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODMwMTE3Ni41OS4xLjE2OTgzMDExOTQuNDIuMC4w',
+                                        width: 17,
+                                      ),
+                                      const SizedBox(width: 6.0),
+                                      const Text(
+                                        '0300-0335875',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ))),
+                            ),
+                          ),
+                          const SizedBox(width: 10.0),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             onEnter: (_) {
@@ -402,6 +445,39 @@ class _NavBarState extends State<NavBar> {
                       )
                     : Row(
                         children: [
+                          GestureDetector(
+                            onTap: () {
+                              _launchPhone('923000335875');
+                            },
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: Container(
+                                  height: 35,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xffF9A51F),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20icon%20white.png?alt=media&token=a7859ee1-775e-4184-bee3-784022426a16&_gl=1*xlwa8r*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODMwMTE3Ni41OS4xLjE2OTgzMDExOTQuNDIuMC4w',
+                                        width: 17,
+                                      ),
+                                      const SizedBox(width: 6.0),
+                                      const Text(
+                                        '0300-0335875',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ))),
+                            ),
+                          ),
+                          const SizedBox(width: 10.0),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             onEnter: (_) {
@@ -511,14 +587,10 @@ class _NavBarState extends State<NavBar> {
                                   Provider.of<menuController>(context,
                                           listen: false)
                                       .navmenueSelect('dashboard');
-                                  // Remove all routes and push a new route
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const DashBoard()),
-                                    (route) =>
-                                        false, // Always return false to remove all routes
-                                  );
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MainScreen()));
                                 }
                               },
                             )
