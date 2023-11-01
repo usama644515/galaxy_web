@@ -75,8 +75,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: Responsive.isMobile(context) ? 0 : 100.0,
-                                  right: Responsive.isMobile(context) ? 0 : 100),
+                                  left: Responsive.isMobile(context) ? 0 : 200.0,
+                                  right: Responsive.isMobile(context) ? 0 : 200),
                               child: const MyFiles(),
                             ),
                             const SizedBox(height: defaultPadding),

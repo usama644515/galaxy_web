@@ -1,5 +1,5 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/dashboard/models/MyFiles.dart';
@@ -29,7 +29,6 @@ class _FileInfoCardState extends State<FileInfoCard> {
         borderRadius: const BorderRadius.all(Radius.circular(15)),
       ),
       child: Row(
-        
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
@@ -39,28 +38,42 @@ class _FileInfoCardState extends State<FileInfoCard> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: SvgPicture.asset(widget.info.svgSrc!, color: widget.info.color),
+              child: Image.network(
+                widget.info.svgSrc!,
+                width: 40,
+              ),
             ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: firestore.collection(widget.info.collection.toString()).snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container();
-                  } else {
-                    return Text(
-                      snapshot.data!.docs.length.toString(),
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    );
-                  }
-                }),
-              SizedBox(
+                  // widget.info.collection.toString()
+                  stream: widget.info.collection.toString() == 'main'
+                      ? firestore
+                          .collection('Properties List')
+                          .where('user', isEqualTo: _auth.currentUser?.uid)
+                          .snapshots()
+                      : firestore
+                          .collection('Properties List')
+                          .where('user', isEqualTo: _auth.currentUser?.uid)
+                          .where('category',
+                              isEqualTo: widget.info.collection.toString())
+                          .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    } else {
+                      return Text(
+                        snapshot.data!.docs.length.toString(),
+                        style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      );
+                    }
+                  }),
+              const SizedBox(
                 height: 5.0,
               ),
               Text(
@@ -76,6 +89,8 @@ class _FileInfoCardState extends State<FileInfoCard> {
       ),
     );
   }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 }
 
 class ProgressLine extends StatelessWidget {

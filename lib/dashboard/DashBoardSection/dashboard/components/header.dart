@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/responsive.dart';
@@ -20,7 +19,7 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:  MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         // if (!Responsive.isDesktop(context))
         //   IconButton(
@@ -28,14 +27,14 @@ class _HeaderState extends State<Header> {
         //     onPressed: context.read<MenuController>().controlMenu,
         //   ),
         // if (!Responsive.isMobile(context))
-           Text(
-                  "Dashboard",
-                  style: TextStyle(
-                      color: Color(0xff00ACFF),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0),
-                ),
-              
+        const Text(
+          "Dashboard",
+          style: TextStyle(
+              color: Color(0xffF9A51F),
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0),
+        ),
+
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
 
@@ -56,7 +55,7 @@ class _HeaderState extends State<Header> {
         //     ),
         //   ),
         // ),
-         SizedBox(),
+        SizedBox(),
       ],
     );
   }

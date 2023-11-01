@@ -492,32 +492,32 @@ class _AddProductStoreState extends State<AddProductStore> {
         // add icon, by default "3 dot" icon
         icon: Text(
           selectedUnit,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         itemBuilder: (context) {
           return [
-            PopupMenuItem<int>(
+            const PopupMenuItem<int>(
               value: 0,
               child: Text(
                 "  Ft",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ),
-            PopupMenuItem<int>(
+            const PopupMenuItem<int>(
               value: 1,
               child: Text(
                 "  Inch",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ),
-            PopupMenuItem<int>(
+            const PopupMenuItem<int>(
               value: 2,
               child: Text(
                 "  Meter",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ),
-            PopupMenuItem<int>(
+            const PopupMenuItem<int>(
               value: 3,
               child: Text(
                 "  Cm",
@@ -801,7 +801,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -809,7 +809,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Primary Price",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -837,7 +837,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -845,7 +845,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Description",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -872,7 +872,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -880,7 +880,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Land Size",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -907,7 +907,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -915,7 +915,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Rooms",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -942,7 +942,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -950,7 +950,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Bathroom",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -977,7 +977,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -985,7 +985,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Garage",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -1011,7 +1011,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -1019,7 +1019,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "City",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -1040,7 +1040,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
                         enabledBorder: new UnderlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                             // style: BorderStyle.none
@@ -1048,7 +1048,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Property ID",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -1068,7 +1068,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                       style:
                           const TextStyle(fontSize: 15.0, color: Colors.black),
                       decoration: InputDecoration(
-                        enabledBorder: new UnderlineInputBorder(
+                        enabledBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.grey,
                             width: 1.0,
@@ -1077,7 +1077,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                         ),
                         labelText: "Youtube Video URL",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 18),
@@ -1094,8 +1094,8 @@ class _AddProductStoreState extends State<AddProductStore> {
                       controller: _youtubeurl,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 10),
                     child: Row(
                       children: [
                         Text(
@@ -1117,8 +1117,8 @@ class _AddProductStoreState extends State<AddProductStore> {
                           return AgeRange(category[index]);
                         }),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, bottom: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 10),
                     child: Row(
                       children: [
                         Text(
@@ -1191,43 +1191,54 @@ class _AddProductStoreState extends State<AddProductStore> {
                             } else {
                               if (_formKey.currentState!.validate() &&
                                   _imgObjs.isNotEmpty) {
-                                uploadFile().then((value) {
-                                  firestore
-                                      .collection('Properties List')
-                                      .doc()
-                                      .set({
-                                    'img': imageUrl,
-                                    'title': _titleController.text,
-                                    'price': _price.text,
-                                    'description': _description.text,
-                                    'size': _landsize.text,
-                                    'rooms': _rooms.text,
-                                    'bath': _bathroom.text,
-                                    'garage': _garage.text,
-                                    'city': _city.text,
-                                    'id': _id.text,
-                                    'videoUrl': _youtubeurl.text,
-                                    'category': range,
-                                    'location': condition,
-                                    'select': warn,
-                                    'datetime': DateTime.now(),
-                                    'searchquery': searchfilter,
-                                    'user': _auth.currentUser?.uid,
-                                    'phone': phone,
-                                  }, SetOptions(merge: true)).then((value) {
-                                    print('upload successful');
-                                    Fluttertoast.showToast(
-                                        msg: "Product Uploaded",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0);
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    // getProducts(context);
+                                if (int.parse(_price.text.toString()) <=
+                                    100000) {
+                                  Fluttertoast.showToast(
+                                      msg: "Please Enter Correct Amount",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                } else {
+                                  uploadFile().then((value) {
+                                    firestore
+                                        .collection('Properties List')
+                                        .doc()
+                                        .set({
+                                      'img': imageUrl,
+                                      'title': _titleController.text,
+                                      'price': _price.text,
+                                      'description': _description.text,
+                                      'size': _landsize.text,
+                                      'rooms': _rooms.text,
+                                      'bath': _bathroom.text,
+                                      'garage': _garage.text,
+                                      'city': _city.text,
+                                      'id': _id.text,
+                                      'videoUrl': _youtubeurl.text,
+                                      'category': range,
+                                      'location': condition,
+                                      'select': warn,
+                                      'datetime': DateTime.now(),
+                                      'searchquery': searchfilter,
+                                      'user': _auth.currentUser?.uid,
+                                      'phone': phone,
+                                    }, SetOptions(merge: true)).then((value) {
+                                      print('upload successful');
+                                      Fluttertoast.showToast(
+                                          msg: "Product Uploaded",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      // getProducts(context);
+                                    });
                                   });
-                                });
+                                }
                               } else {
                                 Fluttertoast.showToast(
                                     msg: 'Please fill all details',

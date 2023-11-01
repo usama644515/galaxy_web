@@ -1,6 +1,6 @@
 # galaxy_web
 
-A new Flutter project.
+Sales - Purchase - Construction - Marketing.
 
 ## Getting Started
 
