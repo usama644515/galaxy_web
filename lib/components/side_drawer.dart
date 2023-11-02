@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../main/about_us.dart';
 import '../main/home.dart';
@@ -59,7 +61,7 @@ class _SideDrawerState extends State<SideDrawer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              signOutWithConfirmation(context);
+                              _logoutDialoge(context);
                             },
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
@@ -276,41 +278,38 @@ class _SideDrawerState extends State<SideDrawer> {
     );
   }
 
-  void signOutWithConfirmation(BuildContext context) {
+  _logoutDialoge(context) {
     showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text("Sign Out"),
-          content: const Text("Are you sure you want to sign out?"),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Cancel"),
-              onPressed: () {
-                Navigator.of(dialogContext).pop(); // Close the dialog
-              },
-            ),
-            TextButton(
-              child: const Text("Sign Out"),
-              onPressed: () async {
-                try {
-                  await FirebaseAuth.instance.signOut();
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const Home()),
-                    (route) =>
-                        false, // Always return false to remove all routes
-                  ); // Close the dialog
-                  // You can navigate to the login screen or another screen here.
-                } catch (e) {
-                  print("Error signing out: $e");
-                  // Handle sign-out error, e.g., show a snackbar
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
+        context: context,
+        builder: (BuildContext ctx) {
+          return CupertinoAlertDialog(
+            title: const Text('Are you sure you want to Logout?'),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('Log Out'),
+                onPressed: () async {
+                  // await GoogleSignIn().signOut();
+                  await _auth.signOut().then((value) {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Home');
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const Home(),
+                      ),
+                      (route) => false,
+                    );
+                  });
+                },
+              ),
+              CupertinoDialogAction(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

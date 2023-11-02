@@ -5,8 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/constants.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/dashboard_screen.dart';
+import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/main/profile.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
 
@@ -17,310 +20,334 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Future<bool> onBackPress() async {
+    setState(() {
+      Provider.of<menuController>(context, listen: false)
+          .navmenueSelect('Home');
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const Home()),
+      (route) => false, // Always return false to remove all routes
+    );
+    return Future.value(false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // key: context.read<MenuController>().scaffoldKey,
+    return WillPopScope(
+      onWillPop: onBackPress,
+      child: Scaffold(
+        // key: context.read<MenuController>().scaffoldKey,
 
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // We want this side menu only for large screen
-            // if (Responsive.isDesktop(context))
-            //   Expanded(
-            //     // default flex = 1
-            //     // and it takes 1/6 part of the screen
-            //     child: SideMenu(),
-            //   ),
-            Expanded(
-              // It takes 5/6 part of the screen
-              flex: 5,
-              child: Container(
-                color: bgColor,
-                child: ListView(
-                  // physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, bottom: 15.0, right: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15.0, top: 0.0),
-                              child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',
-                                fit: BoxFit.cover,
-                                width: 170,
+        body: SafeArea(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // We want this side menu only for large screen
+              // if (Responsive.isDesktop(context))
+              //   Expanded(
+              //     // default flex = 1
+              //     // and it takes 1/6 part of the screen
+              //     child: SideMenu(),
+              //   ),
+              Expanded(
+                // It takes 5/6 part of the screen
+                flex: 5,
+                child: Container(
+                  color: bgColor,
+                  child: ListView(
+                    // physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 15, bottom: 15.0, right: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15.0, top: 0.0),
+                                child: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',
+                                  fit: BoxFit.cover,
+                                  width: 170,
+                                ),
                               ),
-                            ),
-                            Responsive.isDesktop(context)
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      MouseRegion(
-                                        cursor: SystemMouseCursors.click,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const AddProductStore()));
-                                          },
-                                          child: Container(
-                                              height: 35,
-                                              width: 120,
-                                              decoration: BoxDecoration(
-                                                  color:
-                                                      const Color(0xffF9A51F),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              child: const Center(
-                                                  child: Text(
-                                                'Create Listing',
-                                                style: TextStyle(
-                                                    fontSize: 15.0,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ))),
-                                        ),
-                                      ),
-                                      const SizedBox(width: defaultPadding),
-                                      Stack(
-                                        children: [
-                                          CachedNetworkImage(
-                                            imageUrl:
-                                                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              height: 40,
-                                              width: 40,
-                                              decoration: BoxDecoration(
-                                                // borderRadius: BorderRadius.circular(50),
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            placeholder: (context, url) =>
-                                                const CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    const Icon(Icons.error),
-                                          ),
-                                          PopupMenuButton<int>(
-                                            icon: const Icon(Icons.more_vert,
-                                                color: Colors.transparent),
-                                            itemBuilder: (context) => [
-                                              // PopupMenuItem 1
-                                              const PopupMenuItem(
-                                                value: 1,
-                                                // row with 2 children
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.account_circle,
-                                                        color: Colors.red),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Create Account",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                        )),
-                                                  ],
-                                                ),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 2,
-                                                // row with 2 children
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.logout,
-                                                        color: Colors.red),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Log Out",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                        )),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                            offset: Offset(0, 100),
-                                            color: Colors.white,
-                                            elevation: 2,
-                                            // on selected we show the dialog box
-                                            onSelected: (value) {
-                                              // if value 1 show dialog
-                                              // if (value == 2) {
-                                              //   _logoutDialoge(context);
-                                              //   // if value 2 show dialog
-                                              // }else if (value == 1) {
-                                              //       Navigator.push(
-                                              //           context,
-                                              //           MaterialPageRoute(
-                                              //               builder: (context) =>
-                                              //                   SignUp()));
-                                              //     }
+                              Responsive.isDesktop(context)
+                                  ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        MouseRegion(
+                                          cursor: SystemMouseCursors.click,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const AddProductStore()));
                                             },
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const AddProductStore()));
-                                              },
-                                              child: Container(
-                                                  height: 35,
-                                                  width: 120,
-                                                  decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xffF9A51F),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5)),
-                                                  child: const Center(
-                                                      child: Text(
-                                                    'Create Listing',
-                                                    style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ))),
-                                            ),
+                                            child: Container(
+                                                height: 35,
+                                                width: 120,
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        const Color(0xffF9A51F),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
+                                                child: const Center(
+                                                    child: Text(
+                                                  'Create Listing',
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ))),
                                           ),
-                                          const SizedBox(width: defaultPadding),
-                                          Stack(
-                                            children: [
-                                              CachedNetworkImage(
-                                                imageUrl:
-                                                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
-                                                  height: 40,
-                                                  width: 40,
-                                                  decoration: BoxDecoration(
-                                                    // borderRadius: BorderRadius.circular(50),
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                        ),
+                                        const SizedBox(width: defaultPadding),
+                                        Stack(
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                  // borderRadius: BorderRadius.circular(50),
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
-                                                placeholder: (context, url) =>
-                                                    const CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
                                               ),
-                                              PopupMenuButton<int>(
-                                                icon: Icon(Icons.more_vert,
-                                                    color: Colors.transparent),
-                                                itemBuilder: (context) => [
-                                                  // PopupMenuItem 1
-                                                  PopupMenuItem(
-                                                    value: 1,
-                                                    // row with 2 children
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(
-                                                            Icons
-                                                                .account_circle,
-                                                            color: Colors.red),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Text("Create Account",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                            )),
-                                                      ],
-                                                    ),
+                                              placeholder: (context, url) =>
+                                                  const CircularProgressIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
+                                            ),
+                                            PopupMenuButton<int>(
+                                              icon: const Icon(Icons.more_vert,
+                                                  color: Colors.transparent),
+                                              itemBuilder: (context) => [
+                                                // PopupMenuItem 1
+                                                PopupMenuItem(
+                                                  value: 1,
+                                                  // row with 2 children
+                                                  child: Row(
+                                                    children: [
+                                                      Image.network(
+                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fprofile%20icon.png?alt=media&token=e45345ca-dbde-4f0c-b58a-326f8f5a5365&_gl=1*j3egs6*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYzNDMuNjAuMC4w',
+                                                        width: 20,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      const Text("Profile",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          )),
+                                                    ],
                                                   ),
-                                                  PopupMenuItem(
-                                                    value: 2,
-                                                    // row with 2 children
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(Icons.logout,
-                                                            color: Colors.red),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Text("Log Out",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                            )),
-                                                      ],
-                                                    ),
+                                                ),
+                                                PopupMenuItem(
+                                                  value: 2,
+                                                  // row with 2 children
+                                                  child: Row(
+                                                    children: [
+                                                      Image.network(
+                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Flogout%20icon.png?alt=media&token=9705628c-695d-445a-a715-086ca56bf567&_gl=1*1s5s5tk*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYyNzMuNjAuMC4w',
+                                                        width: 20,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      const Text("Log Out",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          )),
+                                                    ],
                                                   ),
-                                                ],
-                                                offset: Offset(0, 100),
-                                                color: Colors.white,
-                                                elevation: 2,
-                                                // on selected we show the dialog box
-                                                onSelected: (value) {
-                                                  // if value 1 show dialog
-                                                  if (value == 2) {
-                                                    _logoutDialoge(context);
-                                                    // if value 2 show dialog
-                                                  } else if (value == 1) {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             SignUp()));
-                                                  }
+                                                ),
+                                              ],
+                                              offset: const Offset(0, 100),
+                                              color: Colors.white,
+                                              elevation: 2,
+                                              // on selected we show the dialog box
+                                              onSelected: (value) {
+                                                // if value 1 show dialog
+                                                if (value == 2) {
+                                                  _logoutDialoge(context);
+                                                  // if value 2 show dialog
+                                                } else if (value == 1) {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ProfileScreen()));
+                                                }
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            MouseRegion(
+                                              cursor: SystemMouseCursors.click,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const AddProductStore()));
                                                 },
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                          ],
+                                                child: Container(
+                                                    height: 35,
+                                                    width: 120,
+                                                    decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xffF9A51F),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5)),
+                                                    child: const Center(
+                                                        child: Text(
+                                                      'Create Listing',
+                                                      style: TextStyle(
+                                                          fontSize: 15.0,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ))),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                                width: defaultPadding),
+                                            Stack(
+                                              children: [
+                                                CachedNetworkImage(
+                                                  imageUrl:
+                                                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                      // borderRadius: BorderRadius.circular(50),
+                                                      shape: BoxShape.circle,
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      const CircularProgressIndicator(),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
+                                                ),
+                                                PopupMenuButton<int>(
+                                                  icon: const Icon(Icons.more_vert,
+                                                      color:
+                                                          Colors.transparent),
+                                                  itemBuilder: (context) => [
+                                                    // PopupMenuItem 1
+                                                    PopupMenuItem(
+                                                      value: 1,
+                                                      // row with 2 children
+                                                      child: Row(
+                                                        children: [
+                                                          Image.network(
+                                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fprofile%20icon.png?alt=media&token=e45345ca-dbde-4f0c-b58a-326f8f5a5365&_gl=1*j3egs6*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYzNDMuNjAuMC4w',
+                                                            width: 20,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          const Text('Profile',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 2,
+                                                      // row with 2 children
+                                                      child: Row(
+                                                        children: [
+                                                          Image.network(
+                                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Flogout%20icon.png?alt=media&token=9705628c-695d-445a-a715-086ca56bf567&_gl=1*1s5s5tk*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYyNzMuNjAuMC4w',
+                                                            width: 20,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          const Text("Log Out",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  offset: const Offset(0, 100),
+                                                  color: Colors.white,
+                                                  elevation: 2,
+                                                  // on selected we show the dialog box
+                                                  onSelected: (value) {
+                                                    // if value 1 show dialog
+                                                    if (value == 2) {
+                                                      _logoutDialoge(context);
+                                                      // if value 2 show dialog
+                                                    } else if (value == 1) {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ProfileScreen()));
+                                                    }
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    DashboardScreen(),
-                  ],
+                      DashboardScreen(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -390,20 +417,20 @@ Future<dynamic> supportDialog(
                             width: 200,
                             height: 50.0,
                             decoration: BoxDecoration(
-                              color: Color(0xff00ACFF),
+                              color: const Color(0xff00ACFF),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'Seller Support',
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.white),
                                 ),
-                                SizedBox(width: 5.0),
+                                const SizedBox(width: 5.0),
                                 StreamBuilder<QuerySnapshot>(
                                     stream: firestore
                                         .collection('ContactSupport')
@@ -455,7 +482,7 @@ Future<dynamic> supportDialog(
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
@@ -466,20 +493,20 @@ Future<dynamic> supportDialog(
                             width: 200,
                             height: 50.0,
                             decoration: BoxDecoration(
-                              color: Color(0xff00ACFF),
+                              color: const Color(0xff00ACFF),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'User Support',
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.white),
                                 ),
-                                SizedBox(width: 5.0),
+                                const SizedBox(width: 5.0),
                                 StreamBuilder<QuerySnapshot>(
                                     stream: firestore
                                         .collection('ContactSupport')

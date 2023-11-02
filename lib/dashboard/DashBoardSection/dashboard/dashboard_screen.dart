@@ -2,20 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/components/product_details.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/components/my_fields.dart';
-import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/components/seller_overveiw.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../constants.dart';
 import 'components/header.dart';
 
-import 'components/order_graph.dart';
-import 'components/order_overview.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -56,16 +51,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         decoration: BoxDecoration(
             color: secondaryColor,
             border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(30))),
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(30))),
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: Column(
                 children: [
-                  SizedBox(height: 0),
-                  Header(),
-                  SizedBox(height: 0),
+                  const SizedBox(height: 0),
+                  const Header(),
+                  const SizedBox(height: 0),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

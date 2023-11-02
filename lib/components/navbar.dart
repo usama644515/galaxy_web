@@ -540,33 +540,38 @@ class _NavBarState extends State<NavBar> {
                                   color: Colors.transparent),
                               itemBuilder: (context) => [
                                 // PopupMenuItem 1
-                                const PopupMenuItem(
+                                PopupMenuItem(
                                   value: 1,
                                   // row with 2 children
                                   child: Row(
                                     children: [
-                                      Icon(Icons.account_circle,
-                                          color: Colors.red),
-                                      SizedBox(
+                                      Image.network(
+                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fprofile%20icon.png?alt=media&token=e45345ca-dbde-4f0c-b58a-326f8f5a5365&_gl=1*j3egs6*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYzNDMuNjAuMC4w',
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Text("DashBoard",
+                                      const Text("DashBoard",
                                           style: TextStyle(
                                             color: Colors.black,
                                           )),
                                     ],
                                   ),
                                 ),
-                                const PopupMenuItem(
+                                PopupMenuItem(
                                   value: 2,
                                   // row with 2 children
                                   child: Row(
                                     children: [
-                                      Icon(Icons.logout, color: Colors.red),
-                                      SizedBox(
+                                      Image.network(
+                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Flogout%20icon.png?alt=media&token=9705628c-695d-445a-a715-086ca56bf567&_gl=1*1s5s5tk*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYyNzMuNjAuMC4w',
+                                        width: 20,
+                                      ),
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Text("Log Out",
+                                      const Text("Log Out",
                                           style: TextStyle(
                                             color: Colors.black,
                                           )),

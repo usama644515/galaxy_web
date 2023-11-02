@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/responsive.dart';
-import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class Header extends StatefulWidget {
@@ -14,7 +13,7 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
-  final TextEditingController orderid = new TextEditingController();
+  final TextEditingController orderid = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class _HeaderState extends State<Header> {
         //   ),
         // if (!Responsive.isMobile(context))
         const Text(
-          "Dashboard",
+          "My Dashboard",
           style: TextStyle(
               color: Color(0xffF9A51F),
               fontWeight: FontWeight.bold,
@@ -55,7 +54,7 @@ class _HeaderState extends State<Header> {
         //     ),
         //   ),
         // ),
-        SizedBox(),
+        const SizedBox(),
       ],
     );
   }
@@ -69,8 +68,8 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: defaultPadding),
-      padding: EdgeInsets.symmetric(
+      margin: const EdgeInsets.only(left: defaultPadding),
+      padding: const EdgeInsets.symmetric(
         horizontal: defaultPadding,
         vertical: defaultPadding / 2,
       ),
@@ -86,12 +85,11 @@ class ProfileCard extends StatelessWidget {
             height: 38,
           ),
           if (!Responsive.isMobile(context))
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               child: Text("Angelina Jolie"),
             ),
-          Icon(Icons.keyboard_arrow_down),
+          const Icon(Icons.keyboard_arrow_down),
         ],
       ),
     );
@@ -110,18 +108,18 @@ class SearchField extends StatelessWidget {
         hintText: "Search",
         fillColor: secondaryColor,
         filled: true,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         suffixIcon: InkWell(
           onTap: () {},
           child: Container(
-            padding: EdgeInsets.all(defaultPadding * 0.75),
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(defaultPadding * 0.75),
+            margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+            decoration: const BoxDecoration(
               color: primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: SvgPicture.asset("assets/icons/Search.svg"),
           ),
