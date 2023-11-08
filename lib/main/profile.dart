@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/main/profile_edit.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -107,13 +108,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          left: Responsive.isMobile(context)
-                              ? 20.0
-                              : MediaQuery.of(context).size.width * 0.3,
-                          right: Responsive.isMobile(context)
-                              ? 20.0
-                              : MediaQuery.of(context).size.width * 0.3
-                        ),
+                            left: Responsive.isMobile(context)
+                                ? 20.0
+                                : MediaQuery.of(context).size.width * 0.3,
+                            right: Responsive.isMobile(context)
+                                ? 20.0
+                                : MediaQuery.of(context).size.width * 0.3),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -169,7 +169,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Femail%20black.png?alt=media&token=3ca11570-cf81-4dbc-a088-f333acac9633&_gl=1*3d1cy0*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDczNDAuNjAuMC4w',
                                               width: 30,
                                             ),
-                                            SizedBox(width: Responsive.isMobile(context)?  15.0: 40),
+                                            SizedBox(
+                                                width:
+                                                    Responsive.isMobile(context)
+                                                        ? 15.0
+                                                        : 40),
                                             SizedBox(
                                               // width: MediaQuery.of(context)
                                               //         .size
@@ -221,7 +225,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20black.png?alt=media&token=bd12f419-474d-474b-95b7-7dd18d483cb6&_gl=1*1wremju*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDcyOTAuNi4wLjA.',
                                               width: 30,
                                             ),
-                                            SizedBox(width: Responsive.isMobile(context)?  15.0: 40),
+                                            SizedBox(
+                                                width:
+                                                    Responsive.isMobile(context)
+                                                        ? 15.0
+                                                        : 40),
                                             Text(phone,
                                                 style: const TextStyle(
                                                     fontSize: 17.0,
@@ -236,34 +244,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             const SizedBox(height: 10.0),
                             GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0,
-                                      right: 15.0,
-                                      top: 15.0,
-                                      bottom: 15.0),
-                                  child: Row(children: [
-                                    Image.network(
-                                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fedit.png?alt=media&token=c3126938-6ca0-4ce1-85f6-cfc5ad264015&_gl=1*onc3x3*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDcyNTIuNDQuMC4w',
-                                      width: 30,
-                                    ),
-                                     SizedBox(width: Responsive.isMobile(context)?  15.0: 40),
-                                    const SizedBox(
-                                      // width: MediaQuery.of(context).size.width *
-                                      //     0.65,
-                                      child: Text("Edit Profile",
-                                          style: TextStyle(
-                                              fontSize: 17.0,
-                                              color: Color(0xff494949),
-                                              fontWeight: FontWeight.w500)),
-                                    )
-                                  ]),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditProfile(
+                                              email: email,
+                                              username: username,
+                                              pic: userpic,
+                                              phonenumber: phone,
+                                            )));
+                              },
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: 15.0,
+                                        bottom: 15.0),
+                                    child: Row(children: [
+                                      Image.network(
+                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fedit.png?alt=media&token=c3126938-6ca0-4ce1-85f6-cfc5ad264015&_gl=1*onc3x3*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDcyNTIuNDQuMC4w',
+                                        width: 30,
+                                      ),
+                                      SizedBox(
+                                          width: Responsive.isMobile(context)
+                                              ? 15.0
+                                              : 40),
+                                      const SizedBox(
+                                        // width: MediaQuery.of(context).size.width *
+                                        //     0.65,
+                                        child: Text("Edit Profile",
+                                            style: TextStyle(
+                                                fontSize: 17.0,
+                                                color: Color(0xff494949),
+                                                fontWeight: FontWeight.w500)),
+                                      )
+                                    ]),
+                                  ),
                                 ),
                               ),
                             ),
@@ -274,30 +299,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   onTap: () {
                                     _logoutDialoge(context);
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(15.0)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15.0,
-                                          right: 15.0,
-                                          top: 15.0,
-                                          bottom: 15.0),
-                                      child: Row(children: [
-                                        Image.network(
-                                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Flogout%20icon.png?alt=media&token=9705628c-695d-445a-a715-086ca56bf567&_gl=1*1s5s5tk*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYyNzMuNjAuMC4w',
-                                          width: 30,
-                                        ),
-                                        SizedBox(width: Responsive.isMobile(context)?  15.0: 40),
-                                        const Text('Logout',
-                                            style: TextStyle(
-                                                fontSize: 17.0,
-                                                color: Color(0xff494949),
-                                                fontWeight: FontWeight.w500))
-                                      ]),
+                                  child: MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 15.0,
+                                            right: 15.0,
+                                            top: 15.0,
+                                            bottom: 15.0),
+                                        child: Row(children: [
+                                          Image.network(
+                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Flogout%20icon.png?alt=media&token=9705628c-695d-445a-a715-086ca56bf567&_gl=1*1s5s5tk*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDYyNzMuNjAuMC4w',
+                                            width: 30,
+                                          ),
+                                          SizedBox(
+                                              width:
+                                                  Responsive.isMobile(context)
+                                                      ? 15.0
+                                                      : 40),
+                                          const Text('Logout',
+                                              style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  color: Color(0xff494949),
+                                                  fontWeight: FontWeight.w500))
+                                        ]),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -351,7 +383,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //             )));
                   },
                   child: CachedNetworkImage(
-                    imageUrl: userpic,
+                    imageUrl: '${_auth.currentUser?.photoURL}',
                     imageBuilder: (context, imageProvider) => Container(
                       height: 100,
                       width: 100,
@@ -373,15 +405,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.03,
-                left: MediaQuery.of(context).size.width * 0.05,
+                top: MediaQuery.of(context).size.height * 0.02,
+                left: MediaQuery.of(context).size.width * 0.03,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20left.png?alt=media&token=4f23b9ce-7c61-4223-940c-ea3f5bd14c24&_gl=1*blgm6y*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDY2MTAuNjAuMC4w',
-                    width: 25,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Farrow%20left.png?alt=media&token=4f23b9ce-7c61-4223-940c-ea3f5bd14c24&_gl=1*blgm6y*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODkwNjA5My43Ny4xLjE2OTg5MDY2MTAuNjAuMC4w',
+                      width: 25,
+                    ),
                   ),
                 ),
               ),

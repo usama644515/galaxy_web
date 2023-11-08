@@ -42,11 +42,12 @@ class _BlogItemsState extends State<BlogItems> {
                       child: const CircularProgressIndicator(
                           backgroundColor: Colors.grey,
                           color: Color(0xffF9A51F)));
+                // ignore: prefer_is_empty
                 } else if (snapshot.data!.docs.length == 0) {
                   return Container(
                       alignment: Alignment.topCenter,
                       margin: const EdgeInsets.only(top: 20),
-                      child: const Text('No Data Foulnd'));
+                      child: const Text('No Data Found'));
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length > 10

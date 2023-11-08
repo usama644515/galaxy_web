@@ -21,7 +21,7 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
-  var filter = ['Residential', 'Commercial', 'Plots', 'Construction'];
+  var filter = ['Residential', 'Commercial', 'Plots', 'Construction', 'Flats'];
   var loader = true;
   List<Map<String, dynamic>> data = [];
   getData() {
@@ -174,6 +174,8 @@ class _ShopState extends State<Shop> {
                             filtersearch('Plots');
                           } else if (index == 3) {
                             filtersearch('Construction');
+                          } else if (index == 4) {
+                            filtersearch('Flats');
                           }
                         });
                       },
@@ -225,7 +227,7 @@ class _ShopState extends State<Shop> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductDetails(
-                                                      data: data[index])));
+                                                      data: data[index],shop: 'true')));
                                     },
                                     child: Padding(
                                       padding:
@@ -435,10 +437,9 @@ class _ShopState extends State<Shop> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         _openWhatsApp(
-                                                            
-                                                            data[index]
-                                                                ['title'],data[index]
-                                                                ['phone'],);
+                                                          data[index]['title'],
+                                                          data[index]['phone'],
+                                                        );
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(

@@ -2,15 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:galaxy_web/components/product_details.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/components/my_fields.dart';
+import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../constants.dart';
 import 'components/header.dart';
-
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -51,7 +52,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         decoration: BoxDecoration(
             color: secondaryColor,
             border: Border.all(color: Colors.white),
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(30))),
+            borderRadius:
+                const BorderRadius.only(topLeft: Radius.circular(30))),
         child: Column(
           children: [
             Padding(
@@ -70,8 +72,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: Responsive.isMobile(context) ? 0 : 200.0,
-                                  right: Responsive.isMobile(context) ? 0 : 200),
+                                  left:
+                                      Responsive.isMobile(context) ? 0 : 200.0,
+                                  right:
+                                      Responsive.isMobile(context) ? 0 : 200),
                               child: const MyFiles(),
                             ),
                             const SizedBox(height: defaultPadding),
@@ -79,9 +83,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               padding: EdgeInsets.only(
                                   left:
                                       Responsive.isMobile(context) ? 0 : 120.0,
-                                  right: Responsive.isMobile(context)
-                                      ? 0
-                                      : 100.0),
+                                  right:
+                                      Responsive.isMobile(context) ? 0 : 100.0),
                               child: Stack(
                                 children: [
                                   Padding(
@@ -232,269 +235,239 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                               ? 5.0
                                                               : 15.0,
                                                         ),
-                                                        Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                'PKR ${data[index]['price']}',
-                                                                // maxLines: 2,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style: TextStyle(
-                                                                    fontSize: Responsive.isMobile(
+                                                        Stack(
+                                                          children: [
+                                                            Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'PKR ${data[index]['price']}',
+                                                                    // maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style: TextStyle(
+                                                                        fontSize: Responsive.isMobile(context)
+                                                                            ? 17.0
+                                                                            : 20.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w700),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 8.0,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: Responsive.isMobile(
                                                                             context)
-                                                                        ? 17.0
-                                                                        : 20.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 8.0,
-                                                              ),
-                                                              SizedBox(
-                                                                width: Responsive
-                                                                        .isMobile(
-                                                                            context)
-                                                                    ? 200
-                                                                    : 310,
-                                                                child: Text(
-                                                                  data[index]
-                                                                      ['title'],
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: TextStyle(
-                                                                      fontSize: Responsive.isMobile(
-                                                                              context)
-                                                                          ? 14.0
-                                                                          : 16.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: Responsive
-                                                                        .isMobile(
-                                                                            context)
-                                                                    ? 5.0
-                                                                    : 8.0,
-                                                              ),
-                                                              SizedBox(
-                                                                width: Responsive
-                                                                        .isMobile(
-                                                                            context)
-                                                                    ? 200
-                                                                    : 310,
-                                                                child: Text(
-                                                                  data[index][
-                                                                      'location'],
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: Responsive
-                                                                        .isMobile(
-                                                                            context)
-                                                                    ? 5.0
-                                                                    : 8.0,
-                                                              ),
-                                                              Row(children: [
-                                                                Image.network(
-                                                                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbedroom.png?alt=media&token=8ecacc5e-26f1-4f6d-8be1-2a4c5dc37ac1&_gl=1*yjagxc*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTE2MzUuNjAuMC4w',
-                                                                    width:
-                                                                        18.0),
-                                                                const SizedBox(
-                                                                    width: 5.0),
-                                                                Text(
-                                                                  data[index]
-                                                                      ['rooms'],
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                const SizedBox(
-                                                                    width:
-                                                                        18.0),
-                                                                Image.network(
-                                                                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbathroom.png?alt=media&token=50e413a2-c87a-4083-ba1a-6dd700bab39a&_gl=1*10fh5ol*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTIwNjIuNjAuMC4w',
-                                                                    width:
-                                                                        18.0),
-                                                                const SizedBox(
-                                                                    width: 5.0),
-                                                                Text(
-                                                                  data[index]
-                                                                      ['bath'],
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                                const SizedBox(
-                                                                    width:
-                                                                        18.0),
-                                                                Image.network(
-                                                                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fsize.png?alt=media&token=d6f2499d-eecc-479f-9df6-5f5c31978de0&_gl=1*qw5rt*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTE5ODYuMTkuMC4w',
-                                                                    width:
-                                                                        18.0),
-                                                                const SizedBox(
-                                                                    width: 5.0),
-                                                                Text(
-                                                                  data[index]
-                                                                      ['size'],
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                              ]),
-                                                              SizedBox(
-                                                                  height: Responsive
-                                                                          .isMobile(
-                                                                              context)
-                                                                      ? 10
-                                                                      : 30.0),
-                                                              Row(children: [
-                                                                GestureDetector(
-                                                                  onTap: () {
-                                                                    _openWhatsApp(
+                                                                        ? 200
+                                                                        : 310,
+                                                                    child: Text(
                                                                       data[index]
                                                                           [
                                                                           'title'],
-                                                                      data[index]
-                                                                          [
-                                                                          'phone'],
-                                                                    );
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                5.0),
-                                                                        border: Border.all(
-                                                                            width:
-                                                                                2.0,
-                                                                            color:
-                                                                                const Color(0xffF9A51F))),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsets.only(
-                                                                          left: Responsive.isMobile(context)
-                                                                              ? 7.0
-                                                                              : 8.0,
-                                                                          right: Responsive.isMobile(context)
-                                                                              ? 7.0
-                                                                              : 8.0,
-                                                                          top:
-                                                                              5.0,
-                                                                          bottom:
-                                                                              5.0),
-                                                                      child: Row(
-                                                                          children: [
-                                                                            Image.network('https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp.png?alt=media&token=89a781dc-cdc9-424c-96dc-d996eaabd8ae&_gl=1*tgw0tl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzcwOTk0Ni40MC4xLjE2OTc3MDk5ODMuMjMuMC4w',
-                                                                                height: Responsive.isMobile(context) ? 14 : 18,
-                                                                                width: Responsive.isMobile(context) ? 14 : 18),
-                                                                            const SizedBox(width: 6.0),
-                                                                            Text('WhatsApp',
-                                                                                style: TextStyle(color: const Color(0xffF9A51F), fontSize: Responsive.isMobile(context) ? 14 : 16.0, fontWeight: FontWeight.w600))
-                                                                          ]),
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          fontSize: Responsive.isMobile(context)
+                                                                              ? 14.0
+                                                                              : 16.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w700),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                SizedBox(
+                                                                  SizedBox(
+                                                                    height: Responsive.isMobile(
+                                                                            context)
+                                                                        ? 5.0
+                                                                        : 8.0,
+                                                                  ),
+                                                                  SizedBox(
                                                                     width: Responsive.isMobile(
                                                                             context)
-                                                                        ? 6.0
-                                                                        : 10.0),
-                                                                GestureDetector(
-                                                                  onTap: () {
-                                                                    _launchPhone(
-                                                                        data[index]
-                                                                            [
-                                                                            'phone']);
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                5.0),
-                                                                        color: const Color(
-                                                                            0xffF9A51F),
-                                                                        border: Border.all(
-                                                                            width:
-                                                                                2.0,
-                                                                            color:
-                                                                                const Color(0xffF9A51F))),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsets.only(
-                                                                          left: Responsive.isMobile(context)
-                                                                              ? 7.0
-                                                                              : 8.0,
-                                                                          right: Responsive.isMobile(context)
-                                                                              ? 7.0
-                                                                              : 8.0,
-                                                                          top:
-                                                                              5.0,
-                                                                          bottom:
-                                                                              5.0),
-                                                                      child: Row(
-                                                                          children: [
-                                                                            Image.network('https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20white.png?alt=media&token=4e3947e5-19f5-4d17-8d4d-379a63ac9910&_gl=1*tld1ry*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1Njk3Mi40NS4xLjE2OTc5NTY5NzkuNTMuMC4w',
-                                                                                height: Responsive.isMobile(context) ? 14 : 18,
-                                                                                width: Responsive.isMobile(context) ? 14 : 18),
-                                                                            const SizedBox(width: 6.0),
-                                                                            Text('CALL',
-                                                                                style: TextStyle(color: Colors.white, fontSize: Responsive.isMobile(context) ? 14 : 16.0, fontWeight: FontWeight.w600))
-                                                                          ]),
+                                                                        ? 200
+                                                                        : 310,
+                                                                    child: Text(
+                                                                      data[index]
+                                                                          [
+                                                                          'location'],
+                                                                      maxLines:
+                                                                          2,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: const TextStyle(
+                                                                          color: Colors
+                                                                              .grey,
+                                                                          fontSize:
+                                                                              15.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w600),
                                                                     ),
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: Responsive.isMobile(
+                                                                            context)
+                                                                        ? 5.0
+                                                                        : 8.0,
+                                                                  ),
+                                                                  Row(
+                                                                      children: [
+                                                                        Image.network(
+                                                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbedroom.png?alt=media&token=8ecacc5e-26f1-4f6d-8be1-2a4c5dc37ac1&_gl=1*yjagxc*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTE2MzUuNjAuMC4w',
+                                                                            width:
+                                                                                18.0),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                5.0),
+                                                                        Text(
+                                                                          data[index]
+                                                                              [
+                                                                              'rooms'],
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          style: const TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 16.0,
+                                                                              fontWeight: FontWeight.w600),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                18.0),
+                                                                        Image.network(
+                                                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbathroom.png?alt=media&token=50e413a2-c87a-4083-ba1a-6dd700bab39a&_gl=1*10fh5ol*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTIwNjIuNjAuMC4w',
+                                                                            width:
+                                                                                18.0),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                5.0),
+                                                                        Text(
+                                                                          data[index]
+                                                                              [
+                                                                              'bath'],
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          style: const TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 16.0,
+                                                                              fontWeight: FontWeight.w600),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                18.0),
+                                                                        Image.network(
+                                                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fsize.png?alt=media&token=d6f2499d-eecc-479f-9df6-5f5c31978de0&_gl=1*qw5rt*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTE5ODYuMTkuMC4w',
+                                                                            width:
+                                                                                18.0),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                5.0),
+                                                                        Text(
+                                                                          data[index]
+                                                                              [
+                                                                              'size'],
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          style: const TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 16.0,
+                                                                              fontWeight: FontWeight.w600),
+                                                                        ),
+                                                                      ]),
+                                                                  SizedBox(
+                                                                      height: Responsive.isMobile(
+                                                                              context)
+                                                                          ? 10
+                                                                          : 30.0),
+                                                                  Row(
+                                                                      children: [
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            _openWhatsApp(
+                                                                              data[index]['title'],
+                                                                              data[index]['phone'],
+                                                                            );
+                                                                          },
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                BoxDecoration(borderRadius: BorderRadius.circular(5.0), border: Border.all(width: 2.0, color: const Color(0xffF9A51F))),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsets.only(left: Responsive.isMobile(context) ? 7.0 : 8.0, right: Responsive.isMobile(context) ? 7.0 : 8.0, top: 5.0, bottom: 5.0),
+                                                                              child: Row(children: [
+                                                                                Image.network('https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp.png?alt=media&token=89a781dc-cdc9-424c-96dc-d996eaabd8ae&_gl=1*tgw0tl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzcwOTk0Ni40MC4xLjE2OTc3MDk5ODMuMjMuMC4w', height: Responsive.isMobile(context) ? 14 : 18, width: Responsive.isMobile(context) ? 14 : 18),
+                                                                                const SizedBox(width: 6.0),
+                                                                                Text('WhatsApp', style: TextStyle(color: const Color(0xffF9A51F), fontSize: Responsive.isMobile(context) ? 14 : 16.0, fontWeight: FontWeight.w600))
+                                                                              ]),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                            width: Responsive.isMobile(context)
+                                                                                ? 6.0
+                                                                                : 10.0),
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            _launchPhone(data[index]['phone']);
+                                                                          },
+                                                                          child:
+                                                                              Container(
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: const Color(0xffF9A51F),
+                                                                                border: Border.all(width: 2.0, color: const Color(0xffF9A51F))),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsets.only(left: Responsive.isMobile(context) ? 7.0 : 8.0, right: Responsive.isMobile(context) ? 7.0 : 8.0, top: 5.0, bottom: 5.0),
+                                                                              child: Row(children: [
+                                                                                Image.network('https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20white.png?alt=media&token=4e3947e5-19f5-4d17-8d4d-379a63ac9910&_gl=1*tld1ry*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1Njk3Mi40NS4xLjE2OTc5NTY5NzkuNTMuMC4w', height: Responsive.isMobile(context) ? 14 : 18, width: Responsive.isMobile(context) ? 14 : 18),
+                                                                                const SizedBox(width: 6.0),
+                                                                                Text('CALL', style: TextStyle(color: Colors.white, fontSize: Responsive.isMobile(context) ? 14 : 16.0, fontWeight: FontWeight.w600))
+                                                                              ]),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ]),
+                                                                ]),
+                                                            Positioned(
+                                                              top: Responsive
+                                                                      .isMobile(
+                                                                          context)
+                                                                  ? 5
+                                                                  : 15,
+                                                              right: 5,
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () {
+                                                                  showDeleteConfirmationDialog(
+                                                                      context,
+                                                                      data[index]
+                                                                          [
+                                                                          'datetime']);
+                                                                },
+                                                                child: Image
+                                                                    .network(
+                                                                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fdelete.png?alt=media&token=3b6ef544-00c0-44e4-8fd2-4f7384844ea3&_gl=1*lpp01d*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTQyMjMzNy44NS4xLjE2OTk0MjIzOTQuMy4wLjA.',
+                                                                  width: Responsive
+                                                                          .isMobile(
+                                                                              context)
+                                                                      ? 20
+                                                                      : 25,
                                                                 ),
-                                                              ]),
-                                                            ]),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -542,6 +515,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
       ),
+    );
+  }
+
+// delete dialog
+  Future<void> deleteDocument(var documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Properties List')
+          .where('datetime', isEqualTo: documentId)
+          .get()
+          .then((value) async {
+        final List<DocumentSnapshot> documents = value.docs;
+
+        for (DocumentSnapshot document in documents) {
+          await document.reference.delete().then((value) {
+            Fluttertoast.showToast(
+              msg: "Successfully Deleted",
+              toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
+              gravity: ToastGravity
+                  .BOTTOM, // You can change the gravity to position the toast
+              timeInSecForIosWeb: 1, // Duration in seconds
+              backgroundColor: Colors.grey, // Background color of the toast
+              textColor: Colors.white, // Text color of the toast
+              fontSize: 16.0, // Font size
+            );
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MainScreen()));
+          });
+        }
+      });
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+  }
+
+  Future<void> showDeleteConfirmationDialog(
+      BuildContext context, var documentId) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text('Are you sure you want to delete this document?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                deleteDocument(documentId);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

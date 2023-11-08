@@ -34,7 +34,7 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                   height: 250.0,
                   viewportFraction: 1,
                   aspectRatio: 16 / 9,
-                  autoPlay: false,
+                  autoPlay: true,
 
                   autoPlayAnimationDuration: const Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,

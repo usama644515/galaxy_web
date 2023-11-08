@@ -21,8 +21,8 @@ import 'product_details_mobile.dart';
 import 'side_drawer.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key, this.data});
-  final data;
+  const ProductDetails({super.key, this.data, this.dashboard,this.shop});
+  final data, dashboard, shop;
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
@@ -86,13 +86,27 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   Future<bool> onBackPress() async {
     setState(() {
-      Provider.of<menuController>(context, listen: false)
+      if (widget.dashboard == 'true') {
+        Navigator.pop(context);
+        Provider.of<menuController>(context, listen: false)
+            .navmenueSelect('dashboard');
+      }
+      else if(widget.shop == 'true'){
+        Navigator.pop(context);
+        Provider.of<menuController>(context, listen: false)
+            .navmenueSelect('Shop');
+      }
+      else{
+        Provider.of<menuController>(context, listen: false)
           .navmenueSelect('Home');
-    });
-    Navigator.of(context).pushAndRemoveUntil(
+          Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => const Home()),
       (route) => false, // Always return false to remove all routes
     );
+    
+      }
+      
+    });
     return Future.value(false);
   }
 
@@ -512,7 +526,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                         height: 500.0,
                         viewportFraction: 1,
                         aspectRatio: 16 / 9,
-                        autoPlay: false,
+                        autoPlay: true,
 
                         autoPlayAnimationDuration:
                             const Duration(milliseconds: 800),

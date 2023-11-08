@@ -69,7 +69,7 @@ class _AddProductStoreState extends State<AddProductStore> {
   final TextEditingController _youtubeurl = TextEditingController();
   final TextEditingController _id = TextEditingController();
 
-  List category = ['Residential', 'Commercial', 'Plots', 'Construction'];
+  List category = ['Residential', 'Commercial', 'Plots', 'Construction', 'Flats'];
 
   List location = [
     'Buch Executive Villas',

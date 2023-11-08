@@ -8,6 +8,7 @@ import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/constants.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/dashboard_screen.dart';
+import 'package:galaxy_web/dashboard/itemList.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/main/profile.dart';
 import 'package:galaxy_web/responsive.dart';
@@ -20,6 +21,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<bool> onBackPress() async {
     setState(() {
       Provider.of<menuController>(context, listen: false)
@@ -114,7 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                                           children: [
                                             CachedNetworkImage(
                                               imageUrl:
-                                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+                                                  '${_auth.currentUser?.photoURL}',
                                               imageBuilder:
                                                   (context, imageProvider) =>
                                                       Container(
@@ -245,7 +247,7 @@ class _MainScreenState extends State<MainScreen> {
                                               children: [
                                                 CachedNetworkImage(
                                                   imageUrl:
-                                                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+                                                      '${_auth.currentUser?.photoURL}',
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
@@ -341,7 +343,7 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                      DashboardScreen(),
+                      Products(),
                     ],
                   ),
                 ),

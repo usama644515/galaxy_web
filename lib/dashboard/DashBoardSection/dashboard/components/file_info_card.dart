@@ -23,10 +23,10 @@ class _FileInfoCardState extends State<FileInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: bgColor,
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -78,7 +78,7 @@ class _FileInfoCardState extends State<FileInfoCard> {
               ),
               Text(
                 widget.info.title!,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 11.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey),
@@ -112,7 +112,7 @@ class ProgressLine extends StatelessWidget {
           height: 5,
           decoration: BoxDecoration(
             color: color!.withOpacity(0.1),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
         ),
         LayoutBuilder(
@@ -121,7 +121,7 @@ class ProgressLine extends StatelessWidget {
             height: 5,
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
           ),
         ),
