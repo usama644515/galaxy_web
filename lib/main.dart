@@ -1,12 +1,13 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'router/routes.dart';
+// import 'router/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +24,18 @@ Future<void> main() async {
     );
   } else {
     // await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyC7cbB1HJEYhR80yWnDJUDEJWxXkQnnepM",
+        projectId: "galaxy-realtors-builders",
+        storageBucket: "galaxy-realtors-builders.appspot.com",
+        messagingSenderId: "216059000449",
+        appId: "1:216059000449:web:3c909ced665996854abf80",
+      ),
+    );
   }
-  final router = FluroRouter();
-  Routes.configureRoutes(router); // Configure your routes
+  // final router = FluroRouter();
+  // Routes.configureRoutes(router); // Configure your routes
   runApp(MyApp());
 }
 
@@ -48,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Galaxy Realtors Builders',
-        home: Home(),
+        home: kIsWeb ? Home() : Bar(ind: 0),
       ),
     );
   }

@@ -1224,6 +1224,10 @@ class _AddProductStoreState extends State<AddProductStore> {
                                       'searchquery': searchfilter,
                                       'user': _auth.currentUser?.uid,
                                       'phone': phone,
+                                      'call': 0,
+                                      'clicks': 0,
+                                      'impression': 0,
+                                      'whatsapp':0
                                     }, SetOptions(merge: true)).then((value) {
                                       print('upload successful');
                                       Fluttertoast.showToast(

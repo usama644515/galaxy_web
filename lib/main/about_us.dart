@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +29,7 @@ class _AboutUsState extends State<AboutUs> {
           .navmenueSelect('Home');
     });
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const Home()),
+      MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
       (route) => false, // Always return false to remove all routes
     );
     return Future.value(false);

@@ -59,10 +59,29 @@ dependencies:
   syncfusion_flutter_charts: ^23.1.43
   awesome_dialog: ^3.1.0
   file_picker: ^6.1.1
+  flutter_native_splash: ^2.3.5
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+  image : "assets/images/splash logo.png"
+  color_dark : "#ffffff"
+  image_dark : "assets/images/splash logo.png"
+  android : true
+  ios : true
+  web : false
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/app icon.png"
+  adaptive_icon_background: "#F9A51F"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

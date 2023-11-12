@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/search_screen.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 
 Widget MobileSearchBlock(context) {
   return Positioned(
-    top: MediaQuery.of(context).size.height * 0.13,
+    top: kIsWeb ? MediaQuery.of(context).size.height *  0.13:  MediaQuery.of(context).size.height *  0.14,
     left: 0,
     right: 0,
     child: Padding(
@@ -28,12 +30,12 @@ Widget MobileSearchBlock(context) {
           //         fontWeight: FontWeight.w400,
           //         color: Colors.white),textAlign: TextAlign.center,),
           const SizedBox(
-            height: 15.0,
+            height: kIsWeb ? 15 : 30.0,
           ),
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SearchScreen()));
+                  MaterialPageRoute(builder: (context) => kIsWeb ? SearchScreen() : Bar(ind: 2), ));
             },
             child: Container(
               height: 49,
@@ -53,32 +55,38 @@ Widget MobileSearchBlock(context) {
                         width: 20,
                       ),
                     const SizedBox(width: 9),
-                    const Text('Enter Any Keyword', style: TextStyle(fontSize: 16.0)),
+                    const Text('Search Properties...', style: TextStyle(fontSize: 16.0)),
                   ],
                 ),
               ),
             ),
           ),
           const SizedBox(
-            height: 10.0,
+            height: 15.0,
           ),
           MouseRegion(
             cursor: SystemMouseCursors.click,
-            child: Container(
-              height: 49,
-              width: MediaQuery.of(context).size.width * 0.3,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xffF9A51F),
-                // border: Border.all(color: const Color(0xffF9A51F)),
-                borderRadius: BorderRadius.circular(5),
+            child: GestureDetector(
+              onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => kIsWeb ? SearchScreen() : Bar(ind: 2), ));
+            },
+              child: Container(
+                height: 49,
+                width: MediaQuery.of(context).size.width * 0.3,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  color: const Color(0xffF9A51F),
+                  // border: Border.all(color: const Color(0xffF9A51F)),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: const Center(
+                    child: Text('SEARCH',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white))),
               ),
-              child: const Center(
-                  child: Text('SEARCH',
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white))),
             ),
           )
         ],

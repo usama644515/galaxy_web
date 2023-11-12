@@ -20,6 +20,9 @@ class FileInfoCard extends StatefulWidget {
 
 class _FileInfoCardState extends State<FileInfoCard> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  int click = 0;
+  var call = 0;
+  var whatsapp = 0;
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "216059000449",
+    "project_id": "galaxy-realtors-builders",
+    "storage_bucket": "galaxy-realtors-builders.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216059000449:android:67579ead10942e3b4abf80",
+        "android_client_info": {
+          "package_name": "com.ibits.galaxyrealtorbuilder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216059000449-j1ggmj157rnb53lmnn2vnfs2v0f5rc4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-rYYmpCH7TVox-hmTaXR3lAUY4nRJANE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216059000449-j1ggmj157rnb53lmnn2vnfs2v0f5rc4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

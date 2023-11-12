@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,13 +26,19 @@ class _ShopState extends State<Shop> {
   var filter = ['Residential', 'Commercial', 'Plots', 'Construction', 'Flats'];
   var loader = true;
   List<Map<String, dynamic>> data = [];
+  var dataId = [];
   getData() {
     if (widget.categ == null) {
       FirebaseFirestore.instance
           .collection('Properties List')
+          .orderBy('datetime', descending: true)
           .get()
           .then((value) {
         setState(() {
+          // print(value.docs[0].id);
+          for (var i = 0; i < value.docs.length; i++) {
+            dataId.add(value.docs[i].id);
+          }
           data = value.docs.map((DocumentSnapshot doc) {
             return doc.data() as Map<String, dynamic>;
           }).toList();
@@ -43,9 +51,13 @@ class _ShopState extends State<Shop> {
       FirebaseFirestore.instance
           .collection('Properties List')
           .where('category', isEqualTo: widget.categ)
+          .orderBy('datetime', descending: true)
           .get()
           .then((value) {
         setState(() {
+          for (var i = 0; i < value.docs.length; i++) {
+            dataId.add(value.docs[i].id);
+          }
           data = value.docs.map((DocumentSnapshot doc) {
             return doc.data() as Map<String, dynamic>;
           }).toList();
@@ -65,9 +77,13 @@ class _ShopState extends State<Shop> {
     FirebaseFirestore.instance
         .collection('Properties List')
         .where('category', isEqualTo: val)
+        .orderBy('datetime', descending: true)
         .get()
         .then((value) {
       setState(() {
+        for (var i = 0; i < value.docs.length; i++) {
+          dataId.add(value.docs[i].id);
+        }
         data = value.docs.map((DocumentSnapshot doc) {
           return doc.data() as Map<String, dynamic>;
         }).toList();
@@ -91,7 +107,9 @@ class _ShopState extends State<Shop> {
           .navmenueSelect('Home');
     });
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const Home()),
+      MaterialPageRoute(
+        builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
+      ),
       (route) => false, // Always return false to remove all routes
     );
     return Future.value(false);
@@ -215,10 +233,12 @@ class _ShopState extends State<Shop> {
                               // scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
                                 // Build each grid item
+                                // getimpresssion(dataId[index]);
                                 return MouseRegion(
                                   cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
                                     onTap: () {
+                                      getClick(dataId[index]);
                                       Provider.of<menuController>(context,
                                               listen: false)
                                           .navmenueSelect('Shop');
@@ -227,7 +247,9 @@ class _ShopState extends State<Shop> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductDetails(
-                                                      data: data[index],shop: 'true')));
+                                                      id: dataId[index],
+                                                      data: data[index],
+                                                      shop: 'true')));
                                     },
                                     child: Padding(
                                       padding:
@@ -335,7 +357,7 @@ class _ShopState extends State<Shop> {
                                                   SizedBox(
                                                     width: Responsive.isMobile(
                                                             context)
-                                                        ? 200
+                                                        ? 170
                                                         : 310,
                                                     child: Text(
                                                       data[index]['title'],
@@ -440,6 +462,8 @@ class _ShopState extends State<Shop> {
                                                           data[index]['title'],
                                                           data[index]['phone'],
                                                         );
+                                                        getWhatsappClick(
+                                                            dataId[index]);
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(
@@ -505,6 +529,8 @@ class _ShopState extends State<Shop> {
                                                       onTap: () {
                                                         _launchPhone(data[index]
                                                             ['phone']);
+                                                        getCallClick(
+                                                            dataId[index]);
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(
@@ -628,6 +654,30 @@ class _ShopState extends State<Shop> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  getimpresssion(var id) {
+    FirebaseFirestore.instance.collection('Properties List').doc(id).set({
+      'impression': FieldValue.increment(1),
+    }, SetOptions(merge: true));
+  }
+
+  getClick(var id) {
+    FirebaseFirestore.instance.collection('Properties List').doc(id).set({
+      'clicks': FieldValue.increment(1),
+    }, SetOptions(merge: true));
+  }
+
+  getCallClick(var id) {
+    FirebaseFirestore.instance.collection('Properties List').doc(id).set({
+      'call': FieldValue.increment(1),
+    }, SetOptions(merge: true));
+  }
+
+  getWhatsappClick(var id) {
+    FirebaseFirestore.instance.collection('Properties List').doc(id).set({
+      'whatsapp': FieldValue.increment(1),
+    }, SetOptions(merge: true));
   }
 }
 

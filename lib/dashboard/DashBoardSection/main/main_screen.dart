@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
@@ -9,6 +10,7 @@ import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/constants.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/dashboard/dashboard_screen.dart';
 import 'package:galaxy_web/dashboard/itemList.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/main/profile.dart';
 import 'package:galaxy_web/responsive.dart';
@@ -28,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
           .navmenueSelect('Home');
     });
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const Home()),
+      MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
       (route) => false, // Always return false to remove all routes
     );
     return Future.value(false);

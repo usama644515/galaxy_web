@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.ibits.galaxyrealtorbuilder">
 <queries>
   <!-- If your app opens https URLs -->
         <intent>
@@ -17,7 +18,7 @@
         </intent>
     </queries>
     <application
-        android:label="galaxy_web"
+        android:label="Galaxy Realtor"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

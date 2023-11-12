@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/category.dart';
 import 'package:galaxy_web/components/categorymobile.dart';
@@ -7,6 +7,7 @@ import 'package:galaxy_web/components/mobile_searchblock.dart';
 import 'package:galaxy_web/components/navbar.dart';
 import 'package:galaxy_web/components/search_block.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,7 +19,7 @@ import '../components/productlist.dart';
 import '../components/whychoose.dart';
 import '../controllers/MenuController.dart';
 import 'shop.dart';
-import 'dart:html' as html;
+// import 'dart:html' as html;
 
 class Home extends StatefulWidget {
   const Home({
@@ -54,17 +55,22 @@ class _HomeState extends State<Home> {
   //       .doc('1e7Ho8dO8S18OybCM361')
   //       .set({'searchquery': arr}, SetOptions(merge: true));
   // }
-//  void updatedata() async {
-//   CollectionReference collectionRef = FirebaseFirestore.instance.collection('Properties List');
+  // void updatedata() async {
+  //   CollectionReference collectionRef =
+  //       FirebaseFirestore.instance.collection('Properties List');
 
-//   QuerySnapshot querySnapshot = await collectionRef.get();
+  //   QuerySnapshot querySnapshot = await collectionRef.get();
 
-//   querySnapshot.docs.forEach((document) async {
-
-//     // Update the data in each document
-//     await collectionRef.doc(document.id).set({'user': 'admin'}, SetOptions(merge: true));
-//   });
-// }
+  //   querySnapshot.docs.forEach((document) async {
+  //     // Update the data in each document
+  //     await collectionRef.doc(document.id).set({
+  //       'impresssion': 0,
+  //       'clicks': 0,
+  //       'call': 0,
+  //       'whatsapp': 0,
+  //     }, SetOptions(merge: true));
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +85,23 @@ class _HomeState extends State<Home> {
             children: [
               Stack(
                 children: [
-                  Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/multan%20cover.png?alt=media&token=26ea21c1-c846-4ac5-9289-ede20b574778',
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width,
-                    height: Responsive.isMobile(context)
-                        ? MediaQuery.of(context).size.height * 0.45
-                        : MediaQuery.of(context).size.height * 0.9,
-                  ),
+                  kIsWeb
+                      ? Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/web%20background.png?alt=media&token=91e7e798-ae2e-4f48-8152-916da53e1357',
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: Responsive.isMobile(context)
+                              ? MediaQuery.of(context).size.height * 0.45
+                              : MediaQuery.of(context).size.height * 0.9,
+                        )
+                      : Image.asset(
+                          'assets/images/main cover.png',
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: Responsive.isMobile(context)
+                              ? MediaQuery.of(context).size.height * 0.45
+                              : MediaQuery.of(context).size.height * 0.9,
+                        ),
                   Responsive.isMobile(context)
                       ? MobileNavBar(scaffoldKey)
                       : const NavBar(),
@@ -130,7 +145,8 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Shop()));
+                                builder: (context) =>
+                                    kIsWeb ? Shop() : Bar(ind: 1)));
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -188,8 +204,8 @@ class _HomeState extends State<Home> {
             ],
           ),
           Positioned(
-            bottom: 20.0,
-            right: 20.0,
+            bottom: Responsive.isMobile(context) ? 10.0 : 20,
+            right: Responsive.isMobile(context) ? 10.0 : 20,
             child: GestureDetector(
               onTap: () {
                 _openWhatsApp(923000335875, '');
@@ -228,13 +244,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void navigateToPage(String pagePath) {
-    // Change the URL without reloading the page (client-side routing)
-    html.window.history.pushState(null, '', pagePath);
+  // void navigateToPage(String pagePath) {
+  //   // Change the URL without reloading the page (client-side routing)
+  //   html.window.history.pushState(null, '', pagePath);
 
-    // Perform any additional navigation logic if needed
-    // For example, you can use the Navigator class to push routes.
-  }
+  //   // Perform any additional navigation logic if needed
+  //   // For example, you can use the Navigator class to push routes.
+  // }
 
   _openWhatsApp(var phoneNumber, var title) async {
     // final phoneNumber =

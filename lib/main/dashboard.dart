@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/footer.dart';
 import 'package:galaxy_web/components/footer_mobile.dart';
@@ -8,6 +9,7 @@ import 'package:galaxy_web/components/mobile_navbar.dart';
 import 'package:galaxy_web/components/product_details.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:provider/provider.dart';
@@ -95,7 +97,7 @@ class _DashBoardState extends State<DashBoard> {
           .navmenueSelect('Home');
     });
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const Home()),
+      MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
       (route) => false, // Always return false to remove all routes
     );
     return Future.value(false);

@@ -70,13 +70,14 @@ class _ProductListState extends State<ProductList> {
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () {
+                            getClick(data.id);
                             Provider.of<menuController>(context, listen: false)
                                 .navmenueSelect('Shop');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ProductDetails(data: data)));
+                                        ProductDetails(data: data,id: data.id)));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +139,6 @@ class _ProductListState extends State<ProductList> {
                               const SizedBox(
                                 height: 8.0,
                               ),
-                              
                             ],
                           ),
                         ),
@@ -202,6 +202,12 @@ class _ProductListState extends State<ProductList> {
               ),
       ],
     );
+  }
+
+  getClick(var id) {
+    FirebaseFirestore.instance.collection('Properties List').doc(id).set({
+      'clicks': FieldValue.increment(1),
+    }, SetOptions(merge: true));
   }
 
   var toIndex = 1;

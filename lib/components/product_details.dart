@@ -1,9 +1,8 @@
-import 'dart:html';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/footer.dart';
@@ -11,6 +10,7 @@ import 'package:galaxy_web/components/footer_mobile.dart';
 import 'package:galaxy_web/components/productlist.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/controllers/image_viewer.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,8 +21,9 @@ import 'product_details_mobile.dart';
 import 'side_drawer.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key, this.data, this.dashboard,this.shop});
-  final data, dashboard, shop;
+  const ProductDetails(
+      {super.key, this.data, this.dashboard, this.shop, this.id});
+  final data, dashboard, shop, id;
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
@@ -90,22 +91,18 @@ class _ProductDetailsState extends State<ProductDetails> {
         Navigator.pop(context);
         Provider.of<menuController>(context, listen: false)
             .navmenueSelect('dashboard');
-      }
-      else if(widget.shop == 'true'){
+      } else if (widget.shop == 'true') {
         Navigator.pop(context);
         Provider.of<menuController>(context, listen: false)
             .navmenueSelect('Shop');
-      }
-      else{
+      } else {
         Provider.of<menuController>(context, listen: false)
-          .navmenueSelect('Home');
-          Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const Home()),
-      (route) => false, // Always return false to remove all routes
-    );
-    
+            .navmenueSelect('Home');
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
+          (route) => false, // Always return false to remove all routes
+        );
       }
-      
     });
     return Future.value(false);
   }
@@ -221,10 +218,11 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             Responsive.isMobile(context)
                 ? Positioned(
-                    bottom: 15.0,
-                    right: 15.0,
+                    bottom: Responsive.isMobile(context)?  10.0: 15,
+                    right: Responsive.isMobile(context)?  10.0: 15,
                     child: GestureDetector(
                       onTap: () {
+                        getWhatsappClick(widget.id);
                         _openWhatsApp(
                             widget.data['phone'], widget.data['title']);
                       },
@@ -452,6 +450,11 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       ),
     );
+  }
+  getWhatsappClick(var id) {
+    FirebaseFirestore.instance.collection('Properties List').doc(id).set({
+      'whatsapp': FieldValue.increment(1),
+    }, SetOptions(merge: true));
   }
 }
 
@@ -1137,4 +1140,6 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
       ],
     );
   }
+
+  
 }

@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
+import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -165,7 +167,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     .navmenueSelect('Home');
                 // Remove all routes and push a new route
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const Home()),
+                  MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
                   (route) => false, // Always return false to remove all routes
                 );
               });
@@ -192,7 +194,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('Shop');
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Shop()));
+                    MaterialPageRoute(builder: (context) =>  kIsWeb ? Shop() : Bar(ind: 1),));
               });
             },
           ),

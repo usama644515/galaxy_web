@@ -244,7 +244,7 @@ class _ProductsState extends State<Products> {
                                         : const SizedBox(width: 10),
                                     Expanded(
                                       flex:
-                                          Responsive.isMobile(context) ? 3 : 6,
+                                          Responsive.isMobile(context) ? 3 : 4,
                                       child: const Text(
                                         "Name",
                                         style: TextStyle(
@@ -274,6 +274,51 @@ class _ProductsState extends State<Products> {
                                             flex: 2,
                                             child: Text(
                                               'Category',
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const SizedBox(width: 10),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              'Clicks',
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const SizedBox(width: 10),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              'Whatsapp',
+                                              style: TextStyle(
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const SizedBox(width: 10),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              'Call',
                                               style: TextStyle(
                                                   fontSize: 15.0,
                                                   fontWeight: FontWeight.bold,
@@ -327,8 +372,8 @@ class _ProductsState extends State<Products> {
                                     .collection('Properties List')
                                     .where('user',
                                         isEqualTo: _auth.currentUser?.uid)
-                                    // .orderBy('DateTime',
-                                    //     descending: true)
+                                    .orderBy('datetime',
+                                        descending: true)
                                     .snapshots(),
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -421,7 +466,7 @@ class _ProductsState extends State<Products> {
                                                                       .isMobile(
                                                                           context)
                                                                   ? 3
-                                                                  : 6,
+                                                                  : 4,
                                                               child: Text(
                                                                 data.get(
                                                                     'title'),
@@ -433,7 +478,7 @@ class _ProductsState extends State<Products> {
                                                                             .w500,
                                                                     color: Colors
                                                                         .black),
-                                                                        maxLines: 3,
+                                                                maxLines: 3,
                                                                 overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
@@ -473,6 +518,78 @@ class _ProductsState extends State<Products> {
                                                                     child: Text(
                                                                       data.get(
                                                                           'category'),
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              12.0,
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          color:
+                                                                              Colors.black),
+                                                                    ),
+                                                                  ),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : const SizedBox(
+                                                                    width: 10),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : Expanded(
+                                                                    flex: 1,
+                                                                    child: Text(
+                                                                      data
+                                                                          .get(
+                                                                              'clicks')
+                                                                          .toString(),
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              12.0,
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          color:
+                                                                              Colors.black),
+                                                                    ),
+                                                                  ),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : const SizedBox(
+                                                                    width: 10),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : Expanded(
+                                                                    flex: 1,
+                                                                    child: Text(
+                                                                      data
+                                                                          .get(
+                                                                              'whatsapp')
+                                                                          .toString(),
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              12.0,
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          color:
+                                                                              Colors.black),
+                                                                    ),
+                                                                  ),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : const SizedBox(
+                                                                    width: 10),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : Expanded(
+                                                                    flex: 1,
+                                                                    child: Text(
+                                                                      data
+                                                                          .get(
+                                                                              'call')
+                                                                          .toString(),
                                                                       style: const TextStyle(
                                                                           fontSize:
                                                                               12.0,

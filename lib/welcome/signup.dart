@@ -25,7 +25,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     print(_auth.currentUser?.email);
-    getphonenumber();
+    // getphonenumber();
     super.initState();
   }
 
@@ -62,9 +62,9 @@ class _SignUpState extends State<SignUp> {
                   //     : MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 0.0),
+                    padding:  EdgeInsets.only(top:Responsive.isMobile(context)? MediaQuery.of(context).size.height*0.07: 0.0),
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(
                           height: 30.0,
@@ -377,7 +377,7 @@ class _SignUpState extends State<SignUp> {
                                     ? const CircularProgressIndicator(
                                         color: Colors.white)
                                     : const Text(
-                                        'SignUp',
+                                        'Sign Up',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
