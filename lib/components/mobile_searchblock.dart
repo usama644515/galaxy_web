@@ -13,7 +13,7 @@ Widget MobileSearchBlock(context) {
       child: Column(
         children: [
           const Text(
-            'Search Properties for Sale in Multan',
+            'Search Properties for Sale & Rent in Pakistan',
             style: TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,

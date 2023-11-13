@@ -8,7 +8,7 @@ Widget SearchBlock(context) {
     right: 0,
     child: Column(
       children: [
-        const Text('Search Dream Properties for Sale in Multan',
+        const Text('Search Properties for Sale & Rent in Pakistan',
             style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ Widget SearchBlock(context) {
                           width: 20,
                         ),
                         const SizedBox(width: 13),
-                        const Text('Enter Any Keyword',
+                        const Text('Search Properties...',
                             style: TextStyle(fontSize: 16.0)),
                       ],
                     ),
