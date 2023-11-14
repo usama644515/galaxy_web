@@ -1,12 +1,15 @@
-import 'package:fluro/fluro.dart';
+import 'dart:io';
+
+// ignore: depend_on_referenced_packages
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart';
-// ignore: depend_on_referenced_packages
-import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 // import 'router/routes.dart';
 
 Future<void> main() async {
@@ -21,6 +24,10 @@ Future<void> main() async {
         messagingSenderId: "216059000449",
         appId: "1:216059000449:web:3c909ced665996854abf80",
       ),
+    );
+  } else if (Platform.isIOS) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
     );
   } else {
     // await Firebase.initializeApp();
