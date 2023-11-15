@@ -218,8 +218,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             Responsive.isMobile(context)
                 ? Positioned(
-                    bottom: Responsive.isMobile(context)?  10.0: 15,
-                    right: Responsive.isMobile(context)?  10.0: 15,
+                    bottom: Responsive.isMobile(context)?  20.0: 15,
+                    left: Responsive.isMobile(context)?  10.0: 15,
                     child: GestureDetector(
                       onTap: () {
                         getWhatsappClick(widget.id);

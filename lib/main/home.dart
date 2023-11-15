@@ -205,7 +205,7 @@ class _HomeState extends State<Home> {
           ),
           Positioned(
             bottom: Responsive.isMobile(context) ? 10.0 : 20,
-            right: Responsive.isMobile(context) ? 10.0 : 20,
+            left: Responsive.isMobile(context) ? 10.0 : 20,
             child: GestureDetector(
               onTap: () {
                 _openWhatsApp(923000335875, '');
