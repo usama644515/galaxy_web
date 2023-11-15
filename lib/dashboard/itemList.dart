@@ -328,17 +328,21 @@ class _ProductsState extends State<Products> {
                                     Responsive.isMobile(context)
                                         ? Container()
                                         : const SizedBox(width: 10),
-                                    const Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        'Location',
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              'Location',
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const SizedBox(width: 10),
                                     const Expanded(
                                       flex: 2,
                                       child: Text(
@@ -352,7 +356,7 @@ class _ProductsState extends State<Products> {
                                     const SizedBox(width: 10),
                                     Expanded(
                                       flex:
-                                          Responsive.isMobile(context) ? 1 : 1,
+                                          Responsive.isMobile(context) ? 2 : 2,
                                       child: const Text(
                                         'Action',
                                         style: TextStyle(
@@ -372,8 +376,7 @@ class _ProductsState extends State<Products> {
                                     .collection('Properties List')
                                     .where('user',
                                         isEqualTo: _auth.currentUser?.uid)
-                                    .orderBy('datetime',
-                                        descending: true)
+                                    .orderBy('datetime', descending: true)
                                     .snapshots(),
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -601,25 +604,30 @@ class _ProductsState extends State<Products> {
                                                                   ),
                                                             const SizedBox(
                                                                 width: 10),
-                                                            Expanded(
-                                                              flex: 2,
-                                                              child: Text(
-                                                                data.get(
-                                                                    'location'),
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const SizedBox(
-                                                                width: 10),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : Expanded(
+                                                                    flex: 2,
+                                                                    child: Text(
+                                                                      data.get(
+                                                                          'location'),
+                                                                      style:
+                                                                          const TextStyle(
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : const SizedBox(
+                                                                    width: 10),
                                                             Expanded(
                                                               flex: 2,
                                                               child: Text(
@@ -643,7 +651,7 @@ class _ProductsState extends State<Products> {
                                                             const SizedBox(
                                                                 width: 10),
                                                             Expanded(
-                                                              flex: 1,
+                                                              flex: 2,
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -662,7 +670,47 @@ class _ProductsState extends State<Products> {
                                                                       },
                                                                       child: Image
                                                                           .network(
+                                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fedit%20icon.png?alt=media&token=e1de4717-b72c-4640-b4c6-dcb23d3b5993',
+                                                                        width: Responsive.isMobile(context)
+                                                                            ? 20
+                                                                            : 20,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  MouseRegion(
+                                                                    cursor: SystemMouseCursors
+                                                                        .click, //hand click cursor
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap:
+                                                                          () async {
+                                                                        showDeleteConfirmationDialog(
+                                                                            context,
+                                                                            data.get('datetime'));
+                                                                      },
+                                                                      child: Image
+                                                                          .network(
                                                                         'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fdelete.png?alt=media&token=3b6ef544-00c0-44e4-8fd2-4f7384844ea3&_gl=1*lpp01d*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTQyMjMzNy44NS4xLjE2OTk0MjIzOTQuMy4wLjA.',
+                                                                        width: Responsive.isMobile(context)
+                                                                            ? 20
+                                                                            : 20,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  MouseRegion(
+                                                                    cursor: SystemMouseCursors
+                                                                        .click, //hand click cursor
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap:
+                                                                          () async {
+                                                                        renewDialog(
+                                                                            context,
+                                                                            data.get('datetime'));
+                                                                      },
+                                                                      child: Image
+                                                                          .network(
+                                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Frenew%20icon.png?alt=media&token=06fd630b-5e3a-40a1-8085-0800c8f765ce',
                                                                         width: Responsive.isMobile(context)
                                                                             ? 20
                                                                             : 20,
@@ -727,6 +775,42 @@ class _ProductsState extends State<Products> {
     }
   }
 
+  Future<void> renewDocument(var documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Properties List')
+          .where('datetime', isEqualTo: documentId)
+          .get()
+          .then((value) async {
+        final List<DocumentSnapshot> documents = value.docs;
+
+        for (DocumentSnapshot document in documents) {
+          await document.reference.set({
+            'datetime': DateTime.now(),
+            'call': 0,
+            'clicks': 0,
+            'whatsapp': 0,
+            'impression': 0
+          }, SetOptions(merge: true)).then((value) {
+            Fluttertoast.showToast(
+              msg: "Successfully Renew",
+              toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
+              gravity: ToastGravity
+                  .BOTTOM, // You can change the gravity to position the toast
+              timeInSecForIosWeb: 1, // Duration in seconds
+              backgroundColor: Colors.grey, // Background color of the toast
+              textColor: Colors.white, // Text color of the toast
+              fontSize: 16.0, // Font size
+            );
+            Navigator.pop(context);
+          });
+        }
+      });
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+  }
+
   Future<void> showDeleteConfirmationDialog(
       BuildContext context, var documentId) async {
     return showDialog(
@@ -740,6 +824,32 @@ class _ProductsState extends State<Products> {
               child: const Text('Delete'),
               onPressed: () {
                 deleteDocument(documentId);
+              },
+            ),
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> renewDialog(BuildContext context, var documentId) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirm Renew'),
+          content: const Text('Are you sure you want to renew this Listing?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Renew'),
+              onPressed: () {
+                renewDocument(documentId);
               },
             ),
             TextButton(

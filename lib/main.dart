@@ -8,7 +8,7 @@ import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:provider/provider.dart';
-
+import 'package:seo_renderer/seo_renderer.dart';
 import 'firebase_options.dart';
 // import 'router/routes.dart';
 
@@ -62,10 +62,14 @@ class _MyAppState extends State<MyApp> {
           create: (context) => menuController(),
         ),
       ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Galaxy Realtors Builders',
-        home: kIsWeb ? Home() : Bar(ind: 0),
+      child: RobotDetector(
+        debug: true, // you can set true to enable robot mode
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Galaxy Realtors Builders',
+          home: kIsWeb ? Home() : Bar(ind: 0),
+          navigatorObservers: [seoRouteObserver],
+        ),
       ),
     );
   }

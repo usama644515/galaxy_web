@@ -19,6 +19,7 @@ import '../components/productlist.dart';
 import '../components/whychoose.dart';
 import '../controllers/MenuController.dart';
 import 'shop.dart';
+import 'package:seo_renderer/seo_renderer.dart';
 // import 'dart:html' as html;
 
 class Home extends StatefulWidget {
@@ -86,13 +87,16 @@ class _HomeState extends State<Home> {
               Stack(
                 children: [
                   kIsWeb
-                      ? Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/web%20background.png?alt=media&token=91e7e798-ae2e-4f48-8152-916da53e1357',
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width,
-                          height: Responsive.isMobile(context)
-                              ? MediaQuery.of(context).size.height * 0.45
-                              : MediaQuery.of(context).size.height * 0.9,
+                      ? ImageRenderer(
+                          alt: 'Galaxy Realtor Cover Image',
+                          child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/web%20background.png?alt=media&token=91e7e798-ae2e-4f48-8152-916da53e1357',
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width,
+                            height: Responsive.isMobile(context)
+                                ? MediaQuery.of(context).size.height * 0.45
+                                : MediaQuery.of(context).size.height * 0.9,
+                          ),
                         )
                       : Image.asset(
                           'assets/images/main cover.png',
@@ -204,8 +208,8 @@ class _HomeState extends State<Home> {
             ],
           ),
           Positioned(
-            bottom: Responsive.isMobile(context) ? 10.0 : 20,
-            left: Responsive.isMobile(context) ? 10.0 : 20,
+            bottom: Responsive.isMobile(context) ? 20.0 : 15,
+            left: Responsive.isMobile(context) ? 10.0 : 15,
             child: GestureDetector(
               onTap: () {
                 _openWhatsApp(923000335875, '');
