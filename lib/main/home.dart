@@ -87,16 +87,13 @@ class _HomeState extends State<Home> {
               Stack(
                 children: [
                   kIsWeb
-                      ? ImageRenderer(
-                          alt: 'Galaxy Realtor Cover Image',
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/web%20background.png?alt=media&token=91e7e798-ae2e-4f48-8152-916da53e1357',
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                            height: Responsive.isMobile(context)
-                                ? MediaQuery.of(context).size.height * 0.45
-                                : MediaQuery.of(context).size.height * 0.9,
-                          ),
+                      ? Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/web%20background.png?alt=media&token=91e7e798-ae2e-4f48-8152-916da53e1357',
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: Responsive.isMobile(context)
+                              ? MediaQuery.of(context).size.height * 0.45
+                              : MediaQuery.of(context).size.height * 0.9,
                         )
                       : Image.asset(
                           'assets/images/main cover.png',

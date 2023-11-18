@@ -23,6 +23,7 @@ Future<void> main() async {
         storageBucket: "galaxy-realtors-builders.appspot.com",
         messagingSenderId: "216059000449",
         appId: "1:216059000449:web:3c909ced665996854abf80",
+        authDomain: "galaxy-realtors-builders.firebaseapp.com",
       ),
     );
   } else if (Platform.isIOS) {

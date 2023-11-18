@@ -290,7 +290,7 @@ class _SideDrawerState extends State<SideDrawer> {
               CupertinoDialogAction(
                 child: const Text('Log Out'),
                 onPressed: () async {
-                  // await GoogleSignIn().signOut();
+                  await GoogleSignIn().signOut();
                   await _auth.signOut().then((value) {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Home');

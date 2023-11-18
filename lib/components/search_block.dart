@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/search_screen.dart';
+import 'package:seo_renderer/seo_renderer.dart';
 
 Widget SearchBlock(context) {
   return Positioned(

@@ -74,7 +74,8 @@ class _AddProductStoreState extends State<AddProductStore> {
   List location = [
     'Buch Executive Villas',
     'DHA Multan',
-    'Citi Housing Multan'
+    'Citi Housing Multan',
+    'Smart Housing'
   ];
 
   List select = ['Sell', 'Rent'];

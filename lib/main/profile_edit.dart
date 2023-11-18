@@ -412,7 +412,7 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: 'Enter Vehicle Model',
+                                hintText: 'Enter Phone Number',
                                 contentPadding: const EdgeInsets.only(
                                     left: 14.0, bottom: 20.0, top: 20.0),
                               ),

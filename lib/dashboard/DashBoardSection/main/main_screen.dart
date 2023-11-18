@@ -14,6 +14,7 @@ import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/main/profile.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -369,6 +370,7 @@ _logoutDialoge(context) {
             CupertinoDialogAction(
               child: const Text('Log Out'),
               onPressed: () async {
+                await GoogleSignIn().signOut();
                 await FirebaseAuth.instance.signOut().then((value) {});
               },
             ),

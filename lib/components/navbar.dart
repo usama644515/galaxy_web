@@ -7,6 +7,7 @@ import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../main/about_us.dart';
@@ -623,6 +624,7 @@ class _NavBarState extends State<NavBar> {
                 onPressed: () async {
                   // SharedPreferences prefs = await SharedPreferences.getInstance();
                   // prefs.setBool('isLoggedIn', false);
+                  await GoogleSignIn().signOut();
                   await FirebaseAuth.instance.signOut().then((value) {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => const Home()),

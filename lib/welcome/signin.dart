@@ -304,29 +304,29 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 15.0),
                 GestureDetector(
                   onTap: () async {
-                    // setState(() {
-                    //   loading = true;
-                    // });
-                    // try {
-                    //   print('click................');
-                    //   await signInwithGoogle();
-                    // } catch (e) {
-                    //   if (e is FirebaseAuthException) {
-                    //     showMessage(e.message!);
-                    //   }
-                    // }
-                    // setState(() {
-                    //   loading = false;
-                    // });
-                    // signInWithGoogle();
-                    Fluttertoast.showToast(
-                        msg: 'Coming Soon',
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.blue,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
+                    setState(() {
+                      loading = true;
+                    });
+                    try {
+                      print('click................');
+                      await googlewebsignin();
+                    } catch (e) {
+                      if (e is FirebaseAuthException) {
+                        showMessage(e.message!);
+                      }
+                    }
+                    setState(() {
+                      loading = false;
+                    });
+                    // signinWithGoogle();
+                    // Fluttertoast.showToast(
+                    //     msg: 'Coming Soon',
+                    //     toastLength: Toast.LENGTH_SHORT,
+                    //     gravity: ToastGravity.BOTTOM,
+                    //     timeInSecForIosWeb: 1,
+                    //     backgroundColor: Colors.blue,
+                    //     textColor: Colors.white,
+                    //     fontSize: 16.0);
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -434,6 +434,7 @@ class _SignInState extends State<SignIn> {
               builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
             ));
       } else {
+        await GoogleSignIn().signOut();
         FirebaseAuth.instance.signOut().then((value) {
           setState(() {
             loading = false;
@@ -510,6 +511,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           onPressed: () {
                             Navigator.pop(context);
+                            GoogleSignIn().signOut();
                             FirebaseAuth.instance.signOut();
                           },
                           child: const Text(
@@ -529,45 +531,45 @@ class _SignInState extends State<SignIn> {
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  String? name;
-  String? imageUrl;
-  Future<User?> signInWithGoogle() async {
-    // Initialize Firebase
-    await Firebase.initializeApp();
+  // String? name;
+  // String? imageUrl;
+  // Future<User?> signInWithGoogle() async {
+  //   // Initialize Firebase
+  //   await Firebase.initializeApp();
 
-    User? user;
+  //   User? user;
 
-    // The `GoogleAuthProvider` can only be used while running on the web
-    GoogleAuthProvider authProvider = GoogleAuthProvider();
+  //   // The `GoogleAuthProvider` can only be used while running on the web
+  //   GoogleAuthProvider authProvider = GoogleAuthProvider();
 
-    try {
-      final UserCredential userCredential =
-          await _auth.signInWithPopup(authProvider);
+  //   try {
+  //     final UserCredential userCredential =
+  //         await _auth.signInWithPopup(authProvider);
 
-      user = userCredential.user;
-    } catch (e) {
-      print('-----------------error');
-      print(e);
-    }
+  //     user = userCredential.user;
+  //   } catch (e) {
+  //     print('-----------------error');
+  //     print(e);
+  //   }
 
-    if (user != null) {
-      // uid = user.uid;
-      name = user.displayName;
-      // userEmail = user.email;
-      imageUrl = user.photoURL;
+  //   if (user != null) {
+  //     // uid = user.uid;
+  //     name = user.displayName;
+  //     // userEmail = user.email;
+  //     imageUrl = user.photoURL;
 
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // prefs.setBool('auth', true);
-    }
+  //     // SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     // prefs.setBool('auth', true);
+  //   }
 
-    return user;
-  }
+  //   return user;
+  // }
 
   // google login
 
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
-  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // final userRef = FirebaseFirestore.instance.collection('AllUsers');
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final userRef = FirebaseFirestore.instance.collection('AllUsers');
 
   // Future<String?> signInwithGoogle() async {
   //   try {
@@ -591,77 +593,98 @@ class _SignInState extends State<SignIn> {
   //   return null;
   // }
 
-  // Future<void> saveUserData(name, email, uid, photoUrl) async {
-  //   Map<String, dynamic> userdata = {
-  //     'Name': name,
-  //     'Email': email,
-  //     'UID': uid,
-  //     'img':
-  //         'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
-  //     'phone': ''
-  //   };
-  //   firestore
-  //       .collection('AllUsers')
-  //       .doc(_auth.currentUser!.uid)
-  //       .set(userdata)
-  //       .then((value) {
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //     Navigator.pushAndRemoveUntil(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (BuildContext context) => const Home(),
-  //       ),
-  //       (route) => false,
-  //     );
-  //   });
-  // }
+  Future<void> saveUserData(name, email, uid, photoUrl) async {
+    Map<String, dynamic> userdata = {
+      'Name': name,
+      'Email': email,
+      'UID': uid,
+      'img':
+          'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
+      'phone': ''
+    };
+    firestore
+        .collection('AllUsers')
+        .doc(_auth.currentUser!.uid)
+        .set(userdata)
+        .then((value) {
+      setState(() {
+        loading = false;
+      });
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const Home(),
+        ),
+        (route) => false,
+      );
+    });
+  }
 
-  // Future<void> checkUserData(id) async {
-  //   DocumentSnapshot userRecord = await userRef.doc(id).get();
-  //   if (!userRecord.exists) {
-  //     saveUserData(_auth.currentUser!.displayName, _auth.currentUser!.email,
-  //         _auth.currentUser!.uid, _auth.currentUser!.photoURL);
-  //   } else {
-  //     Fluttertoast.showToast(
-  //         msg: "Welcome Back ${_auth.currentUser?.displayName}",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: const Color(0xffFB7959),
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //     // ignore: use_build_context_synchronously
-  //     Navigator.pushAndRemoveUntil(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (BuildContext context) => const Home(),
-  //       ),
-  //       (route) => false,
-  //     );
-  //     // Navigator.pushReplacement(context,
-  //     //     MaterialPageRoute(builder: (context) => const AccessLocaion()));
-  //   }
-  //   return;
-  // }
+  Future<void> checkUserData(id) async {
+    DocumentSnapshot userRecord = await userRef.doc(id).get();
+    if (!userRecord.exists) {
+      saveUserData(_auth.currentUser!.displayName, _auth.currentUser!.email,
+          _auth.currentUser!.uid, _auth.currentUser!.photoURL);
+    } else {
+      Fluttertoast.showToast(
+          msg: "Welcome Back ${_auth.currentUser?.displayName}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color(0xffFB7959),
+          textColor: Colors.white,
+          fontSize: 16.0);
+      // ignore: use_build_context_synchronously
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const Home(),
+        ),
+        (route) => false,
+      );
+      // Navigator.pushReplacement(context,
+      //     MaterialPageRoute(builder: (context) => const AccessLocaion()));
+    }
+    return;
+  }
 
-  // void showMessage(String message) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text("Error"),
-  //           content: Text(message),
-  //           actions: [
-  //             TextButton(
-  //               child: const Text("Ok"),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //             )
-  //           ],
-  //         );
-  //       });
-  // }
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<UserCredential> signinWithGoogle() async {
+    // Create a new provider
+    GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+    googleProvider
+        .addScope('https://www.googleapis.com/auth/contacts.readonly');
+    googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithPopup(googleProvider);
+
+    // Or use signInWithRedirect
+    // return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+  }
+
+  googlewebsignin() {
+    signinWithGoogle().then((value) {
+      checkUserData(_auth.currentUser!.uid);
+    });
+  }
 }
