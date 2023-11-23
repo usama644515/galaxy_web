@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:galaxy_web/router/routes.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatefulWidget {
@@ -47,7 +50,7 @@ class _FooterState extends State<Footer> {
                     ],
                   ),
                 ),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -62,12 +65,27 @@ class _FooterState extends State<Footer> {
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
-                      child: Text(
-                        'Home',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Color(0xffBDBDBD),
-                            fontWeight: FontWeight.w500),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<menuController>(context, listen: false)
+                              .navmenueSelect('Home');
+                          // Remove all routes and push a new route
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //   MaterialPageRoute(builder: (context) => const Home()),
+                          //   (route) =>
+                          //       false, // Always return false to remove all routes
+                          // );
+
+                          // Replace with the actual value
+                          RouteHandler.router.navigateTo(context, '/');
+                        },
+                        child: Text(
+                          'Home',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xffBDBDBD),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -75,12 +93,27 @@ class _FooterState extends State<Footer> {
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
-                      child: Text(
-                        'Shop',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Color(0xffBDBDBD),
-                            fontWeight: FontWeight.w500),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<menuController>(context, listen: false)
+                              .navmenueSelect('Shop');
+                          // Remove all routes and push a new route
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //   MaterialPageRoute(builder: (context) => const Home()),
+                          //   (route) =>
+                          //       false, // Always return false to remove all routes
+                          // );
+
+                          // Replace with the actual value
+                          RouteHandler.router.navigateTo(context, '/shop');
+                        },
+                        child: Text(
+                          'Shop',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xffBDBDBD),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -88,12 +121,27 @@ class _FooterState extends State<Footer> {
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
-                      child: Text(
-                        'Blog',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Color(0xffBDBDBD),
-                            fontWeight: FontWeight.w500),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<menuController>(context, listen: false)
+                              .navmenueSelect('Blog');
+                          // Remove all routes and push a new route
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //   MaterialPageRoute(builder: (context) => const Home()),
+                          //   (route) =>
+                          //       false, // Always return false to remove all routes
+                          // );
+
+                          // Replace with the actual value
+                          RouteHandler.router.navigateTo(context, '/blog');
+                        },
+                        child: Text(
+                          'Blog',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xffBDBDBD),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -101,12 +149,27 @@ class _FooterState extends State<Footer> {
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
-                      child: Text(
-                        'Contact Us',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Color(0xffBDBDBD),
-                            fontWeight: FontWeight.w500),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<menuController>(context, listen: false)
+                              .navmenueSelect('Contact');
+                          // Remove all routes and push a new route
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //   MaterialPageRoute(builder: (context) => const Home()),
+                          //   (route) =>
+                          //       false, // Always return false to remove all routes
+                          // );
+
+                          // Replace with the actual value
+                          RouteHandler.router.navigateTo(context, '/contactus');
+                        },
+                        child: Text(
+                          'Contact Us',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xffBDBDBD),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -114,12 +177,27 @@ class _FooterState extends State<Footer> {
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
-                      child: Text(
-                        'About Us',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Color(0xffBDBDBD),
-                            fontWeight: FontWeight.w500),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<menuController>(context, listen: false)
+                              .navmenueSelect('About');
+                          // Remove all routes and push a new route
+                          // Navigator.of(context).pushAndRemoveUntil(
+                          //   MaterialPageRoute(builder: (context) => const Home()),
+                          //   (route) =>
+                          //       false, // Always return false to remove all routes
+                          // );
+
+                          // Replace with the actual value
+                          RouteHandler.router.navigateTo(context, '/about');
+                        },
+                        child: Text(
+                          'About Us',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Color(0xffBDBDBD),
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                   ],

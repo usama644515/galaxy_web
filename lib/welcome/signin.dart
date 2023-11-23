@@ -10,7 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../main/home.dart';
 import '../responsive.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -318,6 +318,7 @@ class _SignInState extends State<SignIn> {
                     setState(() {
                       loading = false;
                     });
+
                     // signinWithGoogle();
                     // Fluttertoast.showToast(
                     //     msg: 'Coming Soon',
@@ -593,14 +594,14 @@ class _SignInState extends State<SignIn> {
   //   return null;
   // }
 
-  Future<void> saveUserData(name, email, uid, photoUrl) async {
+  Future<void> saveUserData(name, email, uid, photoUrl, phone) async {
     Map<String, dynamic> userdata = {
       'Name': name,
       'Email': email,
       'UID': uid,
       'img':
           'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
-      'phone': ''
+      'phone': phone
     };
     firestore
         .collection('AllUsers')
@@ -623,8 +624,7 @@ class _SignInState extends State<SignIn> {
   Future<void> checkUserData(id) async {
     DocumentSnapshot userRecord = await userRef.doc(id).get();
     if (!userRecord.exists) {
-      saveUserData(_auth.currentUser!.displayName, _auth.currentUser!.email,
-          _auth.currentUser!.uid, _auth.currentUser!.photoURL);
+      _showPhoneNumberDialog(context);
     } else {
       Fluttertoast.showToast(
           msg: "Welcome Back ${_auth.currentUser?.displayName}",
@@ -686,5 +686,70 @@ class _SignInState extends State<SignIn> {
     signinWithGoogle().then((value) {
       checkUserData(_auth.currentUser!.uid);
     });
+  }
+
+  TextEditingController _phoneNumberController = TextEditingController();
+  void _showPhoneNumberDialog(BuildContext context) async {
+    String phoneNumber = await showPlatformDialog(
+      context: context,
+      builder: (context) => BasicDialogAlert(
+        title: Text("Enter Your Phone Number"),
+        content: TextField(
+          controller: _phoneNumberController,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(labelText: "Phone Number"),
+        ),
+        actions: <Widget>[
+          BasicDialogAction(
+            title: Text("Later"),
+            onPressed: () {
+              saveUserData(
+                  _auth.currentUser!.displayName,
+                  _auth.currentUser!.email,
+                  _auth.currentUser!.uid,
+                  _auth.currentUser!.photoURL,
+                  _phoneNumberController.text);
+              Navigator.pop(context);
+            },
+          ),
+          BasicDialogAction(
+            title: Text("Submit"),
+            onPressed: () {
+              if (_phoneNumberController.text == '') {
+                Fluttertoast.showToast(
+                    msg: "Please Enter Your Phone Number",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: const Color(0xffFB7959),
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                saveUserData(
+                    _auth.currentUser!.displayName,
+                    _auth.currentUser!.email,
+                    _auth.currentUser!.uid,
+                    _auth.currentUser!.photoURL,
+                    _phoneNumberController.text);
+
+                String enteredPhoneNumber = _phoneNumberController.text;
+
+                // Do something with the phone number (validate, store, etc.)
+                // print("Entered Phone Number: $enteredPhoneNumber");
+
+                // Close the dialog
+                Navigator.pop(context, enteredPhoneNumber);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+
+    // Handle the phone number obtained from the dialog
+    if (phoneNumber != null) {
+      // Do something with the phone number
+      print("Phone Number obtained: $phoneNumber");
+    }
   }
 }

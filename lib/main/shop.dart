@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/footer.dart';
@@ -98,6 +101,8 @@ class _ShopState extends State<Shop> {
   @override
   void initState() {
     super.initState();
+    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Shop');
     getData();
   }
 
@@ -133,7 +138,7 @@ class _ShopState extends State<Shop> {
                 decoration: const BoxDecoration(color: Colors.black),
               ),
               Responsive.isMobile(context)
-                  ? MobileNavBar(scaffoldKey)
+                  ? MobileNavBar(scaffoldKey,context)
                   : const NavBar(),
             ],
           ),
@@ -242,14 +247,19 @@ class _ShopState extends State<Shop> {
                                       Provider.of<menuController>(context,
                                               listen: false)
                                           .navmenueSelect('Shop');
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductDetails(
-                                                      id: dataId[index],
-                                                      data: data[index],
-                                                      shop: 'true')));
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             ProductDetails(
+                                      //                 id: dataId[index],
+                                      //                 data: data[index],
+                                      //                 shop: 'true')));
+
+                                      var id = dataId[index];
+                                      // Replace with the actual value
+                                      RouteHandler.router
+                                          .navigateTo(context, '/shop/$id');
                                     },
                                     child: Padding(
                                       padding:

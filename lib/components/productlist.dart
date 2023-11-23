@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 import '../controllers/MenuController.dart';
 import 'product_details.dart';
@@ -73,11 +74,15 @@ class _ProductListState extends State<ProductList> {
                             getClick(data.id);
                             Provider.of<menuController>(context, listen: false)
                                 .navmenueSelect('Shop');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductDetails(data: data,id: data.id)));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             ProductDetails(data: data,id: data.id)));
+                            var id = data.id;
+                            // Replace with the actual value
+                            RouteHandler.router
+                                .navigateTo(context, '/shop/$id');
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

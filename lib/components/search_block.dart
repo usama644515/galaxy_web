@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/search_screen.dart';
-import 'package:seo_renderer/seo_renderer.dart';
+import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:provider/provider.dart';
 
-Widget SearchBlock(context) {
-  return Positioned(
+
+
+class SearchBlock extends StatefulWidget {
+  const SearchBlock({super.key});
+
+  @override
+  State<SearchBlock> createState() => _SearchBlockState();
+}
+
+class _SearchBlockState extends State<SearchBlock> {
+void initState() {
+    super.initState();
+    // Alternatively, you can call your function in the initState method
+    Provider.of<menuController>(context, listen: false).navmenueSelect('Home');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return Positioned(
     top: MediaQuery.of(context).size.height * 0.35,
     left: 0,
     right: 0,
@@ -87,4 +106,5 @@ Widget SearchBlock(context) {
       ],
     ),
   );
+  }
 }

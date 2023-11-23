@@ -9,6 +9,7 @@ import 'package:galaxy_web/components/search_block.dart';
 import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/blogitem.dart';
@@ -32,11 +33,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  
+
   void initState() {
     // updatedata();
+    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Home');
     super.initState();
   }
 
+  // void _onScreenDisplay() {
+  //   // Add your logic for actions to be performed when the screen is displayed
+  //   print('Displayed Second Screen');
+  //   Provider.of<menuController>(context, listen: false).navmenueSelect('Home');
+  // }
   // var search =
   //     'Buch Villas Multan';
   // var arr = [];
@@ -104,11 +114,11 @@ class _HomeState extends State<Home> {
                               : MediaQuery.of(context).size.height * 0.9,
                         ),
                   Responsive.isMobile(context)
-                      ? MobileNavBar(scaffoldKey)
+                      ? MobileNavBar(scaffoldKey, context)
                       : const NavBar(),
                   Responsive.isMobile(context)
                       ? MobileSearchBlock(context)
-                      : SearchBlock(context),
+                      : SearchBlock(),
                 ],
               ),
               Padding(
@@ -143,11 +153,13 @@ class _HomeState extends State<Home> {
                         Provider.of<menuController>(context, listen: false)
                             .navmenueSelect('Shop');
                         // navigateToPage('/Shop');
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    kIsWeb ? Shop() : Bar(ind: 1)));
+                        kIsWeb
+                            ? RouteHandler.router.navigateTo(context, '/shop')
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        kIsWeb ? Shop() : Bar(ind: 1)));
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -182,15 +194,22 @@ class _HomeState extends State<Home> {
                           fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
                           fontWeight: FontWeight.bold),
                     ),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: Text(
-                        "View All",
-                        style: TextStyle(
-                          fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
-                          decoration: TextDecoration.underline,
-                          color: const Color(0xff4DB9F4),
-                          fontWeight: FontWeight.w600,
+                    GestureDetector(
+                      onTap:(){
+                        Provider.of<menuController>(context, listen: false)
+                    .navmenueSelect('Blog');
+                RouteHandler.router.navigateTo(context, '/blog');
+                      },
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                            decoration: TextDecoration.underline,
+                            color: const Color(0xff4DB9F4),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),

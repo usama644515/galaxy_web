@@ -18,6 +18,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # flutter_web:
+  flutter_web_plugins:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,6 +52,7 @@ dependencies:
   file_picker: ^6.1.1
   flutter_native_splash: ^2.3.5
   seo_renderer: ^0.6.0
+  flutter_dialogs: ^3.0.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

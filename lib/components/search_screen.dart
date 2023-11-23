@@ -8,6 +8,7 @@ import 'package:galaxy_web/components/product_details.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: const BoxDecoration(color: Colors.black),
                 ),
                 Responsive.isMobile(context)
-                    ? MobileNavBar(scaffoldKey)
+                    ? MobileNavBar(scaffoldKey,context)
                     : const NavBar(),
               ],
             ),
@@ -135,11 +136,15 @@ class _SearchScreenState extends State<SearchScreen> {
                               Provider.of<menuController>(context,
                                       listen: false)
                                   .navmenueSelect('Shop');
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductDetails(
-                                          data: data, id: data.id)));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => ProductDetails(
+                              //             data: data, id: data.id)));
+                              var id = data.id;
+                                      // Replace with the actual value
+                                      RouteHandler.router
+                                          .navigateTo(context, '/shop/$id');
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

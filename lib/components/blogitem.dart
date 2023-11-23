@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/blogscreen.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 import '../responsive.dart';
 
@@ -66,11 +67,10 @@ class _BlogItemsState extends State<BlogItems> {
                           onTap: () {
                             Provider.of<menuController>(context, listen: false)
                                 .navmenueSelect('Blog');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        BlogScreen(data: data)));
+                             var id = data.id;
+                                      // Replace with the actual value
+                                      RouteHandler.router
+                                          .navigateTo(context, '/blog/$id');
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

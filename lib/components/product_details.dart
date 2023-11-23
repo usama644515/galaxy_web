@@ -12,6 +12,7 @@ import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/controllers/image_viewer.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../responsive.dart';
@@ -98,13 +99,37 @@ class _ProductDetailsState extends State<ProductDetails> {
       } else {
         Provider.of<menuController>(context, listen: false)
             .navmenueSelect('Home');
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
-          (route) => false, // Always return false to remove all routes
-        );
+        // Navigator.of(context).pushAndRemoveUntil(
+        //   MaterialPageRoute(
+        //     builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
+        //   ),
+        //   (route) => false, // Always return false to remove all routes
+        // );
+        // Navigate back to the previous screen using FluroRouter
+        RouteHandler.router.pop(context);
       }
     });
     return Future.value(false);
+  }
+
+  @override
+  void initState() {
+    getData();
+    Provider.of<menuController>(context, listen: false).navmenueSelect('Shop');
+    super.initState();
+  }
+
+  var data;
+  getData() {
+    FirebaseFirestore.instance
+        .collection('Properties List')
+        .doc(widget.id)
+        .get()
+        .then((value) {
+      setState(() {
+        data = value;
+      });
+    });
   }
 
   @override
@@ -117,114 +142,124 @@ class _ProductDetailsState extends State<ProductDetails> {
         drawer: const SideDrawer(),
         body: Stack(
           children: [
-            ListView(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(color: Colors.black),
-                    ),
-                    Responsive.isMobile(context)
-                        ? MobileNavBar(scaffoldKey)
-                        : const NavBar(),
-                  ],
-                ),
-                Responsive.isMobile(context)
-                    ? const SizedBox()
-                    : const SizedBox(
-                        height: 0,
+            data == null
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: Color(0xffF9A51F),
+                  ))
+                : ListView(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            height: 60,
+                            width: MediaQuery.of(context).size.width,
+                            decoration:
+                                const BoxDecoration(color: Colors.black),
+                          ),
+                          Responsive.isMobile(context)
+                              ? MobileNavBar(scaffoldKey,context)
+                              : const NavBar(),
+                        ],
                       ),
-                Responsive.isMobile(context)
-                    ? ProductDetailsMobile(data: widget.data)
-                    : DesktopProductDetails(data: widget.data),
-                widget.data['videoUrl'] == ''
-                    ? const SizedBox()
-                    : const SizedBox(
+                      Responsive.isMobile(context)
+                          ? const SizedBox()
+                          : const SizedBox(
+                              height: 0,
+                            ),
+                      Responsive.isMobile(context)
+                          ? ProductDetailsMobile(data: data)
+                          : DesktopProductDetails(data: data),
+                      data['videoUrl'] == ''
+                          ? const SizedBox()
+                          : const SizedBox(
+                              height: 25,
+                            ),
+                      data['videoUrl'] == ''
+                          ? const SizedBox()
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                  left:
+                                      Responsive.isMobile(context) ? 20 : 50.0,
+                                  right: Responsive.isMobile(context)
+                                      ? 20
+                                      : MediaQuery.of(context).size.width *
+                                          0.65,
+                                  top: 5.0),
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _openURL(data['videoUrl']);
+                                  },
+                                  child: Container(
+                                    height: Responsive.isMobile(context)
+                                        ? 200
+                                        : 230,
+                                    width: 350,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.grey, // Shadow color
+                                          offset: Offset(
+                                              0, 3), // Offset of the shadow
+                                          blurRadius: 6, // Spread of the shadow
+                                        ),
+                                      ],
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            '${data['img'][0]}'), // Replace with your image asset path
+                                        fit: BoxFit
+                                            .cover, // You can choose how the image is displayed (cover, contain, etc.)
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Image.network(
+                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/youtube%20(1).png?alt=media&token=6866c794-63ef-493a-86cc-a14af27e143e&_gl=1*11bm5bg*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NjE0MzA5MS42LjEuMTY5NjE0MzIwNi40Ny4wLjA.',
+                                        height: 50.0,
+                                        width: 50.0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )),
+                      const SizedBox(
                         height: 25,
                       ),
-                widget.data['videoUrl'] == ''
-                    ? const SizedBox()
-                    : Padding(
+                      Padding(
                         padding: EdgeInsets.only(
                             left: Responsive.isMobile(context) ? 20 : 50.0,
-                            right: Responsive.isMobile(context)
-                                ? 20
-                                : MediaQuery.of(context).size.width * 0.65,
-                            top: 5.0),
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              _openURL(widget.data['videoUrl']);
-                            },
-                            child: Container(
-                              height: Responsive.isMobile(context) ? 200 : 230,
-                              width: 350,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.grey, // Shadow color
-                                    offset:
-                                        Offset(0, 3), // Offset of the shadow
-                                    blurRadius: 6, // Spread of the shadow
-                                  ),
-                                ],
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      '${widget.data['img'][0]}'), // Replace with your image asset path
-                                  fit: BoxFit
-                                      .cover, // You can choose how the image is displayed (cover, contain, etc.)
-                                ),
-                              ),
-                              child: Center(
-                                child: Image.network(
-                                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/youtube%20(1).png?alt=media&token=6866c794-63ef-493a-86cc-a14af27e143e&_gl=1*11bm5bg*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NjE0MzA5MS42LjEuMTY5NjE0MzIwNi40Ny4wLjA.',
-                                  height: 50.0,
-                                  width: 50.0,
-                                ),
-                              ),
+                            top: 10.0,
+                            right: Responsive.isMobile(context) ? 20 : 50.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Recent Projects",
+                              style: TextStyle(
+                                  fontSize: Responsive.isMobile(context)
+                                      ? 20.0
+                                      : 25.0,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        )),
-                const SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: Responsive.isMobile(context) ? 20 : 50.0,
-                      top: 10.0,
-                      right: Responsive.isMobile(context) ? 20 : 50.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Recent Projects",
-                        style: TextStyle(
-                            fontSize:
-                                Responsive.isMobile(context) ? 20.0 : 25.0,
-                            fontWeight: FontWeight.bold),
+                          ],
+                        ),
                       ),
+                      const ProductList(),
+                      Responsive.isMobile(context)
+                          ? const FooterMobile()
+                          : const Footer(),
                     ],
                   ),
-                ),
-                const ProductList(),
-                Responsive.isMobile(context)
-                    ? const FooterMobile()
-                    : const Footer(),
-              ],
-            ),
             Responsive.isMobile(context)
                 ? Positioned(
-                    bottom: Responsive.isMobile(context)?  20.0: 15,
-                    left: Responsive.isMobile(context)?  10.0: 15,
+                    bottom: Responsive.isMobile(context) ? 20.0 : 15,
+                    left: Responsive.isMobile(context) ? 10.0 : 15,
                     child: GestureDetector(
                       onTap: () {
                         getWhatsappClick(widget.id);
-                        _openWhatsApp(
-                            widget.data['phone'], widget.data['title']);
+                        _openWhatsApp(data['phone'], data['title']);
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -402,7 +437,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               setState(() {
                                 loader = true;
                               });
-                              formdataupload(widget.data);
+                              formdataupload(data);
                               // Form data is valid, you can handle the submission here.
                               print('Name: $_name');
                               print('Email: $_email');
@@ -451,6 +486,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
     );
   }
+
   getWhatsappClick(var id) {
     FirebaseFirestore.instance.collection('Properties List').doc(id).set({
       'whatsapp': FieldValue.increment(1),
@@ -1140,6 +1176,4 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
       ],
     );
   }
-
-  
 }

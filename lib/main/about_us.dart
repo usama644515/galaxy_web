@@ -34,6 +34,11 @@ class _AboutUsState extends State<AboutUs> {
     );
     return Future.value(false);
   }
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<menuController>(context, listen: false).navmenueSelect('About');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,7 @@ class _AboutUsState extends State<AboutUs> {
                   decoration: const BoxDecoration(color: Colors.black),
                 ),
                 Responsive.isMobile(context)
-                    ? MobileNavBar(scaffoldKey)
+                    ? MobileNavBar(scaffoldKey,context)
                     : const NavBar(),
               ],
             ),

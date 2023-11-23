@@ -75,7 +75,11 @@ class _AddProductStoreState extends State<AddProductStore> {
     'Buch Executive Villas',
     'DHA Multan',
     'Citi Housing Multan',
-    'Smart Housing'
+    'Smart Housing',
+    'Royal Orchard',
+    'Wapda Town',
+    'Model Town',
+    
   ];
 
   List select = ['Sell', 'Rent'];

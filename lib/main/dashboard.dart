@@ -121,7 +121,7 @@ class _DashBoardState extends State<DashBoard> {
                 decoration: const BoxDecoration(color: Colors.black),
               ),
               Responsive.isMobile(context)
-                  ? MobileNavBar(scaffoldKey)
+                  ? MobileNavBar(scaffoldKey,context)
                   : const NavBar(),
             ],
           ),

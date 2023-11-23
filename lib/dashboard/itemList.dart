@@ -256,7 +256,7 @@ class _ProductsState extends State<Products> {
                                     const SizedBox(width: 10),
                                     Expanded(
                                       flex:
-                                          Responsive.isMobile(context) ? 2 : 2,
+                                          Responsive.isMobile(context) ? 2 : 1,
                                       child: const Text(
                                         'Price',
                                         style: TextStyle(
@@ -271,7 +271,7 @@ class _ProductsState extends State<Products> {
                                     Responsive.isMobile(context)
                                         ? Container()
                                         : const Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Text(
                                               'Category',
                                               style: TextStyle(
@@ -420,7 +420,7 @@ class _ProductsState extends State<Products> {
                                                           MaterialPageRoute(
                                                               builder: (context) =>
                                                                   ProductDetails(
-                                                                    data: data,
+                                                                    id: data.id,
                                                                     dashboard:
                                                                         'true',
                                                                   )));
@@ -494,7 +494,7 @@ class _ProductsState extends State<Products> {
                                                                       .isMobile(
                                                                           context)
                                                                   ? 2
-                                                                  : 2,
+                                                                  : 1,
                                                               child: Text(
                                                                 data.get(
                                                                     'price'),
@@ -517,7 +517,7 @@ class _ProductsState extends State<Products> {
                                                                     context)
                                                                 ? Container()
                                                                 : Expanded(
-                                                                    flex: 2,
+                                                                    flex: 1,
                                                                     child: Text(
                                                                       data.get(
                                                                           'category'),

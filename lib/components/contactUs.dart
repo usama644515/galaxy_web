@@ -35,6 +35,13 @@ class _ContactUsState extends State<ContactUs> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<menuController>(context, listen: false)
+        .navmenueSelect('Contact');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: onBackPress,
@@ -52,166 +59,63 @@ class _ContactUsState extends State<ContactUs> {
                   decoration: const BoxDecoration(color: Colors.black),
                 ),
                 Responsive.isMobile(context)
-                    ? MobileNavBar(scaffoldKey)
+                    ? MobileNavBar(scaffoldKey, context)
                     : const NavBar(),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbanner.jpg?alt=media&token=ef817b41-1399-4972-993d-63324cc646d0&_gl=1*1n1923a*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1OTcxNS40Ni4xLjE2OTc5NjA5MTIuNTEuMC4w',
-                    width: Responsive.isMobile(context)
-                        ? MediaQuery.of(context).size.width * 0.9
-                        : MediaQuery.of(context).size.width * 0.5),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Image.network(
+            //         'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbanner.jpg?alt=media&token=ef817b41-1399-4972-993d-63324cc646d0&_gl=1*1n1923a*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1OTcxNS40Ni4xLjE2OTc5NjA5MTIuNTEuMC4w',
+            //         width: Responsive.isMobile(context)
+            //             ? MediaQuery.of(context).size.width * 0.9
+            //             : MediaQuery.of(context).size.width * 0.5),
+            //   ],
+            // ),
             const SizedBox(height: 20),
             Center(
-              child: Container(
-                width: Responsive.isMobile(context)
-                    ? MediaQuery.of(context).size.width * 0.95
-                    : MediaQuery.of(context).size.width * 0.7,
-                padding: const EdgeInsets.all(20.0),
-                child: Card(
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Contact Us',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
+              child: Card(
+                elevation: 10.0,
+                margin: EdgeInsets.all(16.0),
+                child: Container(
+                  padding: EdgeInsets.all(16.0),
+                  width: Responsive.isMobile(context)
+                      ? MediaQuery.of(context).size.width * 0.85
+                      : MediaQuery.of(context).size.width *
+                          0.7, // Adjust the width as needed
+                  child: Responsive.isMobile(context)
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 15.0,
                             ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          TextFormField(
-                            controller: _nameController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter your name';
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              labelText: 'Name',
-                              border: OutlineInputBorder(),
+                            Text('Contact Us',
+                                style: TextStyle(
+                                    fontSize: 35, fontWeight: FontWeight.bold)),
+                            ImageWidget(),
+                            // SizedBox(width: 0.0),
+                            ContactForm(),
+                          ],
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: ContactForm(),
                             ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          TextFormField(
-                            controller: _emailController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              labelText: 'Email',
-                              border: OutlineInputBorder(),
+                            SizedBox(width: 16.0),
+                            Expanded(
+                              child:
+                                  ImageWidget(), // You can replace this with your image widget
                             ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          TextFormField(
-                            controller: _messageController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter your message';
-                              }
-                              return null;
-                            },
-                            maxLines: 4,
-                            decoration: const InputDecoration(
-                              labelText: 'Message',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          Center(
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              onEnter: (_) {
-                                setState(() {
-                                  _isHovered = true;
-                                });
-                              },
-                              onExit: (_) {
-                                setState(() {
-                                  _isHovered = false;
-                                });
-                              },
-                              child: GestureDetector(
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    // You can handle form submission here
-                                    String name = _nameController.text;
-                                    String email = _emailController.text;
-                                    String message = _messageController.text;
-
-                                    // Process the data, e.g., send it to a server
-
-                                    // Reset the form
-                                    _nameController.clear();
-                                    _emailController.clear();
-                                    _messageController.clear();
-
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Message sent successfully!'),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: Responsive.isMobile(context)
-                                          ? 20
-                                          : MediaQuery.of(context).size.width *
-                                              0.25,
-                                      right: Responsive.isMobile(context)
-                                          ? 20
-                                          : MediaQuery.of(context).size.width *
-                                              0.25),
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 200),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 30),
-                                    decoration: BoxDecoration(
-                                      color: _isHovered
-                                          ? const Color.fromARGB(
-                                              255, 180, 138, 70)
-                                          : const Color(
-                                              0xffF9A51F), // Change color on hover
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'SUBMIT',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                          ],
+                        ),
                 ),
               ),
             ),
+            const SizedBox(height: 20),
             Responsive.isMobile(context)
                 ? const FooterMobile()
                 : const Footer(),
@@ -222,4 +126,164 @@ class _ContactUsState extends State<ContactUs> {
   }
 
   bool _isHovered = false;
+}
+
+class ContactForm extends StatefulWidget {
+  @override
+  _ContactFormState createState() => _ContactFormState();
+}
+
+class _ContactFormState extends State<ContactForm> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _messageController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: Responsive.isMobile(context) ? 5.0 : 30.0,
+            right: Responsive.isMobile(context) ? 5.0 : 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+            Responsive.isMobile(context)
+                ? SizedBox()
+                : Text('Contact Us',
+                    style:
+                        TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+            SizedBox(height: Responsive.isMobile(context) ? 0 : 50.0),
+            TextFormField(
+              cursorColor: Color(0xffF9A51F),
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: 'Name',
+                labelStyle: TextStyle(
+                  color: Color(0xffF9A51F),
+                ),
+                filled: true,
+                fillColor: Colors.grey[100], // Filled color
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0), // Border radius
+                  borderSide: BorderSide.none, // No border
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              cursorColor: Color(0xffF9A51F),
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                labelStyle: TextStyle(
+                  color: Color(0xffF9A51F),
+                ),
+                filled: true,
+                fillColor: Colors.grey[100], // Filled color
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0), // Border radius
+                  borderSide: BorderSide.none, // No border
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your email';
+                } else if (!RegExp(
+                        r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                    .hasMatch(value)) {
+                  return 'Please enter a valid email address';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              cursorColor: Color(0xffF9A51F),
+              controller: _messageController,
+              maxLines: 4,
+              decoration: InputDecoration(
+                labelText: 'Message',
+                labelStyle: TextStyle(
+                  color: Color(0xffF9A51F),
+                ),
+                filled: true,
+                fillColor: Colors.grey[100], // Filled color
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0), // Border radius
+                  borderSide: BorderSide.none, // No border
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter a message';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16.0),
+            InkWell(
+              onTap: () {
+                // Handle submit button tap
+                if (_formKey.currentState!.validate()) {
+                  // Process the form data (e.g., send an email)
+                  // You can add your logic here
+                  // For now, let's print the data
+                  print('Name: ${_nameController.text}');
+                  print('Email: ${_emailController.text}');
+                  print('Message: ${_messageController.text}');
+                }
+              },
+              onHover: (hover) {
+                setState(() {
+                  isHovered = hover;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  color: isHovered
+                      ? Color.fromARGB(255, 214, 138, 16)
+                      : Color(0xffF9A51F),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Center(
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  bool isHovered = false;
+}
+
+class ImageWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Replace this with your image widget or network image
+    return Image.network(
+      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/logo%2Fcontact%20us.jpg?alt=media&token=c1e2054a-0c9a-41e8-a857-14e5031f1324',
+      fit: BoxFit.cover,
+    );
+  }
 }

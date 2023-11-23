@@ -2,14 +2,18 @@ import 'dart:io';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:seo_renderer/seo_renderer.dart';
 import 'firebase_options.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'dart:html' as html;
 // import 'router/routes.dart';
 
 Future<void> main() async {
@@ -44,7 +48,27 @@ Future<void> main() async {
   }
   // final router = FluroRouter();
   // Routes.configureRoutes(router); // Configure your routes
+  // Initialize the router
+  RouteHandler.defineRoutes();
+  // Initialize the router for web
+  // FluroRouter.setupRouter();
+
   runApp(MyApp());
+  // Listen to changes in the URL
+  html.window.onPopState.listen((html.Event e) {
+    final String? path = html.window.location.pathname;
+    setNewRoutePath(path!);
+    // print(path);
+
+
+
+  });
+}
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+void setNewRoutePath(String path) {
+  navigatorKey.currentState?.pushReplacementNamed(path);
 }
 
 class MyApp extends StatefulWidget {
@@ -54,6 +78,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +95,8 @@ class _MyAppState extends State<MyApp> {
           title: 'Galaxy Realtors Builders',
           home: kIsWeb ? Home() : Bar(ind: 0),
           navigatorObservers: [seoRouteObserver],
+          onGenerateRoute: RouteHandler.router.generator,
+          navigatorKey: navigatorKey,
         ),
       ),
     );

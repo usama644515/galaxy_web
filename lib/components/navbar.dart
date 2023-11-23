@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:galaxy_web/components/contactUs.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/main/home.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,11 +70,14 @@ class _NavBarState extends State<NavBar> {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Home');
                     // Remove all routes and push a new route
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const Home()),
-                      (route) =>
-                          false, // Always return false to remove all routes
-                    );
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //   MaterialPageRoute(builder: (context) => const Home()),
+                    //   (route) =>
+                    //       false, // Always return false to remove all routes
+                    // );
+
+                    // Replace with the actual value
+                    RouteHandler.router.navigateTo(context, '/');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -117,8 +124,9 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Shop');
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Shop()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => const Shop()));
+                    RouteHandler.router.navigateTo(context, '/shop');
                     // router.navigateTo(context, '/shop');
                   },
                   child: MouseRegion(
@@ -166,6 +174,7 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Blog');
+                    RouteHandler.router.navigateTo(context, '/blog');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -212,11 +221,12 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('About');
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const AboutUs()),
-                      (route) =>
-                          false, // Always return false to remove all routes
-                    );
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //   MaterialPageRoute(builder: (context) => const AboutUs()),
+                    //   (route) =>
+                    //       false, // Always return false to remove all routes
+                    // );
+                    RouteHandler.router.navigateTo(context, '/about');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -263,12 +273,13 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Contact');
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const ContactUs()),
-                      (route) =>
-                          false, // Always return false to remove all routes
-                    );
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const ContactUs()),
+                    //   (route) =>
+                    //       false, // Always return false to remove all routes
+                    // );
+                    RouteHandler.router.navigateTo(context, '/contactus');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -493,11 +504,7 @@ class _NavBarState extends State<NavBar> {
                             },
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AddProductStore()));
+                                checkPhoneNumber();
                               },
                               child: Container(
                                   height: 35,
@@ -593,10 +600,12 @@ class _NavBarState extends State<NavBar> {
                                   Provider.of<menuController>(context,
                                           listen: false)
                                       .navmenueSelect('dashboard');
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MainScreen()));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => MainScreen()));
+                                  RouteHandler.router
+                                      .navigateTo(context, '/dashboard');
                                 }
                               },
                             )
@@ -643,5 +652,102 @@ class _NavBarState extends State<NavBar> {
             ],
           );
         });
+  }
+
+  // var userphone = '';
+  checkPhoneNumber() {
+    FirebaseFirestore.instance
+        .collection('AllUsers')
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        if (value.get('phone') == '') {
+          // print(value.get('phone'));
+          _showPhoneNumberDialog(context);
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddProductStore()));
+        }
+      });
+    });
+  }
+
+  TextEditingController _phoneNumberController = TextEditingController();
+  void _showPhoneNumberDialog(BuildContext context) async {
+    String phoneNumber = await showPlatformDialog(
+      context: context,
+      builder: (context) => BasicDialogAlert(
+        title: Text("Enter Your Phone Number"),
+        content: TextField(
+          controller: _phoneNumberController,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(labelText: "Phone Number"),
+        ),
+        actions: <Widget>[
+          BasicDialogAction(
+            title: Text("Submit"),
+            onPressed: () {
+              if (_phoneNumberController.text == '') {
+                Fluttertoast.showToast(
+                    msg: "Please Enter Your Phone Number",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: const Color(0xffFB7959),
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                saveUserData(_phoneNumberController.text);
+
+                String enteredPhoneNumber = _phoneNumberController.text;
+
+                // Do something with the phone number (validate, store, etc.)
+                // print("Entered Phone Number: $enteredPhoneNumber");
+
+                // Close the dialog
+                Navigator.pop(context, enteredPhoneNumber);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+
+    // Handle the phone number obtained from the dialog
+    if (phoneNumber != null) {
+      // Do something with the phone number
+      print("Phone Number obtained: $phoneNumber");
+    }
+  }
+
+  Future<void> saveUserData(phone) async {
+    Map<String, dynamic> userdata = {
+      // 'Name': name,
+      // 'Email': email,
+      // 'UID': uid,
+      // 'img':
+      //     'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
+      'phone': phone
+    };
+    FirebaseFirestore.instance
+        .collection('AllUsers')
+        .doc(_auth.currentUser!.uid)
+        .set(userdata,SetOptions(merge: true))
+        .then((value) {
+      setState(() {
+        // loading = false;
+      });
+      Fluttertoast.showToast(
+          msg: "Phone Number Saved",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color(0xffFB7959),
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const AddProductStore()));
+    });
   }
 }

@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:galaxy_web/components/add_product_store.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/dashboard/constants.dart';
@@ -14,6 +16,7 @@ import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/main/profile.dart';
 import 'package:galaxy_web/responsive.dart';
+import 'package:galaxy_web/router/routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
@@ -31,10 +34,108 @@ class _MainScreenState extends State<MainScreen> {
           .navmenueSelect('Home');
     });
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
+      MaterialPageRoute(
+        builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
+      ),
       (route) => false, // Always return false to remove all routes
     );
     return Future.value(false);
+  }
+
+  checkPhoneNumber() {
+    FirebaseFirestore.instance
+        .collection('AllUsers')
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        if (value.get('phone') == '') {
+          // print(value.get('phone'));
+          _showPhoneNumberDialog(context);
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddProductStore()));
+        }
+      });
+    });
+  }
+
+  TextEditingController _phoneNumberController = TextEditingController();
+  void _showPhoneNumberDialog(BuildContext context) async {
+    String phoneNumber = await showPlatformDialog(
+      context: context,
+      builder: (context) => BasicDialogAlert(
+        title: Text("Enter Your Phone Number"),
+        content: TextField(
+          controller: _phoneNumberController,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(labelText: "Phone Number"),
+        ),
+        actions: <Widget>[
+          BasicDialogAction(
+            title: Text("Submit"),
+            onPressed: () {
+              if (_phoneNumberController.text == '') {
+                Fluttertoast.showToast(
+                    msg: "Please Enter Your Phone Number",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: const Color(0xffFB7959),
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                saveUserData(_phoneNumberController.text);
+
+                String enteredPhoneNumber = _phoneNumberController.text;
+
+                // Do something with the phone number (validate, store, etc.)
+                // print("Entered Phone Number: $enteredPhoneNumber");
+
+                // Close the dialog
+                Navigator.pop(context, enteredPhoneNumber);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+
+    // Handle the phone number obtained from the dialog
+    if (phoneNumber != null) {
+      // Do something with the phone number
+      print("Phone Number obtained: $phoneNumber");
+    }
+  }
+
+  Future<void> saveUserData(phone) async {
+    Map<String, dynamic> userdata = {
+      // 'Name': name,
+      // 'Email': email,
+      // 'UID': uid,
+      // 'img':
+      //     'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
+      'phone': phone
+    };
+    FirebaseFirestore.instance
+        .collection('AllUsers')
+        .doc(_auth.currentUser!.uid)
+        .set(userdata,SetOptions(merge: true))
+        .then((value) {
+      setState(() {
+        // loading = false;
+      });
+      Fluttertoast.showToast(
+          msg: "Phone Number Saved",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color(0xffFB7959),
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const AddProductStore()));
+    });
   }
 
   @override
@@ -67,17 +168,33 @@ class _MainScreenState extends State<MainScreen> {
                         color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 15, bottom: 15.0, right: 20.0),
+                              top: 10, bottom: 10.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15.0, top: 0.0),
-                                child: Image.network(
-                                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',
-                                  fit: BoxFit.cover,
-                                  width: 170,
+                                padding: EdgeInsets.only(
+                                    left:
+                                        Responsive.isMobile(context) ? 0 : 15.0,
+                                    top: 0.0),
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      RouteHandler.router
+                                          .navigateTo(context, '/');
+                                      Provider.of<menuController>(context,
+                                              listen: false)
+                                          .navmenueSelect('Home');
+                                    },
+                                    child: Image.network(
+                                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/logo%2Fgalaxy%20logo.png?alt=media&token=e3e98a29-aedf-4e0e-9a42-843f9ef885df',
+                                      fit: BoxFit.cover,
+                                      width: Responsive.isMobile(context)
+                                          ? 170
+                                          : 230,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Responsive.isDesktop(context)
@@ -88,11 +205,7 @@ class _MainScreenState extends State<MainScreen> {
                                           cursor: SystemMouseCursors.click,
                                           child: GestureDetector(
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const AddProductStore()));
+                                              checkPhoneNumber();
                                             },
                                             child: Container(
                                                 height: 35,
@@ -218,11 +331,7 @@ class _MainScreenState extends State<MainScreen> {
                                               cursor: SystemMouseCursors.click,
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const AddProductStore()));
+                                                  checkPhoneNumber();
                                                 },
                                                 child: Container(
                                                     height: 35,
@@ -272,7 +381,8 @@ class _MainScreenState extends State<MainScreen> {
                                                       const Icon(Icons.error),
                                                 ),
                                                 PopupMenuButton<int>(
-                                                  icon: const Icon(Icons.more_vert,
+                                                  icon: const Icon(
+                                                      Icons.more_vert,
                                                       color:
                                                           Colors.transparent),
                                                   itemBuilder: (context) => [
@@ -371,7 +481,9 @@ _logoutDialoge(context) {
               child: const Text('Log Out'),
               onPressed: () async {
                 await GoogleSignIn().signOut();
-                await FirebaseAuth.instance.signOut().then((value) {});
+                await FirebaseAuth.instance.signOut().then((value) {
+                  RouteHandler.router.navigateTo(context, '/');
+                });
               },
             ),
             CupertinoDialogAction(
