@@ -244,7 +244,7 @@ class _ProductsState extends State<Products> {
                                         : const SizedBox(width: 10),
                                     Expanded(
                                       flex:
-                                          Responsive.isMobile(context) ? 3 : 4,
+                                          Responsive.isMobile(context) ? 2 : 3,
                                       child: const Text(
                                         "Name",
                                         style: TextStyle(
@@ -353,16 +353,38 @@ class _ProductsState extends State<Products> {
                                             color: Colors.black),
                                       ),
                                     ),
-                                    const SizedBox(width: 10),
-                                    Expanded(
-                                      flex:
-                                          Responsive.isMobile(context) ? 2 : 2,
-                                      child: const Text(
-                                        'Action',
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        : const SizedBox(width: 10),
+                                    const Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        'Status',
                                         style: TextStyle(
                                             fontSize: 15.0,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black),
+                                      ),
+                                    ),
+                                    Responsive.isMobile(context)
+                                        ? Container()
+                                        :const SizedBox(width: 10),
+                                   Responsive.isMobile(context)
+                                        ? Container()
+                                        : Expanded(
+                                      flex:
+                                          Responsive.isMobile(context) ? 2 : 2,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'Action',
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -372,12 +394,18 @@ class _ProductsState extends State<Products> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: StreamBuilder<QuerySnapshot>(
-                                stream: FirebaseFirestore.instance
-                                    .collection('Properties List')
-                                    .where('user',
-                                        isEqualTo: _auth.currentUser?.uid)
-                                    .orderBy('datetime', descending: true)
-                                    .snapshots(),
+                                stream: _auth.currentUser?.email ==
+                                        "hanifusama688@gmail.com"
+                                    ? FirebaseFirestore.instance
+                                        .collection('Properties List')
+                                        .orderBy('datetime', descending: true)
+                                        .snapshots()
+                                    : FirebaseFirestore.instance
+                                        .collection('Properties List')
+                                        .where('user',
+                                            isEqualTo: _auth.currentUser?.uid)
+                                        .orderBy('datetime', descending: true)
+                                        .snapshots(),
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   return snapshot.connectionState ==
@@ -468,8 +496,8 @@ class _ProductsState extends State<Products> {
                                                               flex: Responsive
                                                                       .isMobile(
                                                                           context)
-                                                                  ? 3
-                                                                  : 4,
+                                                                  ? 2
+                                                                  : 3,
                                                               child: Text(
                                                                 data.get(
                                                                     'title'),
@@ -648,9 +676,54 @@ class _ProductsState extends State<Products> {
                                                                         .black),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                                width: 10),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : const SizedBox(
+                                                                    width: 10),
                                                             Expanded(
+                                                              flex: 1,
+                                                              child: Row(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Container(
+                                                                    height: 6,
+                                                                    width: 6,
+                                                                    decoration: BoxDecoration(
+                                                                        color: data.get('status') == 'Active'
+                                                                            ? Colors.green
+                                                                            : data.get('status') == 'Rejected'
+                                                                                ? Colors.red
+                                                                                : Colors.yellow,
+                                                                        shape: BoxShape.circle),
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          5.0),
+                                                                  Text(
+                                                                    data.get(
+                                                                        'status'),
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Responsive.isMobile(context)
+                                        ? Container()
+                                        :const SizedBox(
+                                                                width: 10),
+                                                           Responsive.isMobile(context)
+                                        ? Container()
+                                        : Expanded(
                                                               flex: 2,
                                                               child: Row(
                                                                 mainAxisAlignment:
@@ -677,6 +750,40 @@ class _ProductsState extends State<Products> {
                                                                       ),
                                                                     ),
                                                                   ),
+                                                                  data.get('status') ==
+                                                                          'Active'
+                                                                      ? MouseRegion(
+                                                                          cursor:
+                                                                              SystemMouseCursors.click, //hand click cursor
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              stauschangeDialog(context, data.get('datetime'), data.get('status'));
+                                                                            },
+                                                                            child:
+                                                                                Image.network(
+                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fpause.png?alt=media&token=c466e559-1d54-4ef3-a274-a60d8c94f2d9',
+                                                                              width: Responsive.isMobile(context) ? 20 : 20,
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                      : MouseRegion(
+                                                                          cursor:
+                                                                              SystemMouseCursors.click, //hand click cursor
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              stauschangeDialog(context, data.get('datetime'), data.get('status'));
+                                                                            },
+                                                                            child:
+                                                                                Image.network(
+                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fplay.png?alt=media&token=cf704688-71c4-404a-a7b3-d8616198fa26',
+                                                                              width: Responsive.isMobile(context) ? 20 : 20,
+                                                                            ),
+                                                                          ),
+                                                                        ),
                                                                   MouseRegion(
                                                                     cursor: SystemMouseCursors
                                                                         .click, //hand click cursor
@@ -811,6 +918,38 @@ class _ProductsState extends State<Products> {
     }
   }
 
+  Future<void> statuschangeDocument(var documentId, var status) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Properties List')
+          .where('datetime', isEqualTo: documentId)
+          .get()
+          .then((value) async {
+        final List<DocumentSnapshot> documents = value.docs;
+
+        for (DocumentSnapshot document in documents) {
+          await document.reference.set({
+            'status': status == 'Active' ? "Pending" : 'Active',
+          }, SetOptions(merge: true)).then((value) {
+            Fluttertoast.showToast(
+              msg: "Successfully Changed",
+              toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
+              gravity: ToastGravity
+                  .BOTTOM, // You can change the gravity to position the toast
+              timeInSecForIosWeb: 1, // Duration in seconds
+              backgroundColor: Colors.grey, // Background color of the toast
+              textColor: Colors.white, // Text color of the toast
+              fontSize: 16.0, // Font size
+            );
+            Navigator.pop(context);
+          });
+        }
+      });
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+  }
+
   Future<void> showDeleteConfirmationDialog(
       BuildContext context, var documentId) async {
     return showDialog(
@@ -850,6 +989,35 @@ class _ProductsState extends State<Products> {
               child: const Text('Renew'),
               onPressed: () {
                 renewDocument(documentId);
+              },
+            ),
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> stauschangeDialog(
+      BuildContext context, var documentId, var status) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirm Please'),
+          content: Text(status == 'Active'
+              ? 'Are you sure you want to Pause this Listing?'
+              : 'Are you sure you want to Active this Listing?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text(status == 'Active' ? 'Pause' : 'Active'),
+              onPressed: () {
+                statuschangeDocument(documentId, status);
               },
             ),
             TextButton(

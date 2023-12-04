@@ -25,70 +25,83 @@ class _FileInfoCardState extends State<FileInfoCard> {
   var whatsapp = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(defaultPadding),
-      decoration: const BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: widget.info.bgcolor,
-              shape: BoxShape.circle,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Image.network(
-                widget.info.svgSrc!,
-                width: 40,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Container(
+        padding: const EdgeInsets.all(defaultPadding),
+        decoration: const BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: widget.info.bgcolor,
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Image.network(
+                  widget.info.svgSrc!,
+                  width: 40,
+                ),
               ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              StreamBuilder<QuerySnapshot>(
-                  // widget.info.collection.toString()
-                  stream: widget.info.collection.toString() == 'main'
-                      ? firestore
-                          .collection('Properties List')
-                          .where('user', isEqualTo: _auth.currentUser?.uid)
-                          .snapshots()
-                      : firestore
-                          .collection('Properties List')
-                          .where('user', isEqualTo: _auth.currentUser?.uid)
-                          .where('category',
-                              isEqualTo: widget.info.collection.toString())
-                          .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Container();
-                    } else {
-                      return Text(
-                        snapshot.data!.docs.length.toString(),
-                        style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),
-                      );
-                    }
-                  }),
-              const SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                widget.info.title!,
-                style: const TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey),
-              ),
-            ],
-          ),
-        ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                StreamBuilder<QuerySnapshot>(
+                    // widget.info.collection.toString()
+                    stream: widget.info.collection.toString() == 'Users'? firestore
+                                .collection('AllUsers')
+                                .snapshots():  widget.info.collection.toString() == 'main'
+                        ? _auth.currentUser?.email == 'hanifusama688@gmail.com'
+                            ? firestore.collection('Properties List').snapshots()
+                            : firestore
+                                .collection('Properties List')
+                                .where('user', isEqualTo: _auth.currentUser?.uid)
+                                .snapshots()
+                        : _auth.currentUser?.email == 'hanifusama688@gmail.com'
+                            ? firestore
+                                .collection('Properties List')
+                                .where('category',
+                                    isEqualTo: widget.info.collection.toString())
+                                .snapshots()
+                            : firestore
+                                .collection('Properties List')
+                                .where('user', isEqualTo: _auth.currentUser?.uid)
+                                .where('category',
+                                    isEqualTo: widget.info.collection.toString())
+                                .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return Text(
+                          snapshot.data!.docs.length.toString(),
+                          style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                        );
+                      }
+                    }),
+                const SizedBox(
+                  height: 5.0,
+                ),
+                Text(
+                  widget.info.title!,
+                  style: const TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

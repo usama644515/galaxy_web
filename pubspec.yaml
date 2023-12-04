@@ -53,6 +53,7 @@ dependencies:
   flutter_native_splash: ^2.3.5
   seo_renderer: ^0.6.0
   flutter_dialogs: ^3.0.0
+  meta_seo: ^3.0.8
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

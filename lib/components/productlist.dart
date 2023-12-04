@@ -39,6 +39,7 @@ class _ProductListState extends State<ProductList> {
                   .instance //------for select the item in the firestore----
                   .collection('Properties List')
                   // .where('status', isEqualTo: 'Live')
+                  // .where('status', isEqualTo: 'Active')
                   .orderBy('datetime', descending: true)
                   .snapshots(),
               builder: (BuildContext context,

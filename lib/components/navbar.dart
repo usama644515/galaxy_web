@@ -32,6 +32,8 @@ var shophover = false;
 var bloghover = false;
 var abouthover = false;
 var contacthover = false;
+var agenthover = false;
+
 final router = FluroRouter();
 final FirebaseAuth _auth = FirebaseAuth.instance;
 void _launchPhone(String phoneNumber) async {
@@ -159,6 +161,56 @@ class _NavBarState extends State<NavBar> {
                         padding: EdgeInsets.only(
                             left: 15.0, right: 15, top: 5, bottom: 5.0),
                         child: Text('SHOP',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 12.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<menuController>(context, listen: false)
+                        .navmenueSelect('Agents');
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => const Shop()));
+                    RouteHandler.router.navigateTo(context, '/agents');
+                    // router.navigateTo(context, '/shop');
+                  },
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (_) {
+                      setState(() {
+                        agenthover = true;
+                      });
+                    },
+                    onExit: (_) {
+                      setState(() {
+                        agenthover = false;
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Provider.of<menuController>(context,
+                                          listen: false)
+                                      .menue ==
+                                  'Agents'
+                              ? const Color(0xffF9A51F)
+                              : Colors.transparent,
+                          border: Border.all(
+                            color: agenthover
+                                ? const Color(0xffF9A51F)
+                                : Colors.transparent,
+                          )),
+                      child: const Padding(
+                        padding: EdgeInsets.only(
+                            left: 15.0, right: 15, top: 5, bottom: 5.0),
+                        child: Text('AGENTS',
                             style: TextStyle(
                                 fontSize: 16.0,
                                 color: Colors.white,

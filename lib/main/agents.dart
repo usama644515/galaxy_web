@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/router/routes.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/footer.dart';
@@ -19,88 +18,28 @@ import '../components/side_drawer.dart';
 import '../controllers/MenuController.dart';
 import '../responsive.dart';
 
-class Shop extends StatefulWidget {
-  const Shop({super.key, this.categ});
+class Agents extends StatefulWidget {
+  const Agents({super.key, this.categ});
   final categ;
   @override
-  State<Shop> createState() => _ShopState();
+  State<Agents> createState() => _AgentsState();
 }
 
-class _ShopState extends State<Shop> {
-  String _date(String _timestamp) {
-    String formattedDate =
-        DateFormat('dd MMM, yyyy').format(DateTime.parse(_timestamp));
-    return formattedDate;
-  }
-
+class _AgentsState extends State<Agents> {
   var filter = ['Residential', 'Commercial', 'Plots', 'Construction', 'Flats'];
   var loader = true;
   List<Map<String, dynamic>> data = [];
   var dataId = [];
   getData() {
-    if (widget.categ == null) {
-      FirebaseFirestore.instance
-          .collection('Properties List')
-          // .where('status', isEqualTo: 'Active')
-          .orderBy('datetime', descending: true)
-          .get()
-          .then((value) {
-        setState(() {
-          // print(value.docs[0].id);
-          for (var i = 0; i < value.docs.length; i++) {
-            dataId.add(value.docs[i].id);
-          }
-          data = value.docs.map((DocumentSnapshot doc) {
-            return doc.data() as Map<String, dynamic>;
-          }).toList();
-          loader = false;
-        });
-        // Provider.of<menuController>(context, listen: true).PropertiesList(data);
-        // print(data);
-      });
-    } else {
-      FirebaseFirestore.instance
-          .collection('Properties List')
-          .where('category', isEqualTo: widget.categ)
-          // .where('status', isEqualTo: 'Active')
-          .orderBy('datetime', descending: true)
-          .get()
-          .then((value) {
-        setState(() {
-          for (var i = 0; i < value.docs.length; i++) {
-            dataId.add(value.docs[i].id);
-          }
-          data = value.docs.map((DocumentSnapshot doc) {
-            return doc.data() as Map<String, dynamic>;
-          }).toList();
-          loader = false;
-        });
-        // Provider.of<menuController>(context, listen: true).PropertiesList(data);
-        // print(data);
-      });
-    }
-  }
-
-  filtersearch(var val) {
-    print(data);
-    setState(() {
-      loader = true;
-    });
-    FirebaseFirestore.instance
-        .collection('Properties List')
-        .where('category', isEqualTo: val)
-        // .where('status', isEqualTo: 'Active')
-        .orderBy('datetime', descending: true)
-        .get()
-        .then((value) {
+    FirebaseFirestore.instance.collection('AllUsers').get().then((value) {
       setState(() {
+        // print(value.docs[0].id);
         for (var i = 0; i < value.docs.length; i++) {
           dataId.add(value.docs[i].id);
         }
         data = value.docs.map((DocumentSnapshot doc) {
           return doc.data() as Map<String, dynamic>;
         }).toList();
-        // print(data);
         loader = false;
       });
       // Provider.of<menuController>(context, listen: true).PropertiesList(data);
@@ -108,10 +47,38 @@ class _ShopState extends State<Shop> {
     });
   }
 
+  // filtersearch(var val) {
+  //   print(data);
+  //   setState(() {
+  //     loader = true;
+  //   });
+  //   FirebaseFirestore.instance
+  //       .collection('Properties List')
+  //       .where('category', isEqualTo: val)
+  //       .where('status', isEqualTo: 'Active')
+  //       .orderBy('datetime', descending: true)
+  //       .get()
+  //       .then((value) {
+  //     setState(() {
+  //       for (var i = 0; i < value.docs.length; i++) {
+  //         dataId.add(value.docs[i].id);
+  //       }
+  //       data = value.docs.map((DocumentSnapshot doc) {
+  //         return doc.data() as Map<String, dynamic>;
+  //       }).toList();
+  //       // print(data);
+  //       loader = false;
+  //     });
+  //     // Provider.of<menuController>(context, listen: true).PropertiesList(data);
+  //     // print(data);
+  //   });
+  // }
+
   @override
   void initState() {
     super.initState();
-    Provider.of<menuController>(context, listen: false).navmenueSelect('Shop');
+    Provider.of<menuController>(context, listen: false)
+        .navmenueSelect('Agents');
     getData();
   }
 
@@ -168,7 +135,7 @@ class _ShopState extends State<Shop> {
                 left: Responsive.isMobile(context) ? 20 : 50.0,
                 right: Responsive.isMobile(context) ? 20 : 50.0),
             child: Text(
-              "Shop",
+              "Agents",
               style: TextStyle(
                   fontSize: Responsive.isMobile(context) ? 25.0 : 30.0,
                   fontWeight: FontWeight.bold),
@@ -176,45 +143,6 @@ class _ShopState extends State<Shop> {
           ),
           SizedBox(
             height: Responsive.isMobile(context) ? 15 : 25.0,
-          ),
-          SizedBox(
-            height: 60,
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 20),
-              child: ListView.builder(
-                itemCount: filter.length,
-                // snapshot.data!.docs.length > 10
-                //     ? 10
-                //     : snapshot.data!.docs.length,
-                scrollDirection: Axis.horizontal,
-                // controller: _scrollController, // Attach ScrollController
-                itemBuilder: (
-                  context,
-                  index,
-                ) {
-                  // DocumentSnapshot data =
-                  //     snapshot.data!.docs[index];
-                  return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (index == 0) {
-                            filtersearch('Residential');
-                          } else if (index == 1) {
-                            filtersearch('Commercial');
-                          } else if (index == 2) {
-                            filtersearch('Plots');
-                          } else if (index == 3) {
-                            filtersearch('Construction');
-                          } else if (index == 4) {
-                            filtersearch('Flats');
-                          }
-                        });
-                      },
-                      child: Filter(data: filter[index]));
-                },
-              ),
-            ),
           ),
           loader
               ? const Center(
@@ -227,7 +155,7 @@ class _ShopState extends State<Shop> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            right: Responsive.isMobile(context) ? 0 : 400.0),
+                            right: Responsive.isMobile(context) ? 0 : 490.0),
                         child: Container(
                           decoration: BoxDecoration(
                               color: Responsive.isMobile(context)
@@ -252,10 +180,10 @@ class _ShopState extends State<Shop> {
                                   cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
                                     onTap: () {
-                                      getClick(dataId[index]);
-                                      Provider.of<menuController>(context,
-                                              listen: false)
-                                          .navmenueSelect('Shop');
+                                      // getClick(dataId[index]);
+                                      // Provider.of<menuController>(context,
+                                      //         listen: false)
+                                      //     .navmenueSelect('Shop');
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -265,18 +193,18 @@ class _ShopState extends State<Shop> {
                                       //                 data: data[index],
                                       //                 shop: 'true')));
 
-                                      var id = dataId[index];
-                                      // Replace with the actual value
-                                      RouteHandler.router
-                                          .navigateTo(context, '/shop/$id');
+                                      // var id = dataId[index];
+                                      // // Replace with the actual value
+                                      // RouteHandler.router
+                                      //     .navigateTo(context, '/shop/$id');
                                     },
                                     child: Padding(
                                       padding:
                                           const EdgeInsets.only(bottom: 13.0),
                                       child: Container(
                                         height: Responsive.isMobile(context)
-                                            ? 170
-                                            : 250,
+                                            ? 150
+                                            : 200,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.4,
@@ -308,8 +236,8 @@ class _ShopState extends State<Shop> {
                                                   top: 0.0,
                                                   bottom: 0),
                                               child: CachedNetworkImage(
-                                                imageUrl: data[index]['img'][
-                                                    0], // Replace with your image URL
+                                                imageUrl: data[index][
+                                                    'img'], // Replace with your image URL
                                                 imageBuilder:
                                                     (context, imageProvider) =>
                                                         ClipRRect(
@@ -325,7 +253,7 @@ class _ShopState extends State<Shop> {
                                                     width: Responsive.isMobile(
                                                             context)
                                                         ? 140
-                                                        : 300, // Set the desired width
+                                                        : 250, // Set the desired width
                                                     height: Responsive.isMobile(
                                                             context)
                                                         ? 170
@@ -357,7 +285,7 @@ class _ShopState extends State<Shop> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    'PKR ${data[index]['price']}',
+                                                    '${data[index]['Name']}',
                                                     // maxLines: 2,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -366,9 +294,9 @@ class _ShopState extends State<Shop> {
                                                             Responsive.isMobile(
                                                                     context)
                                                                 ? 17.0
-                                                                : 20.0,
+                                                                : 23.0,
                                                         fontWeight:
-                                                            FontWeight.w700),
+                                                            FontWeight.bold),
                                                   ),
                                                   const SizedBox(
                                                     height: 8.0,
@@ -379,8 +307,8 @@ class _ShopState extends State<Shop> {
                                                         ? 170
                                                         : 310,
                                                     child: Text(
-                                                      data[index]['title'],
-                                                      maxLines: 2,
+                                                      data[index]['Email'],
+                                                      maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: TextStyle(
@@ -390,106 +318,57 @@ class _ShopState extends State<Shop> {
                                                               ? 14.0
                                                               : 16.0,
                                                           fontWeight:
-                                                              FontWeight.w700),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: Responsive.isMobile(
-                                                            context)
-                                                        ? 5.0
-                                                        : 8.0,
-                                                  ),
-                                                  SizedBox(
-                                                    width: Responsive.isMobile(
-                                                            context)
-                                                        ? 200
-                                                        : 310,
-                                                    child: Text(
-                                                      data[index]['location'],
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: Responsive.isMobile(
-                                                            context)
-                                                        ? 5.0
-                                                        : 8.0,
-                                                  ),
-                                                  Row(children: [
-                                                    Image.network(
-                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbedroom.png?alt=media&token=8ecacc5e-26f1-4f6d-8be1-2a4c5dc37ac1&_gl=1*yjagxc*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTE2MzUuNjAuMC4w',
-                                                        width: 18.0),
-                                                    const SizedBox(width: 5.0),
-                                                    Text(
-                                                      data[index]['rooms'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(width: 18.0),
-                                                    Image.network(
-                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fbathroom.png?alt=media&token=50e413a2-c87a-4083-ba1a-6dd700bab39a&_gl=1*10fh5ol*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTIwNjIuNjAuMC4w',
-                                                        width: 18.0),
-                                                    const SizedBox(width: 5.0),
-                                                    Text(
-                                                      data[index]['bath'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(width: 18.0),
-                                                    Image.network(
-                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fsize.png?alt=media&token=d6f2499d-eecc-479f-9df6-5f5c31978de0&_gl=1*qw5rt*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzg5MDgzMy40NC4xLjE2OTc4OTE5ODYuMTkuMC4w',
-                                                        width: 18.0),
-                                                    const SizedBox(width: 5.0),
-                                                    Text(
-                                                      data[index]['size'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ]),
-                                                  SizedBox(
-                                                    height: Responsive.isMobile(
-                                                            context)
-                                                        ? 5.0
-                                                        : 10.0,
-                                                  ),
-                                                  SizedBox(
-                                                    width: Responsive.isMobile(
-                                                            context)
-                                                        ? 200
-                                                        : 310,
-                                                    child: Text(
-                                                      "Added: ${_date(data[index]['datetime'].toDate().toString())}",
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 13.0,
-                                                          fontWeight:
                                                               FontWeight.w500),
                                                     ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: Responsive.isMobile(
+                                                            context)
+                                                        ? 5.0
+                                                        : 8.0,
+                                                  ),
+                                                  SizedBox(
+                                                    width: Responsive.isMobile(
+                                                            context)
+                                                        ? 200
+                                                        : 310,
+                                                    child: StreamBuilder<
+                                                            QuerySnapshot>(
+                                                        // widget.info.collection.toString()
+                                                        stream: FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'Properties List')
+                                                            .where('user',
+                                                                isEqualTo:
+                                                                    data[index]
+                                                                        ['UID'])
+                                                            .snapshots(),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Container();
+                                                          } else {
+                                                            return Text(
+                                                              'Properties: ${snapshot.data!.docs.length.toString()}',
+                                                              style: const TextStyle(
+                                                                  fontSize:
+                                                                      15.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: Colors
+                                                                      .grey),
+                                                            );
+                                                          }
+                                                        }),
+                                                  ),
+                                                  SizedBox(
+                                                    height: Responsive.isMobile(
+                                                            context)
+                                                        ? 5.0
+                                                        : 8.0,
                                                   ),
                                                   SizedBox(
                                                       height:
@@ -504,8 +383,6 @@ class _ShopState extends State<Shop> {
                                                           data[index]['title'],
                                                           data[index]['phone'],
                                                         );
-                                                        getWhatsappClick(
-                                                            dataId[index]);
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(
@@ -571,8 +448,6 @@ class _ShopState extends State<Shop> {
                                                       onTap: () {
                                                         _launchPhone(data[index]
                                                             ['phone']);
-                                                        getCallClick(
-                                                            dataId[index]);
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(

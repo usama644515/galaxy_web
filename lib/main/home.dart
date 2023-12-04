@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/category.dart';
@@ -75,10 +76,7 @@ class _HomeState extends State<Home> {
   //   querySnapshot.docs.forEach((document) async {
   //     // Update the data in each document
   //     await collectionRef.doc(document.id).set({
-  //       'impresssion': 0,
-  //       'clicks': 0,
-  //       'call': 0,
-  //       'whatsapp': 0,
+  //       'status': 'Active',
   //     }, SetOptions(merge: true));
   //   });
   // }

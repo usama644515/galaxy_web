@@ -64,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: const BoxDecoration(color: Colors.black),
                 ),
                 Responsive.isMobile(context)
-                    ? MobileNavBar(scaffoldKey,context)
+                    ? MobileNavBar(scaffoldKey, context)
                     : const NavBar(),
               ],
             ),
@@ -90,6 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
               stream: FirebaseFirestore
                   .instance //------for select the item in the firestore----
                   .collection('Properties List')
+                  // .where('status', isEqualTo: 'Active')
                   .where('searchquery', arrayContains: query.toLowerCase())
                   .snapshots(),
               builder: (BuildContext context,
@@ -142,9 +143,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               //         builder: (context) => ProductDetails(
                               //             data: data, id: data.id)));
                               var id = data.id;
-                                      // Replace with the actual value
-                                      RouteHandler.router
-                                          .navigateTo(context, '/shop/$id');
+                              // Replace with the actual value
+                              RouteHandler.router
+                                  .navigateTo(context, '/shop/$id');
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

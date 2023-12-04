@@ -216,6 +216,36 @@ class _SideDrawerState extends State<SideDrawer> {
           ),
           ListTile(
             title: Text(
+              'AGENTS',
+              style: TextStyle(
+                  color: Provider.of<menuController>(context, listen: false)
+                              .menue ==
+                          'Agents'
+                      ? Colors.white
+                      : const Color(0xff8c8c8c),
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500),
+            ),
+            onTap: () {
+              setState(() {
+                Provider.of<menuController>(context, listen: false)
+                    .navmenueSelect('Agents');
+                kIsWeb
+                    ? RouteHandler.router.navigateTo(context, '/agents')
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => kIsWeb ? Shop() : Bar(ind: 1),
+                        ));
+              });
+            },
+          ),
+          const Divider(
+            color: Color(0xff8c8c8c),
+            thickness: 0.1,
+          ),
+          ListTile(
+            title: Text(
               'BLOG',
               style: TextStyle(
                   color: Provider.of<menuController>(context, listen: false)

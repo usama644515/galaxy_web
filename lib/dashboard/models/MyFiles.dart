@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CloudStorageInfo {
@@ -20,6 +21,7 @@ class CloudStorageInfo {
   });
 }
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
 List demoMyFiles = [
   CloudStorageInfo(
     title: 'Listing',
@@ -42,14 +44,15 @@ List demoMyFiles = [
     check: false,
   ),
   CloudStorageInfo(
-      title: "Commercial",
-      svgSrc:
-          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fplots.png?alt=media&token=76f52bdd-9340-4ec3-8047-e7e9dd634bba&_gl=1*j4am2k*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzI5NTAuMTguMC4w',
-      bgcolor: const Color(0xffE8F5E9),
-      color: const Color(0xff6B78F1),
-      percentage: 35,
-      collection: 'Commercial',
-      check: false,),
+    title: "Commercial",
+    svgSrc:
+        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fplots.png?alt=media&token=76f52bdd-9340-4ec3-8047-e7e9dd634bba&_gl=1*j4am2k*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzUzMjQ1NC4zMy4xLjE2OTc1MzI5NTAuMTguMC4w',
+    bgcolor: const Color(0xffE8F5E9),
+    color: const Color(0xff6B78F1),
+    percentage: 35,
+    collection: 'Commercial',
+    check: false,
+  ),
   CloudStorageInfo(
     title: "Plots",
     svgSrc:
@@ -70,16 +73,27 @@ List demoMyFiles = [
     collection: 'Flats',
     check: false,
   ),
-  CloudStorageInfo(
-    title: "Impressions",
-    svgSrc:
-        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fimpression.png?alt=media&token=0fdaffce-aaf9-45b4-9006-6ca11c706ee7&_gl=1*1i564sl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTUxNzY2MS45Mi4xLjE2OTk1MTc3NTIuMzAuMC4w',
-    bgcolor: Colors.blue.withOpacity(0.2),
-    color: const Color(0xff4FCB21),
-    percentage: 35,
-    collection: 'Flats',
-    check: false,
-  ),
+  if (_auth.currentUser?.email == 'hanifusama688@gmail.com')
+    CloudStorageInfo(
+      title: "Users",
+      svgSrc:
+          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fusers.png?alt=media&token=f894e66a-22b5-460a-802c-64285ae3498f',
+      bgcolor: const Color.fromARGB(255, 243, 58, 33).withOpacity(0.2),
+      color: const Color(0xff4FCB21),
+      percentage: 35,
+      collection: 'Users',
+      check: false,
+    ),
+  // CloudStorageInfo(
+  //   title: "Impressions",
+  //   svgSrc:
+  //       'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fimpression.png?alt=media&token=0fdaffce-aaf9-45b4-9006-6ca11c706ee7&_gl=1*1i564sl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTUxNzY2MS45Mi4xLjE2OTk1MTc3NTIuMzAuMC4w',
+  //   bgcolor: Colors.blue.withOpacity(0.2),
+  //   color: const Color(0xff4FCB21),
+  //   percentage: 35,
+  //   collection: 'Flats',
+  //   check: false,
+  // ),
   CloudStorageInfo(
     title: "Clicks",
     svgSrc:
