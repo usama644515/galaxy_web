@@ -34,7 +34,8 @@ Widget MobileNavBar(var drawerstate, context) {
                 Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Home');
                     // Replace with the actual value
-                    RouteHandler.router.navigateTo(context, '/');
+                    // RouteHandler.router.navigateTo(context, '/');
+                    context.go('/');
               },
               child: Image.network(
                 'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',

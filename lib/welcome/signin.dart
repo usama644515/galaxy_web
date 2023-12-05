@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/welcome/signup.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../main/home.dart';
@@ -38,12 +39,13 @@ class _SignInState extends State<SignIn> {
       } else {
         Provider.of<menuController>(context, listen: false)
             .navmenueSelect('Home');
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => Bar(ind: 0),
-          ),
-          (route) => false, // Always return false to remove all routes
-        );
+        // Navigator.of(context).pushAndRemoveUntil(
+        //   MaterialPageRoute(
+        //     builder: (context) => Bar(ind: 0),
+        //   ),
+        //   (route) => false, // Always return false to remove all routes
+        // );
+        context.go('/');
       }
     });
     return Future.value(false);
@@ -340,10 +342,11 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 20.0),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUp()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const SignUp()));
+                    context.go('/singup');
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -429,11 +432,12 @@ class _SignInState extends State<SignIn> {
         });
         //-----go to next screen-----
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
-            ));
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
+        //     ));
+        context.go('/');
       } else {
         await GoogleSignIn().signOut();
         FirebaseAuth.instance.signOut().then((value) {
@@ -612,13 +616,14 @@ class _SignInState extends State<SignIn> {
       setState(() {
         loading = false;
       });
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Home(),
-        ),
-        (route) => false,
-      );
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (BuildContext context) => const Home(),
+      //   ),
+      //   (route) => false,
+      // );
+      context.go('/');
     });
   }
 
@@ -636,13 +641,14 @@ class _SignInState extends State<SignIn> {
           textColor: Colors.white,
           fontSize: 16.0);
       // ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Home(),
-        ),
-        (route) => false,
-      );
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (BuildContext context) => const Home(),
+      //   ),
+      //   (route) => false,
+      // );
+      context.go('/');
       // Navigator.pushReplacement(context,
       //     MaterialPageRoute(builder: (context) => const AccessLocaion()));
     }

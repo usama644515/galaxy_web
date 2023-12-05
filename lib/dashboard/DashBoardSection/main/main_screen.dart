@@ -482,7 +482,8 @@ _logoutDialoge(context) {
               onPressed: () async {
                 await GoogleSignIn().signOut();
                 await FirebaseAuth.instance.signOut().then((value) {
-                  RouteHandler.router.navigateTo(context, '/');
+                  // RouteHandler.router.navigateTo(context, '/');
+                  context.go('/');
                 });
               },
             ),

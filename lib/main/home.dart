@@ -11,6 +11,7 @@ import 'package:galaxy_web/components/side_drawer.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/blogitem.dart';
@@ -34,12 +35,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  
-
   void initState() {
     // updatedata();
-    Provider.of<menuController>(context, listen: false)
-                        .navmenueSelect('Home');
+    Provider.of<menuController>(context, listen: false).navmenueSelect('Home');
     super.initState();
   }
 
@@ -152,7 +150,7 @@ class _HomeState extends State<Home> {
                             .navmenueSelect('Shop');
                         // navigateToPage('/Shop');
                         kIsWeb
-                            ? RouteHandler.router.navigateTo(context, '/shop')
+                            ? context.go('/shop')
                             : Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -193,17 +191,19 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
-                      onTap:(){
+                      onTap: () {
                         Provider.of<menuController>(context, listen: false)
-                    .navmenueSelect('Blog');
-                RouteHandler.router.navigateTo(context, '/blog');
+                            .navmenueSelect('Blog');
+                        // RouteHandler.router.navigateTo(context, '/blog');
+                        context.go('/blog');
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: Text(
                           "View All",
                           style: TextStyle(
-                            fontSize: Responsive.isMobile(context) ? 15.0 : 15.0,
+                            fontSize:
+                                Responsive.isMobile(context) ? 15.0 : 15.0,
                             decoration: TextDecoration.underline,
                             color: const Color(0xff4DB9F4),
                             fontWeight: FontWeight.w600,

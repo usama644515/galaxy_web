@@ -12,6 +12,7 @@ import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../main/about_us.dart';
@@ -169,7 +170,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     .navmenueSelect('Home');
                 // Remove all routes and push a new route
                 kIsWeb
-                    ? RouteHandler.router.navigateTo(context, '/')
+                    ? context.go('/')
                     : Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                           builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
@@ -201,7 +202,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('Shop');
                 kIsWeb
-                    ? RouteHandler.router.navigateTo(context, '/shop')
+                    ? context.go('/shop')
                     : Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -231,7 +232,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('Agents');
                 kIsWeb
-                    ? RouteHandler.router.navigateTo(context, '/agents')
+                    ? context.go('/agents')
                     : Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -260,7 +261,8 @@ class _SideDrawerState extends State<SideDrawer> {
               setState(() {
                 Provider.of<menuController>(context, listen: false)
                     .navmenueSelect('Blog');
-                RouteHandler.router.navigateTo(context, '/blog');
+                // RouteHandler.router.navigateTo(context, '/blog');
+                context.go('/blog');
               });
             },
           ),
@@ -288,7 +290,8 @@ class _SideDrawerState extends State<SideDrawer> {
                 //   MaterialPageRoute(builder: (context) => const AboutUs()),
                 //   (route) => false, // Always return false to remove all routes
                 // );
-                RouteHandler.router.navigateTo(context, '/about');
+                // RouteHandler.router.navigateTo(context, '/about');
+                context.go('/about');
               });
             },
           ),
@@ -316,7 +319,8 @@ class _SideDrawerState extends State<SideDrawer> {
                 //   MaterialPageRoute(builder: (context) => const ContactUs()),
                 //   (route) => false, // Always return false to remove all routes
                 // );
-                RouteHandler.router.navigateTo(context, '/contactus');
+                // RouteHandler.router.navigateTo(context, '/contactus');
+                context.go('/contactus');
               });
             },
           ),

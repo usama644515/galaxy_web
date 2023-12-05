@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -77,7 +78,8 @@ class _FooterState extends State<Footer> {
                           // );
 
                           // Replace with the actual value
-                          RouteHandler.router.navigateTo(context, '/');
+                          // RouteHandler.router.navigateTo(context, '/');
+                          context.go('/');
                         },
                         child: Text(
                           'Home',
@@ -105,7 +107,8 @@ class _FooterState extends State<Footer> {
                           // );
 
                           // Replace with the actual value
-                          RouteHandler.router.navigateTo(context, '/shop');
+                          // RouteHandler.router.navigateTo(context, '/shop');
+                          context.go('/shop');
                         },
                         child: Text(
                           'Shop',
@@ -133,7 +136,8 @@ class _FooterState extends State<Footer> {
                           // );
 
                           // Replace with the actual value
-                          RouteHandler.router.navigateTo(context, '/blog');
+                          // RouteHandler.router.navigateTo(context, '/blog');
+                          context.go('/blog');
                         },
                         child: Text(
                           'Blog',
@@ -161,7 +165,8 @@ class _FooterState extends State<Footer> {
                           // );
 
                           // Replace with the actual value
-                          RouteHandler.router.navigateTo(context, '/contactus');
+                          // RouteHandler.router.navigateTo(context, '/contactus');
+                          context.go('/contactus');
                         },
                         child: Text(
                           'Contact Us',
@@ -189,7 +194,8 @@ class _FooterState extends State<Footer> {
                           // );
 
                           // Replace with the actual value
-                          RouteHandler.router.navigateTo(context, '/about');
+                          // RouteHandler.router.navigateTo(context, '/about');
+                          context.go('/about');
                         },
                         child: Text(
                           'About Us',

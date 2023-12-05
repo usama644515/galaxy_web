@@ -11,6 +11,7 @@ import 'package:galaxy_web/dashboard/DashBoardSection/main/main_screen.dart';
 import 'package:galaxy_web/main/dashboard.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -79,7 +80,8 @@ class _NavBarState extends State<NavBar> {
                     // );
 
                     // Replace with the actual value
-                    RouteHandler.router.navigateTo(context, '/');
+                    // RouteHandler.router.navigateTo(context, '/');
+                    context.go('/');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -128,8 +130,9 @@ class _NavBarState extends State<NavBar> {
                         .navmenueSelect('Shop');
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => const Shop()));
-                    RouteHandler.router.navigateTo(context, '/shop');
+                    // RouteHandler.router.navigateTo(context, '/shop');
                     // router.navigateTo(context, '/shop');
+                    context.go('/shop');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -178,8 +181,9 @@ class _NavBarState extends State<NavBar> {
                         .navmenueSelect('Agents');
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => const Shop()));
-                    RouteHandler.router.navigateTo(context, '/agents');
+                    // RouteHandler.router.navigateTo(context, '/agents');
                     // router.navigateTo(context, '/shop');
+                    context.go('/agents');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -226,7 +230,8 @@ class _NavBarState extends State<NavBar> {
                   onTap: () {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Blog');
-                    RouteHandler.router.navigateTo(context, '/blog');
+                    // RouteHandler.router.navigateTo(context, '/blog');
+                    context.go('/blog');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -278,7 +283,8 @@ class _NavBarState extends State<NavBar> {
                     //   (route) =>
                     //       false, // Always return false to remove all routes
                     // );
-                    RouteHandler.router.navigateTo(context, '/about');
+                    // RouteHandler.router.navigateTo(context, '/about');
+                    context.go('/about');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -331,7 +337,8 @@ class _NavBarState extends State<NavBar> {
                     //   (route) =>
                     //       false, // Always return false to remove all routes
                     // );
-                    RouteHandler.router.navigateTo(context, '/contactus');
+                    // RouteHandler.router.navigateTo(context, '/contactus');
+                    context.go('/contactus');
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
@@ -436,10 +443,11 @@ class _NavBarState extends State<NavBar> {
                             },
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const SignIn()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => const SignIn()));
+                                context.go('/login');
                               },
                               child: Container(
                                   height: 35,
@@ -481,10 +489,11 @@ class _NavBarState extends State<NavBar> {
                             },
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const SignUp()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => const SignUp()));
+                                context.go('/singup');
                               },
                               child: Container(
                                   height: 35,
@@ -656,8 +665,9 @@ class _NavBarState extends State<NavBar> {
                                   //     context,
                                   //     MaterialPageRoute(
                                   //         builder: (context) => MainScreen()));
-                                  RouteHandler.router
-                                      .navigateTo(context, '/dashboard');
+                                  // RouteHandler.router
+                                  //     .navigateTo(context, '/dashboard');
+                                  context.go('/dashboard');
                                 }
                               },
                             )
@@ -687,11 +697,12 @@ class _NavBarState extends State<NavBar> {
                   // prefs.setBool('isLoggedIn', false);
                   await GoogleSignIn().signOut();
                   await FirebaseAuth.instance.signOut().then((value) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const Home()),
-                      (route) =>
-                          false, // Always return false to remove all routes
-                    );
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //   MaterialPageRoute(builder: (context) => const Home()),
+                    //   (route) =>
+                    //       false, // Always return false to remove all routes
+                    // );
+                    context.go('/');
                   });
                 },
               ),
@@ -785,7 +796,7 @@ class _NavBarState extends State<NavBar> {
     FirebaseFirestore.instance
         .collection('AllUsers')
         .doc(_auth.currentUser!.uid)
-        .set(userdata,SetOptions(merge: true))
+        .set(userdata, SetOptions(merge: true))
         .then((value) {
       setState(() {
         // loading = false;

@@ -368,25 +368,28 @@ class _ProductsState extends State<Products> {
                                     ),
                                     Responsive.isMobile(context)
                                         ? Container()
-                                        :const SizedBox(width: 10),
-                                   Responsive.isMobile(context)
+                                        : const SizedBox(width: 10),
+                                    Responsive.isMobile(context)
                                         ? Container()
                                         : Expanded(
-                                      flex:
-                                          Responsive.isMobile(context) ? 2 : 2,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            'Action',
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                            flex: Responsive.isMobile(context)
+                                                ? 2
+                                                : 2,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Text(
+                                                  'Action',
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -395,7 +398,9 @@ class _ProductsState extends State<Products> {
                               width: MediaQuery.of(context).size.width,
                               child: StreamBuilder<QuerySnapshot>(
                                 stream: _auth.currentUser?.email ==
-                                        "hanifusama688@gmail.com"
+                                            "galaxyrealtormultan@gmail.com" ||
+                                        _auth.currentUser?.email ==
+                                            'innovativebitsolutions@gmail.com'
                                     ? FirebaseFirestore.instance
                                         .collection('Properties List')
                                         .orderBy('datetime', descending: true)
@@ -717,116 +722,98 @@ class _ProductsState extends State<Products> {
                                                                 ],
                                                               ),
                                                             ),
-                                                            Responsive.isMobile(context)
-                                        ? Container()
-                                        :const SizedBox(
-                                                                width: 10),
-                                                           Responsive.isMobile(context)
-                                        ? Container()
-                                        : Expanded(
-                                                              flex: 2,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  MouseRegion(
-                                                                    cursor: SystemMouseCursors
-                                                                        .click, //hand click cursor
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () async {
-                                                                        showDeleteConfirmationDialog(
-                                                                            context,
-                                                                            data.get('datetime'));
-                                                                      },
-                                                                      child: Image
-                                                                          .network(
-                                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fedit%20icon.png?alt=media&token=e1de4717-b72c-4640-b4c6-dcb23d3b5993',
-                                                                        width: Responsive.isMobile(context)
-                                                                            ? 20
-                                                                            : 20,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  data.get('status') ==
-                                                                          'Active'
-                                                                      ? MouseRegion(
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : const SizedBox(
+                                                                    width: 10),
+                                                            Responsive.isMobile(
+                                                                    context)
+                                                                ? Container()
+                                                                : Expanded(
+                                                                    flex: 2,
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        MouseRegion(
                                                                           cursor:
                                                                               SystemMouseCursors.click, //hand click cursor
                                                                           child:
                                                                               GestureDetector(
                                                                             onTap:
                                                                                 () async {
-                                                                              stauschangeDialog(context, data.get('datetime'), data.get('status'));
+                                                                              showDeleteConfirmationDialog(context, data.get('datetime'));
                                                                             },
                                                                             child:
                                                                                 Image.network(
-                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fpause.png?alt=media&token=c466e559-1d54-4ef3-a274-a60d8c94f2d9',
-                                                                              width: Responsive.isMobile(context) ? 20 : 20,
-                                                                            ),
-                                                                          ),
-                                                                        )
-                                                                      : MouseRegion(
-                                                                          cursor:
-                                                                              SystemMouseCursors.click, //hand click cursor
-                                                                          child:
-                                                                              GestureDetector(
-                                                                            onTap:
-                                                                                () async {
-                                                                              stauschangeDialog(context, data.get('datetime'), data.get('status'));
-                                                                            },
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fplay.png?alt=media&token=cf704688-71c4-404a-a7b3-d8616198fa26',
+                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fedit%20icon.png?alt=media&token=e1de4717-b72c-4640-b4c6-dcb23d3b5993',
                                                                               width: Responsive.isMobile(context) ? 20 : 20,
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                  MouseRegion(
-                                                                    cursor: SystemMouseCursors
-                                                                        .click, //hand click cursor
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () async {
-                                                                        showDeleteConfirmationDialog(
-                                                                            context,
-                                                                            data.get('datetime'));
-                                                                      },
-                                                                      child: Image
-                                                                          .network(
-                                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fdelete.png?alt=media&token=3b6ef544-00c0-44e4-8fd2-4f7384844ea3&_gl=1*lpp01d*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTQyMjMzNy44NS4xLjE2OTk0MjIzOTQuMy4wLjA.',
-                                                                        width: Responsive.isMobile(context)
-                                                                            ? 20
-                                                                            : 20,
-                                                                      ),
+                                                                        data.get('status') ==
+                                                                                'Active'
+                                                                            ? MouseRegion(
+                                                                                cursor: SystemMouseCursors.click, //hand click cursor
+                                                                                child: GestureDetector(
+                                                                                  onTap: () async {
+                                                                                    stauschangeDialog(context, data.get('datetime'), data.get('status'));
+                                                                                  },
+                                                                                  child: Image.network(
+                                                                                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fpause.png?alt=media&token=c466e559-1d54-4ef3-a274-a60d8c94f2d9',
+                                                                                    width: Responsive.isMobile(context) ? 20 : 20,
+                                                                                  ),
+                                                                                ),
+                                                                              )
+                                                                            : MouseRegion(
+                                                                                cursor: SystemMouseCursors.click, //hand click cursor
+                                                                                child: GestureDetector(
+                                                                                  onTap: () async {
+                                                                                    stauschangeDialog(context, data.get('datetime'), data.get('status'));
+                                                                                  },
+                                                                                  child: Image.network(
+                                                                                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fplay.png?alt=media&token=cf704688-71c4-404a-a7b3-d8616198fa26',
+                                                                                    width: Responsive.isMobile(context) ? 20 : 20,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                        MouseRegion(
+                                                                          cursor:
+                                                                              SystemMouseCursors.click, //hand click cursor
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              showDeleteConfirmationDialog(context, data.get('datetime'));
+                                                                            },
+                                                                            child:
+                                                                                Image.network(
+                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fdelete.png?alt=media&token=3b6ef544-00c0-44e4-8fd2-4f7384844ea3&_gl=1*lpp01d*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTQyMjMzNy44NS4xLjE2OTk0MjIzOTQuMy4wLjA.',
+                                                                              width: Responsive.isMobile(context) ? 20 : 20,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        MouseRegion(
+                                                                          cursor:
+                                                                              SystemMouseCursors.click, //hand click cursor
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              renewDialog(context, data.get('datetime'));
+                                                                            },
+                                                                            child:
+                                                                                Image.network(
+                                                                              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Frenew%20icon.png?alt=media&token=06fd630b-5e3a-40a1-8085-0800c8f765ce',
+                                                                              width: Responsive.isMobile(context) ? 20 : 20,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                  MouseRegion(
-                                                                    cursor: SystemMouseCursors
-                                                                        .click, //hand click cursor
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () async {
-                                                                        renewDialog(
-                                                                            context,
-                                                                            data.get('datetime'));
-                                                                      },
-                                                                      child: Image
-                                                                          .network(
-                                                                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Frenew%20icon.png?alt=media&token=06fd630b-5e3a-40a1-8085-0800c8f765ce',
-                                                                        width: Responsive.isMobile(context)
-                                                                            ? 20
-                                                                            : 20,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
                                                           ],
                                                         ),
                                                       ),

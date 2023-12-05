@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -172,8 +173,14 @@ class _BlogState extends State<Blog> {
 
                                       var id = dataId[index];
                                       // Replace with the actual value
-                                      RouteHandler.router
-                                          .navigateTo(context, '/blog/$id');
+                                      // RouteHandler.router
+                                      //     .navigateTo(context, '/blog/$id');
+                                      context.go(
+                                        Uri(
+                                          path: '/blog/$id',
+                                          queryParameters: {'id': id},
+                                        ).toString(),
+                                      );
                                     },
                                     child: Padding(
                                       padding:

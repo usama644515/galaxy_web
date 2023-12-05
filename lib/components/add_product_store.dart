@@ -1231,6 +1231,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                                       'phone': phone,
                                       'call': 0,
                                       'clicks': 0,
+                                      'status': 'Active',
                                       'impression': 0,
                                       'whatsapp':0
                                     }, SetOptions(merge: true)).then((value) {

@@ -73,7 +73,8 @@ List demoMyFiles = [
     collection: 'Flats',
     check: false,
   ),
-  if (_auth.currentUser?.email == 'hanifusama688@gmail.com')
+  if (_auth.currentUser?.email == 'galaxyrealtormultan@gmail.com' ||
+      _auth.currentUser?.email == 'innovativebitsolutions@gmail.com')
     CloudStorageInfo(
       title: "Users",
       svgSrc:

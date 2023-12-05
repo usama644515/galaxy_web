@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/blogscreen.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../responsive.dart';
 
@@ -43,7 +44,7 @@ class _BlogItemsState extends State<BlogItems> {
                       child: const CircularProgressIndicator(
                           backgroundColor: Colors.grey,
                           color: Color(0xffF9A51F)));
-                // ignore: prefer_is_empty
+                  // ignore: prefer_is_empty
                 } else if (snapshot.data!.docs.length == 0) {
                   return Container(
                       alignment: Alignment.topCenter,
@@ -67,10 +68,16 @@ class _BlogItemsState extends State<BlogItems> {
                           onTap: () {
                             Provider.of<menuController>(context, listen: false)
                                 .navmenueSelect('Blog');
-                             var id = data.id;
-                                      // Replace with the actual value
-                                      RouteHandler.router
-                                          .navigateTo(context, '/blog/$id');
+                            var id = data.id;
+                            // Replace with the actual value
+                            // RouteHandler.router
+                            //     .navigateTo(context, '/blog/$id');
+                            context.go(
+                              Uri(
+                                path: '/blog/$id',
+                                queryParameters: {'id': id},
+                              ).toString(),
+                            );
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

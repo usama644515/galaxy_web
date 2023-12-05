@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/components/search_screen.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 
@@ -47,8 +48,9 @@ void initState() {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SearchScreen()));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => SearchScreen()));
+            context.go('/search');
           },
           child: MouseRegion(
             cursor: SystemMouseCursors.text,

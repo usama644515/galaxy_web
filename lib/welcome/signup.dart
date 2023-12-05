@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+import 'package:go_router/go_router.dart';
 import '../responsive.dart';
 
 class SignUp extends StatefulWidget {
@@ -430,6 +431,7 @@ class _SignUpState extends State<SignUp> {
                 name.clear();
                 email.clear();
                 password.clear();
+                context.go('/login');
               }));
     } on FirebaseAuthException catch (e) {
       setState(() {

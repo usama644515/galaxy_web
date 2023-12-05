@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../controllers/MenuController.dart';
 import 'product_details.dart';
@@ -82,8 +83,14 @@ class _ProductListState extends State<ProductList> {
                             //             ProductDetails(data: data,id: data.id)));
                             var id = data.id;
                             // Replace with the actual value
-                            RouteHandler.router
-                                .navigateTo(context, '/shop/$id');
+                            // RouteHandler.router
+                            //     .navigateTo(context, '/shop/$id');
+                            context.go(
+                                        Uri(
+                                          path: '/shop/$id',
+                                          queryParameters: {'id': id},
+                                        ).toString(),
+                                      );
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

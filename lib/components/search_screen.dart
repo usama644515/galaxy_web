@@ -9,6 +9,7 @@ import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/responsive.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -144,8 +145,14 @@ class _SearchScreenState extends State<SearchScreen> {
                               //             data: data, id: data.id)));
                               var id = data.id;
                               // Replace with the actual value
-                              RouteHandler.router
-                                  .navigateTo(context, '/shop/$id');
+                              // RouteHandler.router
+                              //     .navigateTo(context, '/shop/$id');
+                              context.go(
+                              Uri(
+                                path: '/shop/$id',
+                                queryParameters: {'id': id},
+                              ).toString(),
+                            );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

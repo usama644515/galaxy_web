@@ -54,27 +54,39 @@ class _FileInfoCardState extends State<FileInfoCard> {
               children: [
                 StreamBuilder<QuerySnapshot>(
                     // widget.info.collection.toString()
-                    stream: widget.info.collection.toString() == 'Users'? firestore
-                                .collection('AllUsers')
-                                .snapshots():  widget.info.collection.toString() == 'main'
-                        ? _auth.currentUser?.email == 'hanifusama688@gmail.com'
-                            ? firestore.collection('Properties List').snapshots()
-                            : firestore
-                                .collection('Properties List')
-                                .where('user', isEqualTo: _auth.currentUser?.uid)
-                                .snapshots()
-                        : _auth.currentUser?.email == 'hanifusama688@gmail.com'
-                            ? firestore
-                                .collection('Properties List')
-                                .where('category',
-                                    isEqualTo: widget.info.collection.toString())
-                                .snapshots()
-                            : firestore
-                                .collection('Properties List')
-                                .where('user', isEqualTo: _auth.currentUser?.uid)
-                                .where('category',
-                                    isEqualTo: widget.info.collection.toString())
-                                .snapshots(),
+                    stream: widget.info.collection.toString() == 'Users'
+                        ? firestore.collection('AllUsers').snapshots()
+                        : widget.info.collection.toString() == 'main'
+                            ? _auth.currentUser?.email ==
+                                        'galaxyrealtormultan@gmail.com' ||
+                                    _auth.currentUser?.email ==
+                                        'innovativebitsolutions@gmail.com'
+                                ? firestore
+                                    .collection('Properties List')
+                                    .snapshots()
+                                : firestore
+                                    .collection('Properties List')
+                                    .where('user',
+                                        isEqualTo: _auth.currentUser?.uid)
+                                    .snapshots()
+                            : _auth.currentUser?.email ==
+                                        'galaxyrealtormultan@gmail.com' ||
+                                    _auth.currentUser?.email ==
+                                        'innovativebitsolutions@gmail.com'
+                                ? firestore
+                                    .collection('Properties List')
+                                    .where('category',
+                                        isEqualTo:
+                                            widget.info.collection.toString())
+                                    .snapshots()
+                                : firestore
+                                    .collection('Properties List')
+                                    .where('user',
+                                        isEqualTo: _auth.currentUser?.uid)
+                                    .where('category',
+                                        isEqualTo:
+                                            widget.info.collection.toString())
+                                    .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
