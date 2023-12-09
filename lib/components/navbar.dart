@@ -28,25 +28,45 @@ class NavBar extends StatefulWidget {
   State<NavBar> createState() => _NavBarState();
 }
 
-var homehover = false;
-var shophover = false;
-var bloghover = false;
-var abouthover = false;
-var contacthover = false;
-var agenthover = false;
-
-final router = FluroRouter();
-final FirebaseAuth _auth = FirebaseAuth.instance;
-void _launchPhone(String phoneNumber) async {
-  final url = 'tel:$phoneNumber';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
 class _NavBarState extends State<NavBar> {
+  var homehover = false;
+  var shophover = false;
+  var bloghover = false;
+  var abouthover = false;
+  var contacthover = false;
+  var agenthover = false;
+
+  final router = FluroRouter();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  void _launchPhone(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getuserdata();
+  }
+
+  var agent = false;
+
+  getuserdata() {
+    FirebaseFirestore.instance
+        .collection('AllUsers')
+        .doc(_auth.currentUser?.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        agent = value.get('agent');
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -628,6 +648,27 @@ class _NavBarState extends State<NavBar> {
                                     ],
                                   ),
                                 ),
+
+                                if (agent == false)
+                                  PopupMenuItem(
+                                    value: 3,
+                                    // row with 2 children
+                                    child: Row(
+                                      children: [
+                                        Image.network(
+                                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fagent%20icon.png?alt=media&token=63d01d55-0b6f-4ea9-8175-9e0c0b65cd27',
+                                          width: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const Text("Become a Agent",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
                                 PopupMenuItem(
                                   value: 2,
                                   // row with 2 children
@@ -668,6 +709,8 @@ class _NavBarState extends State<NavBar> {
                                   // RouteHandler.router
                                   //     .navigateTo(context, '/dashboard');
                                   context.go('/dashboard');
+                                } else if (value == 3) {
+                                  context.go('/create-agent');
                                 }
                               },
                             )

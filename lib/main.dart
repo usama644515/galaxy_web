@@ -10,6 +10,7 @@ import 'package:galaxy_web/components/product_details.dart';
 import 'package:galaxy_web/components/search_screen.dart';
 import 'package:galaxy_web/controllers/MenuController.dart';
 import 'package:galaxy_web/main/about_us.dart';
+import 'package:galaxy_web/main/agent_create.dart';
 import 'package:galaxy_web/main/blog.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
@@ -141,6 +142,11 @@ final _router = GoRouter(
       name: 'Search',
       path: '/search',
       builder: (context, state) => SearchScreen(),
+    ),
+    GoRoute(
+      name: 'Create Agent',
+      path: '/create-agent',
+      builder: (context, state) => AgentCreate(),
     ),
     GoRoute(
       path: '/shop/:id',

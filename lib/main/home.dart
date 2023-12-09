@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
   //   querySnapshot.docs.forEach((document) async {
   //     // Update the data in each document
   //     await collectionRef.doc(document.id).set({
-  //       'status': 'Active',
+  //       'agentPic': ''
   //     }, SetOptions(merge: true));
   //   });
   // }

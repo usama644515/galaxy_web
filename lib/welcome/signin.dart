@@ -604,6 +604,7 @@ class _SignInState extends State<SignIn> {
       'Email': email,
       'UID': uid,
       'role': 'user',
+      'agent': false,
       'img':
           'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1685014328~exp=1685014928~hmac=14d6f11cf538e43623c6eca39c016f64e2d2d871f324a80e169b6645b072fde6',
       'phone': phone

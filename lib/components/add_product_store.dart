@@ -33,6 +33,8 @@ class _AddProductStoreState extends State<AddProductStore> {
   }
 
   var phone;
+  var role;
+  var agent;
   getphonenumber() {
     FirebaseFirestore.instance
         .collection('AllUsers')
@@ -40,6 +42,8 @@ class _AddProductStoreState extends State<AddProductStore> {
         .get()
         .then((value) {
       phone = value.get('phone');
+      role = value.get('role');
+      agent = value.get('agent');
       // employeeList = employeeList + ['usama'];
       // print('----------------${employeeList}---------------');
     });
@@ -69,7 +73,13 @@ class _AddProductStoreState extends State<AddProductStore> {
   final TextEditingController _youtubeurl = TextEditingController();
   final TextEditingController _id = TextEditingController();
 
-  List category = ['Residential', 'Commercial', 'Plots', 'Construction', 'Flats'];
+  List category = [
+    'Residential',
+    'Commercial',
+    'Plots',
+    'Construction',
+    'Flats'
+  ];
 
   List location = [
     'Buch Executive Villas',
@@ -78,8 +88,6 @@ class _AddProductStoreState extends State<AddProductStore> {
     'Smart Housing',
     'Royal Orchard',
     'Wapda Town',
-    'Model Town',
-    
   ];
 
   List select = ['Sell', 'Rent'];
@@ -1232,8 +1240,11 @@ class _AddProductStoreState extends State<AddProductStore> {
                                       'call': 0,
                                       'clicks': 0,
                                       'status': 'Active',
-                                      'impression': 0,
-                                      'whatsapp':0
+                                      'impression ': 0,
+                                      'whatsapp': 0,
+                                      'agent': agent,
+                                      'role': role,
+                                      'agentPic': _auth.currentUser?.photoURL
                                     }, SetOptions(merge: true)).then((value) {
                                       print('upload successful');
                                       Fluttertoast.showToast(

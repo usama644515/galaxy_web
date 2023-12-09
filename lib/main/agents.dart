@@ -31,7 +31,7 @@ class _AgentsState extends State<Agents> {
   List<Map<String, dynamic>> data = [];
   var dataId = [];
   getData() {
-    FirebaseFirestore.instance.collection('AllUsers').get().then((value) {
+    FirebaseFirestore.instance.collection('Agents').get().then((value) {
       setState(() {
         // print(value.docs[0].id);
         for (var i = 0; i < value.docs.length; i++) {

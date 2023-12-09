@@ -641,14 +641,21 @@ class _ShopState extends State<Shop> {
                                                                         5.0),
                                                                 child: Row(
                                                                     children: [
-                                                                      Image.network(
+                                                                     data[index]['agent']? data[index]['role'] == 'admin'? Image.network(
                                                                           'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20white.png?alt=media&token=4e3947e5-19f5-4d17-8d4d-379a63ac9910&_gl=1*tld1ry*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1Njk3Mi40NS4xLjE2OTc5NTY5NzkuNTMuMC4w',
                                                                           height: Responsive.isMobile(context)
                                                                               ? 14
                                                                               : 18,
                                                                           width: Responsive.isMobile(context)
                                                                               ? 14
-                                                                              : 18),
+                                                                              : 18): Image.network(
+                                                                          data[index]['agentpic'],
+                                                                          height: Responsive.isMobile(context)
+                                                                              ? 14
+                                                                              : 18,
+                                                                          width: Responsive.isMobile(context)
+                                                                              ? 14
+                                                                              : 18): SizedBox(),
                                                                       const SizedBox(
                                                                           width:
                                                                               6.0),

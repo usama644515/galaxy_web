@@ -85,6 +85,18 @@ List demoMyFiles = [
       collection: 'Users',
       check: false,
     ),
+  if (_auth.currentUser?.email == 'galaxyrealtormultan@gmail.com' ||
+      _auth.currentUser?.email == 'innovativebitsolutions@gmail.com')
+    CloudStorageInfo(
+      title: "Agents",
+      svgSrc:
+          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fagent.png?alt=media&token=4fa12f76-cb06-48b4-b312-04267a795265',
+      bgcolor: Color.fromARGB(255, 33, 142, 243).withOpacity(0.2),
+      color: const Color(0xff4FCB21),
+      percentage: 35,
+      collection: 'Agents',
+      check: false,
+    ),
   // CloudStorageInfo(
   //   title: "Impressions",
   //   svgSrc:
@@ -95,34 +107,34 @@ List demoMyFiles = [
   //   collection: 'Flats',
   //   check: false,
   // ),
-  CloudStorageInfo(
-    title: "Clicks",
-    svgSrc:
-        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fclick.png?alt=media&token=dbd5943f-5292-4dc9-9d47-aa54c9820d45&_gl=1*tb6j5b*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTUxNzY2MS45Mi4xLjE2OTk1MTc3MjAuMS4wLjA.',
-    bgcolor: Colors.yellow.withOpacity(0.2),
-    color: const Color(0xff4FCB21),
-    percentage: 35,
-    collection: 'Flats',
-    check: true,
-  ),
-  CloudStorageInfo(
-    title: "Call",
-    svgSrc:
-        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fcall%20color.png?alt=media&token=02b1e950-e2a2-4981-8ab7-d3bf1428f077&_gl=1*163vs6n*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTUxNzY2MS45Mi4xLjE2OTk1MTc2ODMuMzguMC4w',
-    bgcolor: Colors.orange.withOpacity(0.2),
-    color: const Color(0xff4FCB21),
-    percentage: 35,
-    collection: 'Flats',
-    check: true,
-  ),
-  CloudStorageInfo(
-    title: "Whatsapp",
-    svgSrc:
-        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp%20icon.png?alt=media&token=0c59daba-322a-4cb3-b9ed-2f65dede9ea2&_gl=1*1tpr174*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODMyMDU2NC42Mi4xLjE2OTgzMjA3MjYuMzIuMC4w',
-    bgcolor: Colors.green.withOpacity(0.2),
-    color: const Color(0xff4FCB21),
-    percentage: 35,
-    collection: 'Flats',
-    check: true,
-  ),
+  // CloudStorageInfo(
+  //   title: "Clicks",
+  //   svgSrc:
+  //       'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fclick.png?alt=media&token=dbd5943f-5292-4dc9-9d47-aa54c9820d45&_gl=1*tb6j5b*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTUxNzY2MS45Mi4xLjE2OTk1MTc3MjAuMS4wLjA.',
+  //   bgcolor: Colors.yellow.withOpacity(0.2),
+  //   color: const Color(0xff4FCB21),
+  //   percentage: 35,
+  //   collection: 'Flats',
+  //   check: true,
+  // ),
+  // CloudStorageInfo(
+  //   title: "Call",
+  //   svgSrc:
+  //       'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fcall%20color.png?alt=media&token=02b1e950-e2a2-4981-8ab7-d3bf1428f077&_gl=1*163vs6n*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5OTUxNzY2MS45Mi4xLjE2OTk1MTc2ODMuMzguMC4w',
+  //   bgcolor: Colors.orange.withOpacity(0.2),
+  //   color: const Color(0xff4FCB21),
+  //   percentage: 35,
+  //   collection: 'Flats',
+  //   check: true,
+  // ),
+  // CloudStorageInfo(
+  //   title: "Whatsapp",
+  //   svgSrc:
+  //       'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp%20icon.png?alt=media&token=0c59daba-322a-4cb3-b9ed-2f65dede9ea2&_gl=1*1tpr174*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODMyMDU2NC42Mi4xLjE2OTgzMjA3MjYuMzIuMC4w',
+  //   bgcolor: Colors.green.withOpacity(0.2),
+  //   color: const Color(0xff4FCB21),
+  //   percentage: 35,
+  //   collection: 'Flats',
+  //   check: true,
+  // ),
 ];
