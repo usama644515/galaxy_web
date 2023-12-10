@@ -343,13 +343,8 @@ class _SideDrawerState extends State<SideDrawer> {
                   await _auth.signOut().then((value) {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Home');
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const Home(),
-                      ),
-                      (route) => false,
-                    );
+                    Navigator.pop(context);
+                    context.go('/');
                   });
                 },
               ),

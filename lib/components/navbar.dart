@@ -745,6 +745,7 @@ class _NavBarState extends State<NavBar> {
                     //   (route) =>
                     //       false, // Always return false to remove all routes
                     // );
+                    Navigator.pop(context);
                     context.go('/');
                   });
                 },

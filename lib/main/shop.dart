@@ -19,6 +19,8 @@ import '../components/product_details.dart';
 import '../components/side_drawer.dart';
 import '../controllers/MenuController.dart';
 import '../responsive.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'dart:html' as html;
 
 class Shop extends StatefulWidget {
   const Shop({super.key, this.categ});
@@ -252,6 +254,8 @@ class _ShopState extends State<Shop> {
                                 return MouseRegion(
                                   cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
+                                    // Disable the default right-click context menu
+
                                     onTap: () {
                                       getClick(dataId[index]);
                                       Provider.of<menuController>(context,
@@ -276,6 +280,17 @@ class _ShopState extends State<Shop> {
                                           queryParameters: {'id': id},
                                         ).toString(),
                                       );
+                                    },
+
+                                    onSecondaryTapDown: (details) {
+                                      // Disable the right-click context menu
+                                      html.window.onContextMenu.listen((event) {
+                                        event.preventDefault();
+                                      });
+                                      _showPopupMenu(
+                                          context,
+                                          details.globalPosition,
+                                          'https://galaxyrealtor.pk/#/shop/${dataId[index]}?id=${dataId[index]}');
                                     },
                                     child: Padding(
                                       padding:
@@ -641,21 +656,14 @@ class _ShopState extends State<Shop> {
                                                                         5.0),
                                                                 child: Row(
                                                                     children: [
-                                                                     data[index]['agent']? data[index]['role'] == 'admin'? Image.network(
+                                                                      Image.network(
                                                                           'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fphone%20white.png?alt=media&token=4e3947e5-19f5-4d17-8d4d-379a63ac9910&_gl=1*tld1ry*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5Nzk1Njk3Mi40NS4xLjE2OTc5NTY5NzkuNTMuMC4w',
                                                                           height: Responsive.isMobile(context)
                                                                               ? 14
                                                                               : 18,
                                                                           width: Responsive.isMobile(context)
                                                                               ? 14
-                                                                              : 18): Image.network(
-                                                                          data[index]['agentpic'],
-                                                                          height: Responsive.isMobile(context)
-                                                                              ? 14
-                                                                              : 18,
-                                                                          width: Responsive.isMobile(context)
-                                                                              ? 14
-                                                                              : 18): SizedBox(),
+                                                                              : 18),
                                                                       const SizedBox(
                                                                           width:
                                                                               6.0),
@@ -677,21 +685,46 @@ class _ShopState extends State<Shop> {
                                                     : Positioned(
                                                         bottom: 0.0,
                                                         right: 0.0,
-                                                        child: Container(
-                                                          width: 70.0,
-                                                          height: 70.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image: NetworkImage(
-                                                                  'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/logo%2Flisting%20logo.png?alt=media&token=027c99f3-34bf-4fb7-a7b0-8ab2289285ae'),
-                                                            ),
-                                                          ),
-                                                        ),
+                                                        child: data[index]
+                                                                ['agent']
+                                                            ? data[index][
+                                                                        'role'] ==
+                                                                    'admin'
+                                                                ? Container(
+                                                                    width: 70.0,
+                                                                    height:
+                                                                        70.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      image:
+                                                                          DecorationImage(
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        image: NetworkImage(
+                                                                            'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/logo%2Flisting%20logo.png?alt=media&token=027c99f3-34bf-4fb7-a7b0-8ab2289285ae'),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                : Container(
+                                                                    width: 70.0,
+                                                                    height:
+                                                                        70.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      image:
+                                                                          DecorationImage(
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        image: NetworkImage(data[index]
+                                                                            ['agentPic']),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                            : SizedBox(),
                                                       )
                                               ],
                                             ),
@@ -783,6 +816,31 @@ class _ShopState extends State<Shop> {
     FirebaseFirestore.instance.collection('Properties List').doc(id).set({
       'whatsapp': FieldValue.increment(1),
     }, SetOptions(merge: true));
+  }
+
+  void _showPopupMenu(BuildContext context, Offset position, var link) {
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    showMenu(
+      context: context,
+      position: RelativeRect.fromRect(position & Size(40, 40),
+          overlay.localToGlobal(Offset.zero) & overlay.size),
+      items: <PopupMenuEntry>[
+        PopupMenuItem(
+          value: 'openInNewTab',
+          child: Text('Open in New Tab'),
+        ),
+      ],
+    ).then((value) {
+      if (value == 'openInNewTab') {
+        _openInNewTab(link);
+      }
+    });
+  }
+
+  void _openInNewTab(String url) {
+    html.window.open(url, '_blank');
   }
 }
 

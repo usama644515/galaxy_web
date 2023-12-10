@@ -29,7 +29,7 @@ void initState() {
     right: 0,
     child: Column(
       children: [
-        const Text('Search Properties for Sale & Rent in Pakistan',
+        const Text('Search Properties for Buy, Sell & Rent in Pakistan',
             style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,

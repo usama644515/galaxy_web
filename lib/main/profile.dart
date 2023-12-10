@@ -547,14 +547,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   await _auth.signOut().then((value) {
                     Provider.of<menuController>(context, listen: false)
                         .navmenueSelect('Home');
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            kIsWeb ? Home() : Bar(ind: 0),
-                      ),
-                      (route) => false,
-                    );
+                    Navigator.pop(context);
+                    context.go('/');
                   });
                 },
               ),

@@ -42,6 +42,7 @@ Future<void> main() async {
         messagingSenderId: "216059000449",
         appId: "1:216059000449:web:3c909ced665996854abf80",
         authDomain: "galaxy-realtors-builders.firebaseapp.com",
+        // authDomain: "galaxyrealtor.pk",
       ),
     );
   } else if (Platform.isIOS) {

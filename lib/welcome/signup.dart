@@ -432,7 +432,7 @@ class _SignUpState extends State<SignUp> {
                 name.clear();
                 email.clear();
                 password.clear();
-                context.go('/login');
+                
               }));
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -441,7 +441,7 @@ class _SignUpState extends State<SignUp> {
     }
 
     await app.delete().then((value) {
-      Navigator.pop(context);
+      context.go('/login');
     });
   }
 }
