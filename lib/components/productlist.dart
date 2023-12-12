@@ -9,10 +9,8 @@ import '../controllers/MenuController.dart';
 import 'product_details.dart';
 
 class ProductList extends StatefulWidget {
-  const ProductList({
-    super.key,
-  });
-
+  const ProductList({super.key, this.fromgegency, this.agencyuid});
+  final fromgegency, agencyuid;
   @override
   State<ProductList> createState() => _ProductListState();
 }
@@ -36,13 +34,21 @@ class _ProductListState extends State<ProductList> {
           child: SizedBox(
             height: Responsive.isMobile(context) ? 240 : 350,
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore
-                  .instance //------for select the item in the firestore----
-                  .collection('Properties List')
-                  // .where('status', isEqualTo: 'Live')
-                  // .where('status', isEqualTo: 'Active')
-                  .orderBy('datetime', descending: true)
-                  .snapshots(),
+              stream: widget.fromgegency != null
+                  ? FirebaseFirestore
+                      .instance //------for select the item in the firestore----
+                      .collection('Properties List')
+                      .where('user', isEqualTo: widget.agencyuid)
+                      // .where('status', isEqualTo: 'Active')
+                      .orderBy('datetime', descending: true)
+                      .snapshots()
+                  : FirebaseFirestore
+                      .instance //------for select the item in the firestore----
+                      .collection('Properties List')
+                      // .where('status', isEqualTo: 'Live')
+                      // .where('status', isEqualTo: 'Active')
+                      .orderBy('datetime', descending: true)
+                      .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
@@ -59,9 +65,11 @@ class _ProductListState extends State<ProductList> {
                       child: const Text('No Data Foulnd'));
                 } else {
                   return ListView.builder(
-                    itemCount: snapshot.data!.docs.length > 10
-                        ? 10
-                        : snapshot.data!.docs.length,
+                    itemCount: widget.fromgegency != null
+                        ? snapshot.data!.docs.length
+                        : snapshot.data!.docs.length > 10
+                            ? 10
+                            : snapshot.data!.docs.length,
                     scrollDirection: Axis.horizontal,
                     controller: _scrollController, // Attach ScrollController
                     itemBuilder: (
@@ -86,11 +94,11 @@ class _ProductListState extends State<ProductList> {
                             // RouteHandler.router
                             //     .navigateTo(context, '/shop/$id');
                             context.go(
-                                        Uri(
-                                          path: '/shop/$id',
-                                          queryParameters: {'id': id},
-                                        ).toString(),
-                                      );
+                              Uri(
+                                path: '/shop/$id',
+                                queryParameters: {'id': id},
+                              ).toString(),
+                            );
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_web/main/bottomBar.dart';
 import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/router/routes.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../components/footer.dart';
@@ -193,10 +194,15 @@ class _AgentsState extends State<Agents> {
                                       //                 data: data[index],
                                       //                 shop: 'true')));
 
-                                      // var id = dataId[index];
-                                      // // Replace with the actual value
-                                      // RouteHandler.router
-                                      //     .navigateTo(context, '/shop/$id');
+                                      var id = dataId[index];
+                                      // print(id);
+                                      // Replace with the actual value
+                                      context.go(
+                                        Uri(
+                                          path: '/agents/$id',
+                                          queryParameters: {'id': id},
+                                        ).toString(),
+                                      );
                                     },
                                     child: Padding(
                                       padding:

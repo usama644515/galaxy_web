@@ -34,7 +34,7 @@ class _AgentCreateState extends State<AgentCreate> {
   final TextEditingController email = TextEditingController();
   final TextEditingController city = TextEditingController();
   final TextEditingController phone = TextEditingController();
-  // final TextEditingController color = TextEditingController();
+  final TextEditingController desc = TextEditingController();
   // final TextEditingController model = TextEditingController();
   // final TextEditingController sample = TextEditingController();
   @override
@@ -596,6 +596,72 @@ class _AgentCreateState extends State<AgentCreate> {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 10.0),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.0, vertical: 10.0),
+                          child: Text(
+                            'Description',
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          // ignore: avoid_unnecessary_containers
+                          child: Container(
+                            child: TextFormField(
+                              maxLines: 3,
+                              validator: (value) {
+                                if (value == "") {
+                                  return "Write Description";
+                                }
+                              },
+                              keyboardType: TextInputType.text,
+                              // readOnly: true, // Make the text field read-only
+                              onChanged: (value) {},
+                              controller: desc,
+                              autofocus: false,
+                              style: const TextStyle(
+                                  fontSize: 15.0,
+                                  color: Color.fromRGBO(0, 0, 0, 1)),
+                              decoration: InputDecoration(
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      // width: 3,
+                                      color: Colors.red), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      // width: 3,
+                                      color: Colors.red), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      // width: 3,
+                                      color: Colors.grey), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    // width: 3,
+                                    color: Color(0xff552C88),
+                                  ), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: 'Write Description',
+                                contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 20.0, top: 20.0),
+                              ),
+                            ),
+                          ),
+                        ),
                         // const SizedBox(
                         //   height: 15,
                         // ),
@@ -709,7 +775,8 @@ class _AgentCreateState extends State<AgentCreate> {
       'UID': _auth.currentUser!.uid,
       'img': imageurl == null ? _auth.currentUser?.photoURL : imageurl,
       'phone': phone.text,
-      'city': city.text
+      'city': city.text,
+      'description': desc.text
     };
     FirebaseFirestore.instance
         .collection('Agents')
