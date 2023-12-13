@@ -72,12 +72,13 @@ Widget MobileSearchBlock(context) {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          kIsWeb ? SearchScreen() : Bar(ind: 2),
-                    ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) =>
+                //           kIsWeb ? SearchScreen() : Bar(ind: 2),
+                //     ));
+                context.go('/search');
               },
               child: Container(
                 height: 49,

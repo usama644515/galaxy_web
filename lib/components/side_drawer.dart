@@ -137,8 +137,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     setState(() {
                       Provider.of<menuController>(context, listen: false)
                           .navmenueSelect('dashboard');
-                          RouteHandler.router
-                                      .navigateTo(context, '/dashboard');
+                      context.go('/dashboard');
                       // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
@@ -358,6 +357,7 @@ class _SideDrawerState extends State<SideDrawer> {
           );
         });
   }
+
   checkPhoneNumber() {
     FirebaseFirestore.instance
         .collection('AllUsers')
@@ -436,7 +436,7 @@ class _SideDrawerState extends State<SideDrawer> {
     FirebaseFirestore.instance
         .collection('AllUsers')
         .doc(_auth.currentUser!.uid)
-        .set(userdata,SetOptions(merge: true))
+        .set(userdata, SetOptions(merge: true))
         .then((value) {
       setState(() {
         // loading = false;

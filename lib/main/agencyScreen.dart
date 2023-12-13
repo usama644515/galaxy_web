@@ -115,7 +115,8 @@ class _AgencyScreenState extends State<AgencyScreen> {
   @override
   void initState() {
     getData();
-    Provider.of<menuController>(context, listen: false).navmenueSelect('Shop');
+    Provider.of<menuController>(context, listen: false)
+        .navmenueSelect('Agents');
     super.initState();
   }
 

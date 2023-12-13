@@ -185,7 +185,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Blogs",
+                      "Galaxy Blogs",
                       style: TextStyle(
                           fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
                           fontWeight: FontWeight.bold),

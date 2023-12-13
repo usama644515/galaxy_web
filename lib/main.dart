@@ -18,6 +18,7 @@ import 'package:galaxy_web/main/home.dart';
 import 'package:galaxy_web/router/routes.dart';
 import 'package:galaxy_web/welcome/signin.dart';
 import 'package:galaxy_web/welcome/signup.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:provider/provider.dart';
 import 'package:seo_renderer/seo_renderer.dart';
 import 'dashboard/DashBoardSection/main/main_screen.dart';
@@ -68,7 +69,9 @@ Future<void> main() async {
   // RouteHandler.defineRoutes();
   // Initialize the router for web
   // FluroRouter.setupRouter();
-
+  if (kIsWeb) {
+    MetaSEO().config();
+  }
   runApp(MyApp());
   // Listen to changes in the URL
   // html.window.onPopState.listen((html.Event e) {
@@ -93,7 +96,22 @@ final _router = GoRouter(
       name:
           'Home', // Optional, add name to your routes. Allows you navigate by name instead of path
       path: '/',
-      builder: (context, state) => Home(),
+      builder: (context, state) {
+        // Add MetaSEO just into Web platform condition
+        if (kIsWeb) {
+          // Define MetaSEO object
+          MetaSEO meta = MetaSEO();
+          // add meta seo data for web app as you want
+          meta.ogTitle(ogTitle: 'Galaxy Realtor Builder - Home');
+          meta.description(
+              description:
+                  "Explore Galaxy Realtor Builder's exceptional real estate projects that bring innovation and luxury to life. Discover your dream home among the stars. Contact us for exclusive property opportunities.");
+          meta.keywords(
+              keywords:
+                  'buch villas, buch villas multan, galaxy realtor, galaxy builder, buch, buch villa, galaxy realtor builder, houses for sale, house for sale, royal orchard, multan, dha multan, dha, plots for sale, plots in multan');
+        }
+        return Home();
+      },
     ),
     GoRoute(
       name:

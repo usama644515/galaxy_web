@@ -29,11 +29,14 @@ class _AboutUsState extends State<AboutUs> {
           .navmenueSelect('Home');
     });
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => kIsWeb ? Home() : Bar(ind: 0),),
+      MaterialPageRoute(
+        builder: (context) => kIsWeb ? Home() : Bar(ind: 0),
+      ),
       (route) => false, // Always return false to remove all routes
     );
     return Future.value(false);
   }
+
   @override
   void initState() {
     super.initState();
@@ -58,7 +61,7 @@ class _AboutUsState extends State<AboutUs> {
                   decoration: const BoxDecoration(color: Colors.black),
                 ),
                 Responsive.isMobile(context)
-                    ? MobileNavBar(scaffoldKey,context)
+                    ? MobileNavBar(scaffoldKey, context)
                     : const NavBar(),
               ],
             ),
@@ -88,73 +91,92 @@ class _AboutUsState extends State<AboutUs> {
             const SizedBox(
               height: 20.0,
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: Responsive.isMobile(context) ? 20 : 50.0,
-                  right: Responsive.isMobile(context)
-                      ? 20
-                      : MediaQuery.of(context).size.width * 0.4),
-              child:  MouseRegion(
-                cursor: SystemMouseCursors.text,
-                child: Text(
-                  "Galaxy Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Galaxy Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
-                  style: TextStyle(fontSize: Responsive.isMobile(context)
-                            ? 13: 17.0),
-                  textAlign: TextAlign.justify,
+           Responsive.isMobile(context)? Padding(
+             padding: const EdgeInsets.all(15.0),
+             child: Column(
+              children: [
+                Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/images%2Freal%20estate.webp?alt=media&token=c8b25a6c-352f-4323-b4c9-bced82f7b581',
+                      ),
+                      SizedBox(height: 20.0,),
+                      Text(
+                        "Galaxy Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Galaxy Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 13 : 17.0),
+                        textAlign: TextAlign.justify,
+                      ),
+              ],
+             ),
+           ) :Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                MouseRegion(
+                  cursor: SystemMouseCursors.text,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Text(
+                      "Galaxy Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Galaxy Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
+                      style: TextStyle(
+                          fontSize: Responsive.isMobile(context) ? 13 : 17.0),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
                 ),
-              ),
+                Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/images%2Freal%20estate.webp?alt=media&token=c8b25a6c-352f-4323-b4c9-bced82f7b581',
+                    width: MediaQuery.of(context).size.width * 0.4)
+              ],
             ),
             Padding(
               padding: EdgeInsets.only(
-                top: 25.0,
+                  top: 25.0,
                   left: Responsive.isMobile(context) ? 20 : 50.0,
                   right: Responsive.isMobile(context)
                       ? 20
                       : MediaQuery.of(context).size.width * 0.3),
               child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore
-                  .instance //------for select the item in the firestore----
-                  .collection('Team')
-                  // .where('status', isEqualTo: 'Live')
-                  .orderBy('order', descending: false)
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Container(
-                      alignment: Alignment.topCenter,
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const CircularProgressIndicator(
-                          backgroundColor: Colors.grey,
-                          color: Color(0xffF9A51F)));
-                } else if (snapshot.data!.docs.length == 0) {
-                  return Container(
-                      alignment: Alignment.topCenter,
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const Text('No Data Found'));
-                } else {
-                  return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: Responsive.isMobile(context)
-                          ? 0.8
-                          : 1.0, 
-                  crossAxisCount:
-                    Responsive.isMobile(context)
-                          ?2:  3, // You can adjust the number of columns as needed
-                ),
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot data = snapshot.data!.docs[index];
-                  return TeamCard(
-                    teamMember: data,
-                  );
+                stream: FirebaseFirestore
+                    .instance //------for select the item in the firestore----
+                    .collection('Team')
+                    // .where('status', isEqualTo: 'Live')
+                    .orderBy('order', descending: false)
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container(
+                        alignment: Alignment.topCenter,
+                        margin: const EdgeInsets.only(top: 20),
+                        child: const CircularProgressIndicator(
+                            backgroundColor: Colors.grey,
+                            color: Color(0xffF9A51F)));
+                  } else if (snapshot.data!.docs.length == 0) {
+                    return Container(
+                        alignment: Alignment.topCenter,
+                        margin: const EdgeInsets.only(top: 20),
+                        child: const Text(''));
+                  } else {
+                    return GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio:
+                            Responsive.isMobile(context) ? 0.8 : 1.0,
+                        crossAxisCount: Responsive.isMobile(context)
+                            ? 2
+                            : 3, // You can adjust the number of columns as needed
+                      ),
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot data = snapshot.data!.docs[index];
+                        return TeamCard(
+                          teamMember: data,
+                        );
+                      },
+                    );
+                  }
                 },
-              );
-                }
-              },
-            ),
+              ),
             ),
             Responsive.isMobile(context)
                 ? const FooterMobile()

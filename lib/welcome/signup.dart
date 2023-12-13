@@ -63,7 +63,7 @@ class _SignUpState extends State<SignUp> {
                   //     : MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding:  EdgeInsets.only(top:Responsive.isMobile(context)? MediaQuery.of(context).size.height*0.07: 0.0),
+                    padding:  EdgeInsets.only(top:Responsive.isMobile(context)? MediaQuery.of(context).size.height*0.03: 0.0),
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
