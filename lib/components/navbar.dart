@@ -71,16 +71,16 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 50.0,
+      height: 70.0,
       // decoration: BoxDecoration(),
       child: Stack(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 15.0, top: 10.0),
             child: Image.network(
-              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',
+              'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/splash%20icon.png?alt=media&token=f1349db9-4cc0-4902-bb4b-636ab022e07d',
               fit: BoxFit.cover,
-              width: 170,
+              width: 140,
             ),
           ),
           Padding(
@@ -418,7 +418,7 @@ class _NavBarState extends State<NavBar> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              _launchPhone('923000335875');
+                              _launchPhone('923000172599');
                             },
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
@@ -438,7 +438,7 @@ class _NavBarState extends State<NavBar> {
                                       ),
                                       const SizedBox(width: 6.0),
                                       const Text(
-                                        '0300-0335875',
+                                        '0300-0172599',
                                         style: TextStyle(
                                             fontSize: 15.0,
                                             color: Colors.white,

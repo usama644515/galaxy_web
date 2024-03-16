@@ -33,15 +33,15 @@ class _FooterState extends State<Footer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.network(
-                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',
+                        'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/IMG_3045.PNG?alt=media&token=f85e5106-725b-49f6-b033-76b6217629c1',
                         fit: BoxFit.cover,
-                        width: 200,
+                        width: 140,
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
                       const Text(
-                        'Galaxy Realtors and Builders is a reputable real estate company recognized for its excellence in residential and commercial property development. Renowned for their commitment to quality and customer satisfaction, they have consistently delivered exceptional projects in their region, establishing themselves as a trusted name in the real estate industry.',
+                        'Pretorian Realtors and Builders is a reputable real estate company recognized for its excellence in residential and commercial property development. Renowned for their commitment to quality and customer satisfaction, they have consistently delivered exceptional projects in their region, establishing themselves as a trusted name in the real estate industry.',
                         style: TextStyle(
                             fontSize: 15.0,
                             color: Color(0xffBDBDBD),
@@ -253,7 +253,7 @@ class _FooterState extends State<Footer> {
                           ),
                           const SizedBox(width: 10.0),
                           const Text(
-                            '0300-0335875 \n0301-1285988',
+                            '0300-0172599 \n0330-9534444',
                             style: TextStyle(
                                 fontSize: 16.0,
                                 color: Color(0xffBDBDBD),
@@ -275,7 +275,7 @@ class _FooterState extends State<Footer> {
                           ),
                           const SizedBox(width: 10.0),
                           const Text(
-                            'galaxyrealtorsbuilders.com',
+                            'pretorianrealtorbuilder@gmail.com',
                             style: TextStyle(
                                 fontSize: 16.0,
                                 color: Color(0xffBDBDBD),
@@ -306,7 +306,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.facebook.com/galaxyrealtorsandbuilders');
+                                  'https://www.facebook.com/pretorianrealtorsbuilders');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fpngwing.com%20(1).png?alt=media&token=c3a47eda-c909-4424-9150-400cdf2b7db0',
@@ -322,7 +322,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.instagram.com/galaxyrealtorsbuilders?igshid=MzRlODBiNWFlZA%3D%3D');
+                                  'https://www.instagram.com/pretorianrealtorbuilder?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',
@@ -358,7 +358,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.tiktok.com/@galaxyrealtorsbuilders75?is_from_webapp=1&sender_device=pc');
+                                  'https://www.tiktok.com/@pretorainrealtorbuilder?is_from_webapp=1&sender_device=pc');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Ftik-tok.png?alt=media&token=a79765b5-c0b4-416d-9a9d-4930fdd74caf&_gl=1*1cg7ddv*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODQ5MDM0OC42Ni4xLjE2OTg0OTE5MTAuMTIuMC4w',
@@ -392,7 +392,7 @@ class _FooterState extends State<Footer> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    '© Copyright 2023 Galaxy Realtors Builders. All Rights Reserved',
+                    '© Copyright 2023 Pretorian Realtors Builders. All Rights Reserved',
                     style: TextStyle(fontSize: 15.0, color: Color(0xff707070)))
               ],
             ),

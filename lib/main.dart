@@ -102,13 +102,13 @@ final _router = GoRouter(
           // Define MetaSEO object
           MetaSEO meta = MetaSEO();
           // add meta seo data for web app as you want
-          meta.ogTitle(ogTitle: 'Galaxy Realtor Builder - Home');
+          meta.ogTitle(ogTitle: 'Pretorian Realtor Builder - Home');
           meta.description(
               description:
-                  "Explore Galaxy Realtor Builder's exceptional real estate projects that bring innovation and luxury to life. Discover your dream home among the stars. Contact us for exclusive property opportunities.");
+                  "Explore Pretorian Realtor Builder's exceptional real estate projects that bring innovation and luxury to life. Discover your dream home among the stars. Contact us for exclusive property opportunities.");
           meta.keywords(
               keywords:
-                  'buch villas, buch villas multan, galaxy realtor, galaxy builder, buch, buch villa, galaxy realtor builder, houses for sale, house for sale, royal orchard, multan, dha multan, dha, plots for sale, plots in multan');
+                  'buch villas, buch villas multan, galaxy realtor, galaxy builder, buch, buch villa, Pretorian Realtor Builder, houses for sale, house for sale, royal orchard, multan, dha multan, dha, plots for sale, plots in multan');
         }
         return Home();
       },
@@ -213,7 +213,7 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp.router(
           routerConfig: _router,
           debugShowCheckedModeBanner: false,
-          title: 'Galaxy Realtors Builders',
+          title: 'Pretorian Realtor Builder',
           // home: kIsWeb ? Home() : Bar(ind: 0),
           // navigatorObservers: [seoRouteObserver],
           // onGenerateRoute: RouteHandler.router.generator,

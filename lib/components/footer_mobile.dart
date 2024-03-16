@@ -114,7 +114,7 @@ class _FooterMobileState extends State<FooterMobile> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: const Text(
-                        '© Copyright 2023 Galaxy Realtors Builders. All Rights Reserved',
+                        '© Copyright 2023 Pretorian Realtors Builders. All Rights Reserved',
                         style: TextStyle(
                             fontSize: 15.0, color: Color(0xff707070))),
                   )

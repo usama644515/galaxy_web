@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.only(
                     left: Responsive.isMobile(context) ? 20 : 50.0, top: 40.0),
                 child: Text(
-                  "Explore more on Galaxy",
+                  "Explore more on Pretorian",
                   style: TextStyle(
                       fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
                       fontWeight: FontWeight.bold),
@@ -139,7 +139,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Galaxy Projects",
+                      "Pretorian Projects",
                       style: TextStyle(
                           fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
                           fontWeight: FontWeight.bold),
@@ -185,7 +185,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Galaxy Blogs",
+                      "Pretorian Blogs",
                       style: TextStyle(
                           fontSize: Responsive.isMobile(context) ? 20.0 : 25.0,
                           fontWeight: FontWeight.bold),

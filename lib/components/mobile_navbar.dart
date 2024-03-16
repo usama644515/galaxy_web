@@ -38,9 +38,9 @@ Widget MobileNavBar(var drawerstate, context) {
                     context.go('/');
               },
               child: Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/galaxy%20logo%20w-011.png?alt=media&token=c99628aa-543a-4440-b4a9-209cdfece996',
+                'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/splash%20icon.png?alt=media&token=f1349db9-4cc0-4902-bb4b-636ab022e07d',
                 fit: BoxFit.cover,
-                width: 150,
+                width: 125,
               ),
             ),
           ],
@@ -51,7 +51,7 @@ Widget MobileNavBar(var drawerstate, context) {
         top: 15.0,
         child: GestureDetector(
           onTap: () {
-            _launchPhone('923000335875');
+            _launchPhone('923000172599');
           },
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
@@ -72,7 +72,7 @@ Widget MobileNavBar(var drawerstate, context) {
                     ),
                     const SizedBox(width: 4.0),
                     const Text(
-                      '0300-0335875',
+                      '0300-0172599',
                       style: TextStyle(
                           fontSize: 9.0,
                           color: Colors.white,

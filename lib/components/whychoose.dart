@@ -48,7 +48,7 @@ class _WhyChooseSectionState extends State<WhyChooseSection> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Why Galaxy Realtors Builders?',
+                        'Why Pretorian Realtors Builders?',
                         style: TextStyle(
                             fontSize: Responsive.isMobile(context) ? 26 : 30.0,
                             fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class _WhyChooseSectionState extends State<WhyChooseSection> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: Text(
-                          'Welcome to Galaxy Realtor Builder – your gateway to a seamless real estate experience. Unlock the potential of our innovative portal, designed for real estate agencies and agents to effortlessly create accounts and listings. With user-friendly features, managing properties becomes a breeze, enhancing your online presence and connectivity with potential clients. Join us at Galaxy Realtor Builder and step into a future where efficiency and innovation redefine the real estate landscape.',
+                          'Welcome to Pretorian Realtor Builder – your gateway to a seamless real estate experience. Unlock the potential of our innovative portal, designed for real estate agencies and agents to effortlessly create accounts and listings. With user-friendly features, managing properties becomes a breeze, enhancing your online presence and connectivity with potential clients. Join us at Pretorian Realtor Builder and step into a future where efficiency and innovation redefine the real estate landscape.',
                           style: TextStyle(
                               fontSize:
                                   Responsive.isMobile(context) ? 12.0 : 15.0,
