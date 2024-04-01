@@ -125,7 +125,7 @@ class _BlogState extends State<Blog> {
           ),
           loader
               ? const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F)))
+                  child: CircularProgressIndicator(color: Color(0xffE5B920)))
               : Padding(
                   padding: EdgeInsets.only(
                       left: Responsive.isMobile(context) ? 10 : 120.0,
@@ -247,7 +247,7 @@ class _BlogState extends State<Blog> {
                                                       child:
                                                           CircularProgressIndicator(
                                                               color: Color(
-                                                                  0xffF9A51F))),
+                                                                  0xffE5B920))),
                                               errorWidget:
                                                   (context, url, error) =>
                                                       const Icon(Icons.error),
@@ -329,11 +329,14 @@ class _BlogState extends State<Blog> {
                                                               const EdgeInsets
                                                                   .only(
                                                                   left: 20),
-                                                          child: Text("Posted: ${_date(data[
-                                                                      index]
-                                                                  ['datetime']
-                                                              .toDate()
-                                                              .toString())}",style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w600)),
+                                                          child: Text(
+                                                              "Posted: ${_date(data[index]['datetime'].toDate().toString())}",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      15.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600)),
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {},
@@ -350,12 +353,12 @@ class _BlogState extends State<Blog> {
                                                                           .circular(
                                                                               5.0),
                                                                   color: const Color(
-                                                                      0xffF9A51F),
+                                                                      0xffE5B920),
                                                                   border: Border.all(
                                                                       width:
                                                                           2.0,
                                                                       color: const Color(
-                                                                          0xffF9A51F))),
+                                                                          0xffE5B920))),
                                                               child: Padding(
                                                                 padding: EdgeInsets.only(
                                                                     left: Responsive.isMobile(
@@ -510,7 +513,7 @@ class _FilterState extends State<Filter> {
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(
-                  color: hover ? const Color(0xffF9A51F) : Colors.grey),
+                  color: hover ? const Color(0xffE5B920) : Colors.grey),
               borderRadius: BorderRadius.circular(10.0)),
           child: Padding(
             padding: const EdgeInsets.only(
@@ -522,7 +525,7 @@ class _FilterState extends State<Filter> {
             child: Center(
               child: Text(widget.data,
                   style: TextStyle(
-                    color: hover ? const Color(0xffF9A51F) : Colors.black,
+                    color: hover ? const Color(0xffE5B920) : Colors.black,
                     fontSize: 17.0,
                   )),
             ),

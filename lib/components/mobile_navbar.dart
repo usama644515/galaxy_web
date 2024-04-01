@@ -25,17 +25,17 @@ Widget MobileNavBar(var drawerstate, context) {
             ),
           )),
       Padding(
-        padding: const EdgeInsets.only(top:10.0),
+        padding: const EdgeInsets.only(top: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap:(){
+              onTap: () {
                 Provider.of<menuController>(context, listen: false)
-                        .navmenueSelect('Home');
-                    // Replace with the actual value
-                    // RouteHandler.router.navigateTo(context, '/');
-                    context.go('/');
+                    .navmenueSelect('Home');
+                // Replace with the actual value
+                // RouteHandler.router.navigateTo(context, '/');
+                context.go('/');
               },
               child: Image.network(
                 'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/splash%20icon.png?alt=media&token=f1349db9-4cc0-4902-bb4b-636ab022e07d',
@@ -59,7 +59,7 @@ Widget MobileNavBar(var drawerstate, context) {
                 height: 26,
                 width: 90,
                 decoration: BoxDecoration(
-                    color: const Color(0xffF9A51F),
+                    color: const Color(0xffE8BB2A),
                     borderRadius: BorderRadius.circular(20)),
                 child: Center(
                     child: Row(

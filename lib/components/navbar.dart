@@ -76,11 +76,11 @@ class _NavBarState extends State<NavBar> {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+            padding: const EdgeInsets.only(left: 15.0, top: 6.0),
             child: Image.network(
               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/splash%20icon.png?alt=media&token=f1349db9-4cc0-4902-bb4b-636ab022e07d',
               fit: BoxFit.cover,
-              width: 140,
+              width: 110,
             ),
           ),
           Padding(
@@ -122,11 +122,11 @@ class _NavBarState extends State<NavBar> {
                                           listen: false)
                                       .menue ==
                                   'Home'
-                              ? const Color(0xffF9A51F)
+                              ? const Color(0xffE8BB2A)
                               : Colors.transparent,
                           border: Border.all(
                             color: homehover
-                                ? const Color(0xffF9A51F)
+                                ? const Color(0xffE8BB2A)
                                 : Colors.transparent,
                           )),
                       child: const Padding(
@@ -173,11 +173,11 @@ class _NavBarState extends State<NavBar> {
                                           listen: false)
                                       .menue ==
                                   'Shop'
-                              ? const Color(0xffF9A51F)
+                              ? const Color(0xffE8BB2A)
                               : Colors.transparent,
                           border: Border.all(
                             color: shophover
-                                ? const Color(0xffF9A51F)
+                                ? const Color(0xffE8BB2A)
                                 : Colors.transparent,
                           )),
                       child: const Padding(
@@ -224,11 +224,11 @@ class _NavBarState extends State<NavBar> {
                                           listen: false)
                                       .menue ==
                                   'Agents'
-                              ? const Color(0xffF9A51F)
+                              ? const Color(0xffE8BB2A)
                               : Colors.transparent,
                           border: Border.all(
                             color: agenthover
-                                ? const Color(0xffF9A51F)
+                                ? const Color(0xffE8BB2A)
                                 : Colors.transparent,
                           )),
                       child: const Padding(
@@ -272,11 +272,11 @@ class _NavBarState extends State<NavBar> {
                                           listen: false)
                                       .menue ==
                                   'Blog'
-                              ? const Color(0xffF9A51F)
+                              ? const Color(0xffE8BB2A)
                               : Colors.transparent,
                           border: Border.all(
                             color: bloghover
-                                ? const Color(0xffF9A51F)
+                                ? const Color(0xffE8BB2A)
                                 : Colors.transparent,
                           )),
                       child: const Padding(
@@ -325,11 +325,11 @@ class _NavBarState extends State<NavBar> {
                                           listen: false)
                                       .menue ==
                                   'About'
-                              ? const Color(0xffF9A51F)
+                              ? const Color(0xffE8BB2A)
                               : Colors.transparent,
                           border: Border.all(
                             color: abouthover
-                                ? const Color(0xffF9A51F)
+                                ? const Color(0xffE8BB2A)
                                 : Colors.transparent,
                           )),
                       child: const Padding(
@@ -379,11 +379,11 @@ class _NavBarState extends State<NavBar> {
                                           listen: false)
                                       .menue ==
                                   'Contact'
-                              ? const Color(0xffF9A51F)
+                              ? const Color(0xffE8BB2A)
                               : Colors.transparent,
                           border: Border.all(
                             color: contacthover
-                                ? const Color(0xffF9A51F)
+                                ? const Color(0xffE8BB2A)
                                 : Colors.transparent,
                           )),
                       child: const Padding(
@@ -426,7 +426,7 @@ class _NavBarState extends State<NavBar> {
                                   height: 35,
                                   width: 150,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xffF9A51F),
+                                      color: const Color(0xffE8BB2A),
                                       borderRadius: BorderRadius.circular(20)),
                                   child: Center(
                                       child: Row(
@@ -478,7 +478,7 @@ class _NavBarState extends State<NavBar> {
                                       //     : const Color(0xffFD1A1A),
                                       border: Border.all(
                                           color: loginbtn
-                                              ? const Color(0xffF9A51F)
+                                              ? const Color(0xffE8BB2A)
                                               : Colors.transparent),
                                       borderRadius: BorderRadius.circular(5)),
                                   child: Center(
@@ -522,7 +522,7 @@ class _NavBarState extends State<NavBar> {
                                       color: signupbtn
                                           ? const Color.fromARGB(
                                               255, 206, 139, 30)
-                                          : const Color(0xffF9A51F),
+                                          : const Color(0xffE8BB2A),
                                       borderRadius: BorderRadius.circular(5)),
                                   child: const Center(
                                       child: Text(
@@ -548,7 +548,7 @@ class _NavBarState extends State<NavBar> {
                                   height: 35,
                                   width: 150,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xffF9A51F),
+                                      color: const Color(0xffE8BB2A),
                                       borderRadius: BorderRadius.circular(20)),
                                   child: Center(
                                       child: Row(
@@ -594,7 +594,7 @@ class _NavBarState extends State<NavBar> {
                                       color: signupbtn
                                           ? const Color.fromARGB(
                                               255, 206, 139, 30)
-                                          : const Color(0xffF9A51F),
+                                          : const Color(0xffE8BB2A),
                                       borderRadius: BorderRadius.circular(5)),
                                   child: const Center(
                                       child: Text(

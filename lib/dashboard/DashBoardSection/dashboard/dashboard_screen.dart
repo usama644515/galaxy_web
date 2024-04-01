@@ -220,7 +220,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                 const Center(
                                                                     child: CircularProgressIndicator(
                                                                         color: Color(
-                                                                            0xffF9A51F))),
+                                                                            0xffE8BB2A))),
                                                             errorWidget: (context,
                                                                     url,
                                                                     error) =>
@@ -399,14 +399,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                           child:
                                                                               Container(
                                                                             decoration:
-                                                                                BoxDecoration(borderRadius: BorderRadius.circular(5.0), border: Border.all(width: 2.0, color: const Color(0xffF9A51F))),
+                                                                                BoxDecoration(borderRadius: BorderRadius.circular(5.0), border: Border.all(width: 2.0, color: const Color(0xffE8BB2A))),
                                                                             child:
                                                                                 Padding(
                                                                               padding: EdgeInsets.only(left: Responsive.isMobile(context) ? 7.0 : 8.0, right: Responsive.isMobile(context) ? 7.0 : 8.0, top: 5.0, bottom: 5.0),
                                                                               child: Row(children: [
                                                                                 Image.network('https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Fwhatsapp.png?alt=media&token=89a781dc-cdc9-424c-96dc-d996eaabd8ae&_gl=1*tgw0tl*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5NzcwOTk0Ni40MC4xLjE2OTc3MDk5ODMuMjMuMC4w', height: Responsive.isMobile(context) ? 14 : 18, width: Responsive.isMobile(context) ? 14 : 18),
                                                                                 const SizedBox(width: 6.0),
-                                                                                Text('WhatsApp', style: TextStyle(color: const Color(0xffF9A51F), fontSize: Responsive.isMobile(context) ? 14 : 16.0, fontWeight: FontWeight.w600))
+                                                                                Text('WhatsApp', style: TextStyle(color: const Color(0xffE8BB2A), fontSize: Responsive.isMobile(context) ? 14 : 16.0, fontWeight: FontWeight.w600))
                                                                               ]),
                                                                             ),
                                                                           ),
@@ -424,8 +424,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                               Container(
                                                                             decoration: BoxDecoration(
                                                                                 borderRadius: BorderRadius.circular(5.0),
-                                                                                color: const Color(0xffF9A51F),
-                                                                                border: Border.all(width: 2.0, color: const Color(0xffF9A51F))),
+                                                                                color: const Color(0xffE8BB2A),
+                                                                                border: Border.all(width: 2.0, color: const Color(0xffE8BB2A))),
                                                                             child:
                                                                                 Padding(
                                                                               padding: EdgeInsets.only(left: Responsive.isMobile(context) ? 7.0 : 8.0, right: Responsive.isMobile(context) ? 7.0 : 8.0, top: 5.0, bottom: 5.0),

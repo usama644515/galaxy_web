@@ -36,7 +36,7 @@ class LogoSection extends StatelessWidget {
                     ),
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                            color: Color(0xffF9A51F))),
+                            color: Color(0xffE5B920))),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -55,7 +55,7 @@ class LogoSection extends StatelessWidget {
                     ),
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                            color: Color(0xffF9A51F))),
+                            color: Color(0xffE5B920))),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -74,7 +74,7 @@ class LogoSection extends StatelessWidget {
                     ),
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                            color: Color(0xffF9A51F))),
+                            color: Color(0xffE5B920))),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -93,7 +93,7 @@ class LogoSection extends StatelessWidget {
                     ),
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                            color: Color(0xffF9A51F))),
+                            color: Color(0xffE5B920))),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -112,7 +112,7 @@ class LogoSection extends StatelessWidget {
                     ),
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                            color: Color(0xffF9A51F))),
+                            color: Color(0xffE5B920))),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -131,7 +131,7 @@ class LogoSection extends StatelessWidget {
                     ),
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                            color: Color(0xffF9A51F))),
+                            color: Color(0xffE5B920))),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -163,7 +163,7 @@ class LogoSection extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                  child: CircularProgressIndicator(color: Color(0xffE5B920))),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             CachedNetworkImage(
@@ -180,7 +180,7 @@ class LogoSection extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                  child: CircularProgressIndicator(color: Color(0xffE5B920))),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             CachedNetworkImage(
@@ -197,7 +197,7 @@ class LogoSection extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                  child: CircularProgressIndicator(color: Color(0xffE5B920))),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ],
@@ -222,7 +222,7 @@ class LogoSection extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                  child: CircularProgressIndicator(color: Color(0xffE5B920))),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             CachedNetworkImage(
@@ -239,7 +239,7 @@ class LogoSection extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                  child: CircularProgressIndicator(color: Color(0xffE5B920))),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             CachedNetworkImage(
@@ -256,7 +256,7 @@ class LogoSection extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F))),
+                  child: CircularProgressIndicator(color: Color(0xffE5B920))),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ],

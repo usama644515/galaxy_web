@@ -98,7 +98,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                   height: 35,
                                   width: 120,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xffF9A51F),
+                                      color: const Color(0xffE5B920),
                                       borderRadius: BorderRadius.circular(5)),
                                   child: const Center(
                                       child: Text(

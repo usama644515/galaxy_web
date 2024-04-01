@@ -48,12 +48,13 @@ class _BarState extends State<Bar> {
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0),
               ),
-                color: Colors.white, ),
+              color: Colors.white,
+            ),
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
             height: MediaQuery.of(context).size.height * 0.08,
             child: Padding(
-              padding: const EdgeInsets.only(top:5.0),
+              padding: const EdgeInsets.only(top: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -72,25 +73,27 @@ class _BarState extends State<Bar> {
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/images/home.svg',
-                        height: chk[0]
-                              ? MediaQuery.of(context).size.height * 0.035
-                              : MediaQuery.of(context).size.height * 0.03,
-                      color: chk[0]? Color(0xffF9A51F):  Colors.grey),
-                        SizedBox(height: 3.0,),
+                            height: chk[0]
+                                ? MediaQuery.of(context).size.height * 0.035
+                                : MediaQuery.of(context).size.height * 0.03,
+                            color: chk[0] ? Color(0xffE5B920) : Colors.grey),
+                        SizedBox(
+                          height: 3.0,
+                        ),
                         Text(
                           "Home",
                           style: chk[0]
-                              ?  TextStyle(
+                              ? TextStyle(
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1,
                                   fontSize: 14,
-                                  color: chk[0]? Color(0xffF9A51F):  Colors.grey
-                                )
-                              :  TextStyle(
+                                  color:
+                                      chk[0] ? Color(0xffE5B920) : Colors.grey)
+                              : TextStyle(
                                   fontSize: 14,
                                   letterSpacing: 1,
-                                  color: chk[0]? Color(0xffF9A51F):  Colors.grey
-                                ),
+                                  color:
+                                      chk[0] ? Color(0xffE5B920) : Colors.grey),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -111,25 +114,27 @@ class _BarState extends State<Bar> {
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/images/shop.svg',
-                        height: chk[1]
-                              ? MediaQuery.of(context).size.height * 0.035
-                              : MediaQuery.of(context).size.height * 0.03,
-                      color: chk[1]? Color(0xffF9A51F):  Colors.grey),
-                        SizedBox(height: 3.0,),
+                            height: chk[1]
+                                ? MediaQuery.of(context).size.height * 0.035
+                                : MediaQuery.of(context).size.height * 0.03,
+                            color: chk[1] ? Color(0xffE5B920) : Colors.grey),
+                        SizedBox(
+                          height: 3.0,
+                        ),
                         Text(
                           "Shop",
                           style: chk[1]
-                              ?  TextStyle(
+                              ? TextStyle(
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1,
                                   fontSize: 14,
-                                  color: chk[1]? Color(0xffF9A51F):  Colors.grey
-                                )
-                              :  TextStyle(
+                                  color:
+                                      chk[1] ? Color(0xffE5B920) : Colors.grey)
+                              : TextStyle(
                                   fontSize: 14,
                                   letterSpacing: 1,
-                                  color: chk[1]? Color(0xffF9A51F):  Colors.grey
-                                ),
+                                  color:
+                                      chk[1] ? Color(0xffE5B920) : Colors.grey),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -150,25 +155,27 @@ class _BarState extends State<Bar> {
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/images/search.svg',
-                        height: chk[2]
-                              ? MediaQuery.of(context).size.height * 0.035
-                              : MediaQuery.of(context).size.height * 0.03,
-                      color: chk[2]? Color(0xffF9A51F):  Colors.grey),
-                        SizedBox(height: 3.0,),
+                            height: chk[2]
+                                ? MediaQuery.of(context).size.height * 0.035
+                                : MediaQuery.of(context).size.height * 0.03,
+                            color: chk[2] ? Color(0xffE5B920) : Colors.grey),
+                        SizedBox(
+                          height: 3.0,
+                        ),
                         Text(
                           "Search",
                           style: chk[2]
-                              ?  TextStyle(
+                              ? TextStyle(
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1,
                                   fontSize: 14,
-                                  color: chk[2]? Color(0xffF9A51F):  Colors.grey
-                                )
-                              :  TextStyle(
+                                  color:
+                                      chk[2] ? Color(0xffE5B920) : Colors.grey)
+                              : TextStyle(
                                   fontSize: 14,
                                   letterSpacing: 1,
-                                  color: chk[2]? Color(0xffF9A51F):  Colors.grey
-                                ),
+                                  color:
+                                      chk[2] ? Color(0xffE5B920) : Colors.grey),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -189,25 +196,27 @@ class _BarState extends State<Bar> {
                     child: Column(
                       children: [
                         SvgPicture.asset('assets/images/profile.svg',
-                        height: chk[3]
-                              ? MediaQuery.of(context).size.height * 0.035
-                              : MediaQuery.of(context).size.height * 0.03,
-                      color: chk[3]? Color(0xffF9A51F):  Colors.grey),
-                        SizedBox(height: 3.0,),
+                            height: chk[3]
+                                ? MediaQuery.of(context).size.height * 0.035
+                                : MediaQuery.of(context).size.height * 0.03,
+                            color: chk[3] ? Color(0xffE5B920) : Colors.grey),
+                        SizedBox(
+                          height: 3.0,
+                        ),
                         Text(
                           "Profile",
                           style: chk[3]
-                              ?  TextStyle(
+                              ? TextStyle(
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1,
                                   fontSize: 14,
-                                  color: chk[3]? Color(0xffF9A51F):  Colors.grey
-                                )
-                              :  TextStyle(
+                                  color:
+                                      chk[3] ? Color(0xffE5B920) : Colors.grey)
+                              : TextStyle(
                                   fontSize: 14,
                                   letterSpacing: 1,
-                                  color: chk[3]? Color(0xffF9A51F):  Colors.grey
-                                ),
+                                  color:
+                                      chk[3] ? Color(0xffE5B920) : Colors.grey),
                           textAlign: TextAlign.center,
                         ),
                       ],

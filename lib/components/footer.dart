@@ -306,7 +306,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.facebook.com/pretorianrealtorsbuilders');
+                                  'https://www.facebook.com/pretorianrealtorsbuilder?mibextid=ZbWKwL');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fpngwing.com%20(1).png?alt=media&token=c3a47eda-c909-4424-9150-400cdf2b7db0',
@@ -322,7 +322,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.instagram.com/pretorianrealtorbuilder?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==');
+                                  'https://www.instagram.com/pretorianrealtorsbuilder/');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Finstagram.png?alt=media&token=0108cb55-c1fc-44a4-b306-3bb7503d06ac',
@@ -338,7 +338,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://youtube.com/@galaxyrealtorsbuilders3129?si=YTrm5RzKtMvvtU7f');
+                                  'https://www.youtube.com/@Pretorianrealtorsbuilder');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/social%20media%20logo%2Fyoutube.png?alt=media&token=d6efd871-aa3e-4c96-8f6b-3c6229da8be6',
@@ -358,7 +358,7 @@ class _FooterState extends State<Footer> {
                           child: GestureDetector(
                             onTap: () {
                               _openUrlInNewTab(
-                                  'https://www.tiktok.com/@pretorainrealtorbuilder?is_from_webapp=1&sender_device=pc');
+                                  'https://www.tiktok.com/@pretorianrealtorsbuilder');
                             },
                             child: Image.network(
                               'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/icon%2Ftik-tok.png?alt=media&token=a79765b5-c0b4-416d-9a9d-4930fdd74caf&_gl=1*1cg7ddv*_ga*MjA0NDc2NTQ3NC4xNjk1ODk1OTcx*_ga_CW55HF8NVT*MTY5ODQ5MDM0OC42Ni4xLjE2OTg0OTE5MTAuMTIuMC4w',

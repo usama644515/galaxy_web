@@ -112,7 +112,7 @@ class _AgentCreateState extends State<AgentCreate> {
       appBar: AppBar(
         automaticallyImplyLeading:
             false, // Set to false to remove the back icon
-        backgroundColor: const Color(0xffF9A51F),
+        backgroundColor: const Color(0xffE5B920),
         title: const Text('Create Your Agent Profile'),
         centerTitle: true,
         // leading: GestureDetector(
@@ -700,7 +700,7 @@ class _AgentCreateState extends State<AgentCreate> {
                                 height: 55,
                                 width: MediaQuery.of(context).size.width * 0.7,
                                 decoration: BoxDecoration(
-                                    color: const Color(0xffF9A51F),
+                                    color: const Color(0xffE5B920),
                                     borderRadius: BorderRadius.circular(25.0)),
                                 child: Center(
                                     child: loading == true
@@ -786,7 +786,7 @@ class _AgentCreateState extends State<AgentCreate> {
       FirebaseFirestore.instance
           .collection('AllUsers')
           .doc(_auth.currentUser?.uid)
-          .set({'agent': true},SetOptions(merge: true));
+          .set({'agent': true}, SetOptions(merge: true));
       // savemarkerData();
       // _auth.currentUser?.updateDisplayName(_firstNameController.text);
       _auth.currentUser

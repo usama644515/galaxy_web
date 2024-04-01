@@ -91,42 +91,48 @@ class _AboutUsState extends State<AboutUs> {
             const SizedBox(
               height: 20.0,
             ),
-           Responsive.isMobile(context)? Padding(
-             padding: const EdgeInsets.all(15.0),
-             child: Column(
-              children: [
-                Image.network(
-                      'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/images%2Freal%20estate.webp?alt=media&token=c8b25a6c-352f-4323-b4c9-bced82f7b581',
-                      ),
-                      SizedBox(height: 20.0,),
-                      Text(
-                        "Galaxy Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Galaxy Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
-                        style: TextStyle(
-                            fontSize: Responsive.isMobile(context) ? 13 : 17.0),
-                        textAlign: TextAlign.justify,
-                      ),
-              ],
-             ),
-           ) :Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.text,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      "Galaxy Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Galaxy Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
-                      style: TextStyle(
-                          fontSize: Responsive.isMobile(context) ? 13 : 17.0),
-                      textAlign: TextAlign.justify,
+            Responsive.isMobile(context)
+                ? Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/images%2Freal%20estate.webp?alt=media&token=c8b25a6c-352f-4323-b4c9-bced82f7b581',
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Text(
+                          "Pretorian Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Pretorian Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
+                          style: TextStyle(
+                              fontSize:
+                                  Responsive.isMobile(context) ? 13 : 17.0),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ],
                     ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      MouseRegion(
+                        cursor: SystemMouseCursors.text,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: Text(
+                            "Pretorian Realtor and Builder is a reputable real estate and construction company dedicated to providing innovative and high-quality solutions in the housing and real estate sector. With a commitment to excellence and a customer-centric approach, Pretorian Realtor and Builder has consistently delivered outstanding residential and commercial projects, setting new standards for architectural design, construction, and customer satisfaction. With a team of experienced professionals and a focus on sustainable and eco-friendly development, the company has earned a strong reputation for delivering homes that not only meet the needs of their clients but also reflect the company's vision of creating vibrant, well-planned communities that enhance the quality of life for all residents.",
+                            style: TextStyle(
+                                fontSize:
+                                    Responsive.isMobile(context) ? 13 : 17.0),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ),
+                      Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/images%2Freal%20estate.webp?alt=media&token=c8b25a6c-352f-4323-b4c9-bced82f7b581',
+                          width: MediaQuery.of(context).size.width * 0.4)
+                    ],
                   ),
-                ),
-                Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/images%2Freal%20estate.webp?alt=media&token=c8b25a6c-352f-4323-b4c9-bced82f7b581',
-                    width: MediaQuery.of(context).size.width * 0.4)
-              ],
-            ),
             Padding(
               padding: EdgeInsets.only(
                   top: 25.0,
@@ -149,7 +155,7 @@ class _AboutUsState extends State<AboutUs> {
                         margin: const EdgeInsets.only(top: 20),
                         child: const CircularProgressIndicator(
                             backgroundColor: Colors.grey,
-                            color: Color(0xffF9A51F)));
+                            color: Color(0xffE8BB2A)));
                   } else if (snapshot.data!.docs.length == 0) {
                     return Container(
                         alignment: Alignment.topCenter,

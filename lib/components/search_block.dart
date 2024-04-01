@@ -60,7 +60,7 @@ class _SearchBlockState extends State<SearchBlock> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      // border: Border.all(color: const Color(0xffF9A51F)),
+                      // border: Border.all(color: const Color(0xffE8BB2A)),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Padding(
@@ -86,8 +86,8 @@ class _SearchBlockState extends State<SearchBlock> {
                       width: MediaQuery.of(context).size.width * 0.07,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                        color: const Color(0xffF9A51F),
-                        // border: Border.all(color: const Color(0xffF9A51F)),
+                        color: const Color(0xffE8BB2A),
+                        // border: Border.all(color: const Color(0xffE8BB2A)),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: const Center(

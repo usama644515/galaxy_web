@@ -76,13 +76,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<bool> onBackPress() async {
     setState(() {
-      
-      
       if (kIsWeb) {
         Navigator.pop(context);
       } else {
         Provider.of<menuController>(context, listen: false)
-          .navmenueSelect('Home');
+            .navmenueSelect('Home');
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => Bar(ind: 0),
@@ -104,12 +102,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            // color: const Color(0xffF9A51F),
+            // color: const Color(0xffE5B920),
             decoration: const BoxDecoration(
               gradient: SweepGradient(
                 colors: [
                   Colors.black,
-                  Color(0xffF9A51F),
+                  Color(0xffE5B920),
                 ],
                 center: Alignment.center,
               ),

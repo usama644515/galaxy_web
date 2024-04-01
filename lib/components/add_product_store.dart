@@ -577,7 +577,7 @@ class _AddProductStoreState extends State<AddProductStore> {
         // automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            color: Color(0xffF9A51F),
+            color: Color(0xffE5B920),
           ),
         ),
       ),
@@ -1277,7 +1277,7 @@ class _AddProductStoreState extends State<AddProductStore> {
                                 : MediaQuery.of(context).size.width * 0.2,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: const Color(0xffF9A51F)),
+                                color: const Color(0xffE5B920)),
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             child: const Text(
                               "Submit",

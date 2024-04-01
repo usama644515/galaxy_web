@@ -145,7 +145,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             data == null
                 ? Center(
                     child: CircularProgressIndicator(
-                    color: Color(0xffF9A51F),
+                    color: Color(0xffE5B920),
                   ))
                 : ListView(
                     children: [
@@ -158,7 +158,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 const BoxDecoration(color: Colors.black),
                           ),
                           Responsive.isMobile(context)
-                              ? MobileNavBar(scaffoldKey,context)
+                              ? MobileNavBar(scaffoldKey, context)
                               : const NavBar(),
                         ],
                       ),
@@ -456,7 +456,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   vertical: 10, horizontal: 30),
                               decoration: BoxDecoration(
                                 color: const Color(
-                                    0xffF9A51F), // Change color on hover
+                                    0xffE5B920), // Change color on hover
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: loader
@@ -600,7 +600,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                               alignment: Alignment.topCenter,
                               margin: const EdgeInsets.only(top: 40.0),
                               child: const CircularProgressIndicator(
-                                color: Color(0xffF9A51F),
+                                color: Color(0xffE5B920),
                                 // color: AppColor.primary,
                               ),
                             ),
@@ -786,7 +786,7 @@ class _DesktopProductDetailsState extends State<DesktopProductDetails> {
                                 color: _isHovered
                                     ? const Color.fromARGB(255, 196, 131, 28)
                                     : const Color(
-                                        0xffF9A51F), // Change color on hover
+                                        0xffE5B920), // Change color on hover
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: loader

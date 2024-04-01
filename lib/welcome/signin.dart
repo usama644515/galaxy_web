@@ -83,9 +83,9 @@ class _SignInState extends State<SignIn> {
                             height: 20.0,
                           ),
                           Text(
-                            "Galaxy Realtors & Builders",
+                            "Pretorian Realtors & Builders",
                             style: TextStyle(
-                                color: const Color(0xffF9A51F),
+                                color: const Color(0xffE8BB2A),
                                 fontWeight: FontWeight.bold,
                                 fontSize:
                                     Responsive.isMobile(context) ? 29 : 40.0),
@@ -120,7 +120,7 @@ class _SignInState extends State<SignIn> {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color:
-                                        const Color(0xffF9A51F), // Border color
+                                        const Color(0xffE8BB2A), // Border color
                                     width: 2.0, // Border width
                                   ),
                                   borderRadius: const BorderRadius.all(
@@ -185,7 +185,7 @@ class _SignInState extends State<SignIn> {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color:
-                                        const Color(0xffF9A51F), // Border color
+                                        const Color(0xffE8BB2A), // Border color
                                     width: 2.0, // Border width
                                   ),
                                   borderRadius: const BorderRadius.all(
@@ -271,7 +271,7 @@ class _SignInState extends State<SignIn> {
                                 height: 50.0,
                                 width: 200.0,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xffF9A51F),
+                                  color: const Color(0xffE8BB2A),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: Center(
@@ -361,7 +361,7 @@ class _SignInState extends State<SignIn> {
                         child: Text('Sign Up: ',
                             style: TextStyle(
                                 fontSize: 18.0,
-                                color: Color(0xffF9A51F),
+                                color: Color(0xffE8BB2A),
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline)),
                       ),

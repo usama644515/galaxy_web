@@ -72,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                // cursorColor: const Color(0xffF9A51F),
+                // cursorColor: const Color(0xffE5B920),
                 onChanged: (value) {
                   setState(() {
                     query = value;
@@ -80,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 },
                 controller: editingController,
                 decoration: const InputDecoration(
-                    // iconColor: Color(0xffF9A51F),
+                    // iconColor: Color(0xffE5B920),
                     labelText: "Enter Keyword",
                     hintText: "Enter Keyword",
                     border: OutlineInputBorder(
@@ -102,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       margin: const EdgeInsets.only(top: 20),
                       child: const CircularProgressIndicator(
                           backgroundColor: Colors.grey,
-                          color: Color(0xffF9A51F)));
+                          color: Color(0xffE5B920)));
                 } else if (snapshot.data!.docs.length == 0) {
                   return Container(
                       alignment: Alignment.topCenter,
@@ -148,11 +148,11 @@ class _SearchScreenState extends State<SearchScreen> {
                               // RouteHandler.router
                               //     .navigateTo(context, '/shop/$id');
                               context.go(
-                              Uri(
-                                path: '/shop/$id',
-                                queryParameters: {'id': id},
-                              ).toString(),
-                            );
+                                Uri(
+                                  path: '/shop/$id',
+                                  queryParameters: {'id': id},
+                                ).toString(),
+                              );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ),
                                     placeholder: (context, url) => const Center(
                                         child: CircularProgressIndicator(
-                                            color: Color(0xffF9A51F))),
+                                            color: Color(0xffE5B920))),
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error),
                                   ),

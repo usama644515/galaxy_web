@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
                 children: [
                   kIsWeb
                       ? Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/web%20background.png?alt=media&token=91e7e798-ae2e-4f48-8152-916da53e1357',
+                          'https://firebasestorage.googleapis.com/v0/b/galaxy-realtors-builders.appspot.com/o/london-3833039_1280.jpg?alt=media&token=a7258d4e-81f9-4888-a20d-adc3bb2180e5',
                           fit: BoxFit.cover,
                           width: MediaQuery.of(context).size.width,
                           height: Responsive.isMobile(context)

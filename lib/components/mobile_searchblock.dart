@@ -46,7 +46,7 @@ Widget MobileSearchBlock(context) {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               decoration: BoxDecoration(
                 color: Colors.white,
-                // border: Border.all(color: const Color(0xffF9A51F)),
+                // border: Border.all(color: const Color(0xffE5B920)),
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Padding(
@@ -85,8 +85,8 @@ Widget MobileSearchBlock(context) {
                 width: MediaQuery.of(context).size.width * 0.3,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  color: const Color(0xffF9A51F),
-                  // border: Border.all(color: const Color(0xffF9A51F)),
+                  color: const Color(0xffE5B920),
+                  // border: Border.all(color: const Color(0xffE5B920)),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: const Center(

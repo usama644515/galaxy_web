@@ -158,12 +158,12 @@ class _ContactFormState extends State<ContactForm> {
                         TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
             SizedBox(height: Responsive.isMobile(context) ? 0 : 50.0),
             TextFormField(
-              cursorColor: Color(0xffF9A51F),
+              cursorColor: Color(0xffE5B920),
               controller: _nameController,
               decoration: InputDecoration(
                 labelText: 'Name',
                 labelStyle: TextStyle(
-                  color: Color(0xffF9A51F),
+                  color: Color(0xffE5B920),
                 ),
                 filled: true,
                 fillColor: Colors.grey[100], // Filled color
@@ -181,12 +181,12 @@ class _ContactFormState extends State<ContactForm> {
             ),
             SizedBox(height: 16.0),
             TextFormField(
-              cursorColor: Color(0xffF9A51F),
+              cursorColor: Color(0xffE5B920),
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
                 labelStyle: TextStyle(
-                  color: Color(0xffF9A51F),
+                  color: Color(0xffE5B920),
                 ),
                 filled: true,
                 fillColor: Colors.grey[100], // Filled color
@@ -208,13 +208,13 @@ class _ContactFormState extends State<ContactForm> {
             ),
             SizedBox(height: 16.0),
             TextFormField(
-              cursorColor: Color(0xffF9A51F),
+              cursorColor: Color(0xffE5B920),
               controller: _messageController,
               maxLines: 4,
               decoration: InputDecoration(
                 labelText: 'Message',
                 labelStyle: TextStyle(
-                  color: Color(0xffF9A51F),
+                  color: Color(0xffE5B920),
                 ),
                 filled: true,
                 fillColor: Colors.grey[100], // Filled color
@@ -253,7 +253,7 @@ class _ContactFormState extends State<ContactForm> {
                 decoration: BoxDecoration(
                   color: isHovered
                       ? Color.fromARGB(255, 214, 138, 16)
-                      : Color(0xffF9A51F),
+                      : Color(0xffE5B920),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Center(

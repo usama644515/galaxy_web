@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
             CircularProgressIndicator(
               value: _animation.value, // Current animation value
               backgroundColor:
-                  const Color(0xffF9A51F), // Color of the progress indicator
+                  const Color(0xffE8BB2A), // Color of the progress indicator
               strokeWidth: 6.0, // Thickness of the indicator
             ),
             const SizedBox(height: 20.0),

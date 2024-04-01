@@ -29,7 +29,7 @@ class _HeaderState extends State<Header> {
         const Text(
           "My Dashboard",
           style: TextStyle(
-              color: Color(0xffF9A51F),
+              color: Color(0xffE8BB2A),
               fontWeight: FontWeight.bold,
               fontSize: 25.0),
         ),

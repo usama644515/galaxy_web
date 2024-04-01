@@ -35,7 +35,7 @@ class _ImageViewerState extends State<ImageViewer> {
                 width: 20.0,
                 height: 20.0,
                 child: CircularProgressIndicator(
-                    color: const Color(0xffF9A51F),
+                    color: const Color(0xffE8BB2A),
                     value: event == null ? 0 : 2),
               ),
             ),

@@ -246,7 +246,7 @@ class _WhyChooseSectionState extends State<WhyChooseSection> {
                               alignment: Alignment.topCenter,
                               margin: const EdgeInsets.only(top: 40.0),
                               child: const CircularProgressIndicator(
-                                color: Color(0xffF9A51F),
+                                color: Color(0xffE8BB2A),
                                 // color: AppColor.primary,
                               ),
                             ),

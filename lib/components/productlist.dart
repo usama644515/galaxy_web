@@ -57,7 +57,7 @@ class _ProductListState extends State<ProductList> {
                       margin: const EdgeInsets.only(top: 20),
                       child: const CircularProgressIndicator(
                           backgroundColor: Colors.grey,
-                          color: Color(0xffF9A51F)));
+                          color: Color(0xffE5B920)));
                 } else if (snapshot.data!.docs.length == 0) {
                   return Container(
                       alignment: Alignment.topCenter,
@@ -126,7 +126,7 @@ class _ProductListState extends State<ProductList> {
                                   ),
                                   placeholder: (context, url) => const Center(
                                       child: CircularProgressIndicator(
-                                          color: Color(0xffF9A51F))),
+                                          color: Color(0xffE5B920))),
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
                                 ),
@@ -184,7 +184,7 @@ class _ProductListState extends State<ProductList> {
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
+                          shape: BoxShape.circle, color: Color(0xffE5B920)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.network(
@@ -209,7 +209,7 @@ class _ProductListState extends State<ProductList> {
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
+                          shape: BoxShape.circle, color: Color(0xffE5B920)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.network(

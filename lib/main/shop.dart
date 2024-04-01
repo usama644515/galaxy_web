@@ -221,7 +221,7 @@ class _ShopState extends State<Shop> {
           ),
           loader
               ? const Center(
-                  child: CircularProgressIndicator(color: Color(0xffF9A51F)))
+                  child: CircularProgressIndicator(color: Color(0xffE8BB2A)))
               : Padding(
                   padding: EdgeInsets.only(
                       left: Responsive.isMobile(context) ? 10 : 120.0,
@@ -290,7 +290,7 @@ class _ShopState extends State<Shop> {
                                       _showPopupMenu(
                                           context,
                                           details.globalPosition,
-                                          'https://galaxyrealtor.pk/#/shop/${dataId[index]}?id=${dataId[index]}');
+                                          'https://pretorianrealtorbuilder.pk/#/shop/${dataId[index]}?id=${dataId[index]}');
                                     },
                                     child: Padding(
                                       padding:
@@ -360,7 +360,7 @@ class _ShopState extends State<Shop> {
                                                         child:
                                                             CircularProgressIndicator(
                                                                 color: Color(
-                                                                    0xffF9A51F))),
+                                                                    0xffE8BB2A))),
                                                 errorWidget:
                                                     (context, url, error) =>
                                                         const Icon(Icons.error),
@@ -576,7 +576,7 @@ class _ShopState extends State<Shop> {
                                                                       width:
                                                                           2.0,
                                                                       color: const Color(
-                                                                          0xffF9A51F))),
+                                                                          0xffE8BB2A))),
                                                               child: Padding(
                                                                 padding: EdgeInsets.only(
                                                                     left: Responsive.isMobile(
@@ -606,7 +606,7 @@ class _ShopState extends State<Shop> {
                                                                       Text(
                                                                           'WhatsApp',
                                                                           style: TextStyle(
-                                                                              color: const Color(0xffF9A51F),
+                                                                              color: const Color(0xffE8BB2A),
                                                                               fontSize: Responsive.isMobile(context) ? 14 : 16.0,
                                                                               fontWeight: FontWeight.w600))
                                                                     ]),
@@ -635,12 +635,12 @@ class _ShopState extends State<Shop> {
                                                                           .circular(
                                                                               5.0),
                                                                   color: const Color(
-                                                                      0xffF9A51F),
+                                                                      0xffE8BB2A),
                                                                   border: Border.all(
                                                                       width:
                                                                           2.0,
                                                                       color: const Color(
-                                                                          0xffF9A51F))),
+                                                                          0xffE8BB2A))),
                                                               child: Padding(
                                                                 padding: EdgeInsets.only(
                                                                     left: Responsive.isMobile(
@@ -720,7 +720,8 @@ class _ShopState extends State<Shop> {
                                                                         fit: BoxFit
                                                                             .cover,
                                                                         image: NetworkImage(data[index]
-                                                                            ['agentPic']),
+                                                                            [
+                                                                            'agentPic']),
                                                                       ),
                                                                     ),
                                                                   )
@@ -872,7 +873,7 @@ class _FilterState extends State<Filter> {
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(
-                  color: hover ? const Color(0xffF9A51F) : Colors.grey),
+                  color: hover ? const Color(0xffE8BB2A) : Colors.grey),
               borderRadius: BorderRadius.circular(10.0)),
           child: Padding(
             padding: const EdgeInsets.only(
@@ -884,7 +885,7 @@ class _FilterState extends State<Filter> {
             child: Center(
               child: Text(widget.data,
                   style: TextStyle(
-                    color: hover ? const Color(0xffF9A51F) : Colors.black,
+                    color: hover ? const Color(0xffE8BB2A) : Colors.black,
                     fontSize: 17.0,
                   )),
             ),

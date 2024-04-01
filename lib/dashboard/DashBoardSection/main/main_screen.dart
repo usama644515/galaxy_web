@@ -120,7 +120,7 @@ class _MainScreenState extends State<MainScreen> {
     FirebaseFirestore.instance
         .collection('AllUsers')
         .doc(_auth.currentUser!.uid)
-        .set(userdata,SetOptions(merge: true))
+        .set(userdata, SetOptions(merge: true))
         .then((value) {
       setState(() {
         // loading = false;
@@ -212,7 +212,7 @@ class _MainScreenState extends State<MainScreen> {
                                                 width: 120,
                                                 decoration: BoxDecoration(
                                                     color:
-                                                        const Color(0xffF9A51F),
+                                                        const Color(0xffE8BB2A),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
@@ -338,7 +338,7 @@ class _MainScreenState extends State<MainScreen> {
                                                     width: 120,
                                                     decoration: BoxDecoration(
                                                         color: const Color(
-                                                            0xffF9A51F),
+                                                            0xffE8BB2A),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(5)),
@@ -484,7 +484,7 @@ _logoutDialoge(context) {
                 await FirebaseAuth.instance.signOut().then((value) {
                   // RouteHandler.router.navigateTo(context, '/');
                   Navigator.pop(context);
-                    context.go('/');
+                  context.go('/');
                 });
               },
             ),

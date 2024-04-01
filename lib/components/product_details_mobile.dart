@@ -68,7 +68,7 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                         alignment: Alignment.topCenter,
                         margin: const EdgeInsets.only(top: 40.0),
                         child: const CircularProgressIndicator(
-                          color: Color(0xffF9A51F),
+                          color: Color(0xffE5B920),
                           // color: AppColor.primary,
                         ),
                       ),
@@ -466,7 +466,7 @@ class _ProductDetailsMobileState extends State<ProductDetailsMobile> {
                               textAlign: TextAlign.justify,
                               expandText: 'Show More',
                               collapseText: 'Show Less',
-                              linkColor: const Color(0xffF9A51F),
+                              linkColor: const Color(0xffE5B920),
                               maxLines:
                                   5, // Adjust the maximum number of lines to show initially
                               expanded: _isExpanded,

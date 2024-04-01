@@ -111,7 +111,7 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         automaticallyImplyLeading:
             false, // Set to false to remove the back icon
-        backgroundColor: const Color(0xffF9A51F),
+        backgroundColor: const Color(0xffE5B920),
         title: const Text('Edit Profile'),
         centerTitle: true,
         leading: GestureDetector(
@@ -633,7 +633,7 @@ class _EditProfileState extends State<EditProfile> {
                                 height: 55,
                                 width: MediaQuery.of(context).size.width * 0.7,
                                 decoration: BoxDecoration(
-                                    color: const Color(0xffF9A51F),
+                                    color: const Color(0xffE5B920),
                                     borderRadius: BorderRadius.circular(25.0)),
                                 child: Center(
                                     child: loading == true

@@ -43,7 +43,7 @@ class _BlogItemsState extends State<BlogItems> {
                       margin: const EdgeInsets.only(top: 20),
                       child: const CircularProgressIndicator(
                           backgroundColor: Colors.grey,
-                          color: Color(0xffF9A51F)));
+                          color: Color(0xffE5B920)));
                   // ignore: prefer_is_empty
                 } else if (snapshot.data!.docs.length == 0) {
                   return Container(
@@ -105,7 +105,7 @@ class _BlogItemsState extends State<BlogItems> {
                                   ),
                                   placeholder: (context, url) => const Center(
                                       child: CircularProgressIndicator(
-                                          color: Color(0xffF9A51F))),
+                                          color: Color(0xffE5B920))),
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
                                 ),
@@ -148,7 +148,7 @@ class _BlogItemsState extends State<BlogItems> {
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
+                          shape: BoxShape.circle, color: Color(0xffE5B920)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.network(
@@ -173,7 +173,7 @@ class _BlogItemsState extends State<BlogItems> {
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffF9A51F)),
+                          shape: BoxShape.circle, color: Color(0xffE5B920)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.network(

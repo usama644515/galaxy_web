@@ -63,7 +63,10 @@ class _SignUpState extends State<SignUp> {
                   //     : MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding:  EdgeInsets.only(top:Responsive.isMobile(context)? MediaQuery.of(context).size.height*0.03: 0.0),
+                    padding: EdgeInsets.only(
+                        top: Responsive.isMobile(context)
+                            ? MediaQuery.of(context).size.height * 0.03
+                            : 0.0),
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -71,9 +74,9 @@ class _SignUpState extends State<SignUp> {
                           height: 30.0,
                         ),
                         Text(
-                          "Galaxy Realtors & Builders",
+                          "Pretorian Realtors & Builders",
                           style: TextStyle(
-                              color: const Color(0xffF9A51F),
+                              color: const Color(0xffE8BB2A),
                               fontWeight: FontWeight.bold,
                               fontSize:
                                   Responsive.isMobile(context) ? 29 : 40.0),
@@ -108,7 +111,7 @@ class _SignUpState extends State<SignUp> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color:
-                                      const Color(0xffF9A51F), // Border color
+                                      const Color(0xffE8BB2A), // Border color
                                   width: 2.0, // Border width
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -171,7 +174,7 @@ class _SignUpState extends State<SignUp> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color:
-                                      const Color(0xffF9A51F), // Border color
+                                      const Color(0xffE8BB2A), // Border color
                                   width: 2.0, // Border width
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -234,7 +237,7 @@ class _SignUpState extends State<SignUp> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color:
-                                      const Color(0xffF9A51F), // Border color
+                                      const Color(0xffE8BB2A), // Border color
                                   width: 2.0, // Border width
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -298,7 +301,7 @@ class _SignUpState extends State<SignUp> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color:
-                                      const Color(0xffF9A51F), // Border color
+                                      const Color(0xffE8BB2A), // Border color
                                   width: 2.0, // Border width
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -370,7 +373,7 @@ class _SignUpState extends State<SignUp> {
                               height: 50.0,
                               width: 200.0,
                               decoration: BoxDecoration(
-                                color: const Color(0xffF9A51F),
+                                color: const Color(0xffE8BB2A),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Center(
@@ -432,7 +435,6 @@ class _SignUpState extends State<SignUp> {
                 name.clear();
                 email.clear();
                 password.clear();
-                
               }));
     } on FirebaseAuthException catch (e) {
       setState(() {

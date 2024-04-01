@@ -140,7 +140,7 @@ class _ProductsState extends State<Products> {
                                 const Text(
                                   "My Listing",
                                   style: TextStyle(
-                                      color: Color(0xffF9A51F),
+                                      color: Color(0xffE8BB2A),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 21.0),
                                 ),
@@ -220,7 +220,7 @@ class _ProductsState extends State<Products> {
                             const Divider(color: Color(0xffE5EBF1)),
                             Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xffF9A51F),
+                                color: const Color(0xffE8BB2A),
                                 borderRadius: BorderRadius.circular(3),
                               ),
                               child: Padding(

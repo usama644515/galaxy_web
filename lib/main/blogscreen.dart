@@ -67,7 +67,7 @@ class _BlogScreenState extends State<BlogScreen> {
         body: data == null
             ? Center(
                 child: CircularProgressIndicator(
-                color: Color(0xffF9A51F),
+                color: Color(0xffE5B920),
               ))
             : ListView(children: [
                 Stack(
@@ -162,14 +162,13 @@ class _BlogScreenState extends State<BlogScreen> {
                                       placeholder: (context, url) =>
                                           const Center(
                                               child: CircularProgressIndicator(
-                                                  color: Color(0xffF9A51F))),
+                                                  color: Color(0xffE5B920))),
                                       errorWidget: (context, url, error) =>
                                           const Icon(Icons.error),
                                     ),
                                     const SizedBox(height: 20.0),
                                     ListView.builder(
-                                      itemCount:
-                                          data.get('content').length,
+                                      itemCount: data.get('content').length,
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
@@ -192,8 +191,7 @@ class _BlogScreenState extends State<BlogScreen> {
                                               MouseRegion(
                                                 cursor: SystemMouseCursors.text,
                                                 child: Text(
-                                                  data
-                                                      .get('content')[index],
+                                                  data.get('content')[index],
                                                   style: const TextStyle(
                                                     fontSize: 17.0,
                                                   ),
